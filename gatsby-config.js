@@ -13,6 +13,21 @@ module.exports = {
   /* Your site config here */
   plugins: [
     {
+      resolve: `gatsby-plugin-ts`,
+      options: {
+        tsLoader: {
+          logLevel: 'warn'
+        },
+        forkTsCheckerPlugin: {
+          eslint: true
+        },
+        fileName: `types/graphql-types.ts`,
+        codegen: true,
+        codegenDelay: 250,
+        alwaysCheck: false
+      }
+    },
+    {
       resolve: 'gatsby-source-graphql',
       options: {
         typeName: 'GitHub',
