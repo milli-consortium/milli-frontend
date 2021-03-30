@@ -3,8 +3,6 @@
  *
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
-const { buildClientSchema } = require('graphql')
-
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
@@ -38,6 +36,15 @@ module.exports = {
           // Learn about environment variables: https://gatsby.dev/env-vars
           Authorization: `Bearer ${process.env.GITHUB_AUTH}`
         }
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        stages: ['develop'],
+        extensions: ['js', 'ts', 'tsx'],
+        exclude: ['node_modules', '.cache', 'public']
+        // Any eslint-webpack-plugin options below
       }
     }
   ]
