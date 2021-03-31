@@ -12,8 +12,8 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "lint": "yarn eslint \"**/*.{js,ts,tsx}\"",
-    "lint:fix": "yarn eslint --fix \"**/*.{js,ts,tsx}\""
+    "lint": "yarn eslint \"src/**/*.+(ts|js|tsx)\"",
+    "lint:fix": "yarn eslint --fix \"src/**/*.+(ts|js|tsx)\""
   },
   "dependencies": {
     "gatsby": "^3.1.2",
@@ -28,6 +28,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-webpack-plugin": "^2.5.3",

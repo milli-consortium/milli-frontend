@@ -1,7 +1,6 @@
 {
   "root": true,
-  // "parser": "@typescript-eslint/parser", // doesn't terminate for some reason
-  "parser": "babel-eslint", // uses babel-eslint transforms
+  "parser": "@typescript-eslint/parser",
   "settings": {
     "react": {
       "version": "detect" // detect react version
