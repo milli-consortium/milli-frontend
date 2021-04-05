@@ -1,22 +1,6 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/26466516/107675788-31f54e00-6c77-11eb-96c9-58fd8a4c69ac.png" alt="Gatsby and TypeScript">
-</p>
+A TypeScript + Graphql + Gatsby project for Milli Frontend. 🔥
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" />
-
-  <img alt="License" src="https://img.shields.io/github/license/jpedroschmitz/gatsby-starter-ts?style=for-the-badge&color=24B36B&labelColor=000000">
-
-  <a href="https://twitter.com/intent/follow?screen_name=jpedroschmitz">
-    <img src="https://img.shields.io/twitter/follow/jpedroschmitz?style=for-the-badge&color=24B36B&labelColor=000000" alt="Follow @jpedroschmitz" />
-  </a>
-</p>
-
-<br>
-
-A TypeScript starter for Gatsby. No plugins and styling. Exactly the necessary to start 🔥
-
-No plugins installed, great for advanced users.
+Following plugins setup:
 
 - 📏 **ESLint** — Pluggable JavaScript linter
 - 💖 **Prettier** - Opinionated Code Formatter
@@ -29,15 +13,9 @@ No plugins installed, great for advanced users.
 
 ## 🚀 Getting started
 
-The best way to start with this template is using the Gatsby CLI.
-
-```
-npx gatsby new starter-ts https://github.com/jpedroschmitz/gatsby-starter-ts
-```
-
 If you prefer you can clone this repository and run the following commands inside the project folder:
 
-1. `npm install` or `yarn`;
+1. Clone the repo
 2. `yarn start`;
 
 To view the project you can open `http://localhost:8000`.
@@ -53,8 +31,8 @@ To view the project you can open `http://localhost:8000`.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
+See the [LICENSE.md](LICENSE.md) file for more information.
 
----
+## Attribution
 
-Made with ♥ by João Pedro Schmitz
+Based off [Typescript-Start by João Pedro Schmitz](https://github.com/jpedroschmitz/gatsby-starter-ts)
