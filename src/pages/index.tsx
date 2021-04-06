@@ -1,9 +1,9 @@
 import React from 'react';
 import { PageProps, graphql } from 'gatsby';
 import Title from '@/components/Title';
-import { GithubUserDataQuery } from '../../graphql-types';
+import { NiosxDataQuery } from '../../graphql-types';
 
-const Home: React.FC<PageProps<GithubUserDataQuery>> = ({ data }) => (
+const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   <main>
     <Title />
     <p>A TypeScript starter for Gatsby. Great for advanced users.</p>
@@ -18,12 +18,12 @@ const Home: React.FC<PageProps<GithubUserDataQuery>> = ({ data }) => (
 export default Home;
 
 export const query = graphql`
-  query GithubUserData {
-    github {
-      user(login: "jlouzado") {
-        bio
-        name
-        createdAt
+  query NiosxData {
+    niosx {
+      allCollections {
+        graphId
+        title
+        creator
       }
     }
   }

@@ -1,0 +1,156 @@
+schema {
+  query: query
+  mutation: mutation
+}
+
+"Annotations object"
+type annotation {
+  "GraphID for annotation node"
+  graphId: String
+  context: String!
+
+  "id"
+  id: String!
+
+  "object type"
+  type: String!
+
+  "Annotation motivation"
+  motivation: String!
+
+  "The agent responsible for creation of annotation"
+  creator: creator!  @fake(type: firstName)
+
+  "The date-time of creation of annotation"
+  created: String!
+
+  "The agent responsible for generation of annotation"
+  generator: generator!
+
+  "Date-time of generation of annotation"
+  generated: String!
+
+  "Annotation body"
+  body: bodyType
+
+  "Annotation target"
+  target: targetType!
+}
+
+input annotationInput {
+  targetId: String!
+  motivation: String!
+  body: bodyInput!
+  target: target!
+  concept: String
+}
+
+input bodyInput {
+  typ: String!
+  motivation: String!
+  value: String!
+  format: String!
+  language: String!
+  creator: String!
+}
+
+"Can be one of TextualBodyType, etc."
+union bodyType = textualBody
+
+input comment {
+  targetId: String!
+  value: String!
+}
+
+type creator {
+  id: String!
+  typ: String!
+  name: String!
+  nickname: String!
+}
+
+input crosswalk {
+  args: [mappingPair!]!
+}
+
+type generator {
+  id: String!
+  typ: String!
+  name: String!
+  homepage: String!
+}
+
+input ingestWithCrosswalk {
+  url: String!
+  crosswalk: crosswalk!
+}
+
+input mappingPair {
+  val1: String!
+  val2: String!
+}
+
+type mutation {
+  ingestWithCrosswalk(ingestWithCrosswalk: ingestWithCrosswalk!): niosxEntity
+  addEntity(niosxEntityInput: niosxEntityInput!): niosxEntity
+  addAnnotation(annotation: annotationInput!): annotation
+  addComment(comment: comment!): annotation
+}
+
+type niosxEntity {
+  graphId: String!
+  agencyCode: String!
+  recordId: String!
+  unitId: String!
+  title: String!
+  creator: String! @fake(type: firstName)
+  dateOfCreation: String!
+  extent: String!
+  level: String!
+  annotations: [annotation!]
+}
+
+input niosxEntityInput {
+  agencyCode: String!
+  recordId: String!
+  unitId: String!
+  title: String!
+  creator: String!
+  dateOfCreation: String!
+  extent: String!
+  level: String!
+}
+
+type query {
+  "Finding Aid for a given collection (fonds, record group, manuscript group, etc.)"
+  document(id: String!): niosxEntity
+
+  "Look up an entity with its graphId"
+  findEntity(id: String!): niosxEntity
+
+  "All documents in the archive."
+  allCollections: [niosxEntity!]!
+}
+
+type specificResourceType {
+  typ: String!
+  source: String!
+  targetId: String
+}
+
+input target {
+  source: String!
+  targetId: String
+}
+
+"Can be one of SpecificResource, etc."
+union targetType = specificResourceType
+
+type textualBody {
+  typ: String!
+  purpose: String!
+  value: String!
+  format: String!
+  language: String!
+  creator: String!
+}

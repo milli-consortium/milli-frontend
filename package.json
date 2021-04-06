@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "start": "gatsby develop",
+    "start:gql": "graphql-faker --open ./schema.sdl",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -31,6 +32,7 @@
   "dependencies": {
     "gatsby": "3.1.2",
     "gatsby-source-graphql": "^3.2.0",
+    "graphql": "^15.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tsconfig-paths-webpack-plugin": "3.5.1"
@@ -56,6 +58,7 @@
     "eslint-plugin-react": "7.23.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
+    "graphql-faker": "^2.0.0-rc.23",
     "husky": "5.2.0",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",
