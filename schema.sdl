@@ -99,16 +99,30 @@ type mutation {
   addComment(comment: comment!): annotation
 }
 
+enum ImageSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+type Image {
+  src: String!
+  alt: String
+  size: ImageSize
+}
+
 type niosxEntity {
   graphId: String!
   agencyCode: String!
   recordId: String!
   unitId: String!
   title: String!
-  creator: String
+  partner: String
+  subjects: [String!]
   dateOfCreation: String!
   extent: String!
   level: String!
+  images: [Image!]
   annotations: [annotation!]
 }
 
@@ -201,6 +215,10 @@ type PageEdge {
   node: niosxEntity!
   cursor: String!
   offset: Int
+  # true if node is a direct match
+  isDirectMatch: Boolean
+  # null if no annotation matches
+  annotationMatchCount: Int
 }
 
 type PageInfo {
