@@ -7,6 +7,9 @@ require('dotenv').config({
 });
 
 module.exports = {
+  siteMetadata: {
+    title: `Milli`,
+  },
   // Since `gatsby-plugin-typescript` is automatically included in Gatsby you
   // don't need to define it here (just if you need to change the options)
   plugins: [
@@ -31,6 +34,13 @@ module.exports = {
           return buildSchema(sdl);
         },
       },
+    },
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-antd-mobile',
+      options: {
+        style: true
+      }
     },
   ],
 };
