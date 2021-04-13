@@ -19,7 +19,7 @@ type annotation {
   motivation: String!
 
   "The agent responsible for creation of annotation"
-  creator: creator!  @fake(type: firstName)
+  creator: creator!
 
   "The date-time of creation of annotation"
   created: String!
@@ -103,7 +103,7 @@ type niosxEntity {
   recordId: String!
   unitId: String!
   title: String!
-  creator: String! @fake(type: firstName)
+  creator: String!
   dateOfCreation: String!
   extent: String!
   level: String!
