@@ -30,6 +30,8 @@
     ]
   },
   "dependencies": {
+    "@fontsource/roboto": "^4.2.3",
+    "@fontsource/rufina": "^4.2.2",
     "antd-mobile": "^2.3.4",
     "gatsby": "3.1.2",
     "gatsby-plugin-antd-mobile": "^1.0.9",
