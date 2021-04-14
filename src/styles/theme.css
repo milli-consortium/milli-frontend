@@ -1,0 +1,24 @@
+@import '@fontsource/roboto';
+@import '@fontsource/rufina';
+
+/* Global css vars */
+:root {
+	--main-bg-color: #E5E5E5;
+	--color-mg-medium: #96B753;
+	--color-mg-light: #C6E686;
+	--color-mg-dark: #446418;
+	--color-mg-black: #1D1D1D;
+	--main-font-family: 'Roboto';
+}
+
+body {
+	background-color: var(--main-bg-color) !important;
+	font-family: var(--main-font-family);
+}
+.container {
+	max-width: 992px;
+	margin: auto;
+	width: 100%;
+}
+
+
