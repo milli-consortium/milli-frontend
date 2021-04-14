@@ -1,3 +1,5 @@
+scalar Date
+
 schema {
   query: query
   mutation: mutation
@@ -97,6 +99,18 @@ type mutation {
   addComment(comment: comment!): annotation
 }
 
+enum ImageSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+type Image {
+  src: String!
+  alt: String
+  size: ImageSize
+}
+
 type niosxEntity {
   graphId: String!
   agencyCode: String!
@@ -104,9 +118,12 @@ type niosxEntity {
   unitId: String!
   title: String!
   creator: String!
+  partner: String
+  subjects: [String!]
   dateOfCreation: String!
   extent: String!
   level: String!
+  images: [Image!]
   annotations: [annotation!]
 }
 
@@ -121,6 +138,102 @@ input niosxEntityInput {
   level: String!
 }
 
+type Language {
+  id: String!
+  displayName: String!
+  recordCount: Int
+}
+
+input DateRangeInput {
+  from: Date
+  to: Date
+}
+
+type DateRange {
+  from: Date
+  to: Date
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  TEXT
+}
+
+type Subject {
+  id: String!
+  displayName: String!
+  recordCount: Int
+}
+
+type People {
+  id: String!
+  displayName: String!
+  recordCount: Int
+}
+
+type Place {
+  id: String!
+  displayName: String!
+  recordCount: Int
+}
+
+type Partner {
+  id: String!
+  displayName: String!
+  recordCount: Int
+}
+
+type Media {
+  type: MediaType
+  recordCount: Int 
+}
+
+input filterEntityInput {
+  blob: String
+  # use `id` from `Language` 
+  lang: String
+  date: DateRangeInput
+  subjects: [String!]
+  people: [String!]
+  places: [String!]
+  partners: [String!]
+  mediaTypes: [MediaType!]
+}
+  
+type EntityFilter {
+  blob: String
+  lang: [Language!]
+  date: DateRange!
+  subjects: [Subject!]
+  people: [People!]
+  places: [Place!]
+  partners: [Partner!]
+  mediaTypes: [Media!]
+}
+
+type PageEdge {
+  node: niosxEntity!
+  cursor: String!
+  offset: Int
+  # true if node is a direct match
+  isDirectMatch: Boolean
+  # null if no annotation matches
+  annotationMatchCount: Int
+}
+
+type PageInfo {
+  pageNumber: Int
+  endCursor: String
+  hasNextPage: Boolean
+  filters: EntityFilter
+}
+
+type Page {
+  edges: [PageEdge!]
+  pageInfo: PageInfo!
+}
+
 type query {
   "Finding Aid for a given collection (fonds, record group, manuscript group, etc.)"
   document(id: String!): niosxEntity
@@ -130,6 +243,9 @@ type query {
 
   "All documents in the archive."
   allCollections: [niosxEntity!]!
+  
+  "Query for Entities"
+  searchCollections(first: Int = 10, afterCursor: String, filterBy: filterEntityInput): Page!
 }
 
 type specificResourceType {
