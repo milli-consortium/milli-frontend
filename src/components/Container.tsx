@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Seo from '@/components/Seo';
-import MilliMenu from '@/components/Menu';
+import MilliMenu from '@/components/MilliMenu';
 
 const Container = ({ children }) => (
   <main className="container">
