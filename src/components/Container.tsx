@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Seo from '@/components/Seo';
 import MilliMenu from '@/components/Menu';
 
-const Container = () => (
+const Container = ({ children }) => (
   <main className="container">
     <Seo />
     <header>
@@ -17,4 +18,7 @@ const Container = () => (
   </main>
 );
 
+Container.defaultProps = {
+  children: PropTypes.node,
+};
 export default Container;
