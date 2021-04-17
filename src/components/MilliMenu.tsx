@@ -1,6 +1,7 @@
 import React from 'react';
 /* eslint global-require:0, no-nested-ternary:0 */
 import { Menu, ActivityIndicator, NavBar, Icon } from 'antd-mobile';
+import { MenuOutlined } from '@ant-design/icons';
 
 const data = [
   {
@@ -94,15 +95,17 @@ class MilliMenu extends React.Component {
     );
     return (
       <div className={show ? 'single-menu-active' : ''}>
-        <div>
+        <div className="container">
           <NavBar
             role="presentation"
-            rightContent="Menu"
+            leftContent={<MenuOutlined />}
+            rightContent=""
             mode="light"
             onLeftClick={this.handleClick}
             className="single-top-nav-bar"
-            icon={<Icon type="ellipsis" />}
-          />
+          >
+            <div className="logo margin-auto">M1ll1</div>
+          </NavBar>
         </div>
         {show ? (initData ? menuEl : loadingEl) : null}
         {show ? (

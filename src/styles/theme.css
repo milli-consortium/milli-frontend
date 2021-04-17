@@ -3,22 +3,142 @@
 
 /* Global css vars */
 :root {
-	--main-bg-color: #E5E5E5;
+	--main-bg-color: #FFFFFF;
+	--alt-bg-color: #E5E5E5;
 	--color-mg-medium: #96B753;
 	--color-mg-light: #C6E686;
 	--color-mg-dark: #446418;
 	--color-mg-black: #1D1D1D;
+	--color-mg-04: #7D9B5D;
+	--color-logo-grey: #434343;
 	--main-font-family: 'Roboto';
+	--second-font-family: 'Rufina';
+	--max-layout-width: 1440px;
+	--max-container-width: 992px;
 }
 
 body {
 	background-color: var(--main-bg-color) !important;
-	font-family: var(--main-font-family);
+	font-family: var(--main-font-family), sans-serif;
+}
+h3 {
+	color: var(--color-mg-dark);
+}
+.margin-auto {
+	margin: auto;
+}
+.logo {
+	font-family: var(--second-font-family), serif;
+	color: var(--color-logo-grey);
+	font-size: 34px;
+	line-height: 22px;
+	letter-spacing: 0.2rem;
+	font-weight: 400;
+	width: 101px;
+	height: auto;
+
+}
+.logo:hover {
+
 }
 .container {
-	max-width: 992px;
+	max-width: var(--max-container-width);
 	margin: auto;
 	width: 100%;
+	margin-top:20px;
+}
+.header-line {
+	width: 100%;
+	height: 4px;
+	background-color: var(--color-mg-dark);
+}
+header .container {
+	margin-top: 5px;
 }
 
 
+.about {
+	font-size: 23px;
+	padding: 15px;
+	line-height: 32px;
+	color: var(--color-logo-grey);
+	text-align: justify;
+}
+
+footer {
+	max-height: 200px;
+	height: 200px;
+	background-color: var(--color-logo-grey);
+}
+
+footer .container {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	color: var(--color-mg-light);
+}
+
+footer .logo {
+	color: var(--color-mg-light);
+}
+
+footer .social {
+	font-size: 24px;
+}
+footer a {
+	color: var(--color-mg-light);
+	opacity: 0.7;
+}
+footer a:hover {
+	opacity: 1;
+}
+.contact {
+	font-weight: 600;
+	font-size:24px;
+}
+.contact div {
+	font-weight: 400;
+	font-size: 18px;
+	margin-bottom: -15px;
+}
+.anticon {
+	margin: 5px;
+	padding: 3px;
+	transition: transform .3s ease-in-out;
+}
+
+.anticon:hover {
+	margin: 5px;
+	padding: 3px;
+	transform: scale(1.4);
+}
+
+.anticon-menu {
+	font-size: 32px;
+	color: var(--color-logo-grey);
+	cursor: pointer;
+}
+.am-navbar-left {
+	margin-left: -9px !important;
+}
+
+/* Media queries */
+/* Navbar height for large devices */
+
+@media (min-width: 768px) {
+  
+  /* CSS */
+  .am-navbar {
+  	height: 60px !important;
+  }
+
+  .header-line {
+  	width: 82%;
+  	height: 4px;
+  	background-color: var(--color-mg-dark);
+  }
+  
+}
