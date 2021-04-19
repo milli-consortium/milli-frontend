@@ -4,7 +4,7 @@ import Container from '@/components/Container';
 import HeroSlides from '@/components/HeroSlides';
 
 const Index: React.FC<PageProps> = () => (
-  <Container location="home" title="milli">
+  <Container location="home">
     <HeroSlides />
 
     <div className="about">

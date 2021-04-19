@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  margin: auto 60px;
+}
+
+.filters {
+  flex-basis: 250px;
+}
+
+.entities {
+  flex-basis: 600px;
+  flex-grow: 1;
+}
