@@ -1,21 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Seo from '@/components/Seo';
-import MilliMenu from '@/components/MilliMenu';
 import {
   GithubOutlined,
   TwitterOutlined,
   MediumCircleFilled,
 } from '@ant-design/icons';
+import { Header } from './Header';
 
 const Container: React.FC<{ location: string }> = ({ children, location }) => (
   <main>
-    <Seo title={location} />
-    <header>
-      <MilliMenu />
-      <div className="header-line margin-auto" />
-    </header>
-
+    <Header title={location} />
     <section className="container">{children}</section>
     <footer>
       <div className="container">
@@ -42,7 +35,4 @@ const Container: React.FC<{ location: string }> = ({ children, location }) => (
   </main>
 );
 
-Container.defaultProps = {
-  children: PropTypes.node,
-};
 export default Container;
