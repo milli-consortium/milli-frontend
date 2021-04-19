@@ -6,7 +6,7 @@ import { MenuOutlined } from '@ant-design/icons';
 const data = [
   {
     value: '1',
-    label: 'About',
+    label: 'Home',
   },
   {
     value: '2',
