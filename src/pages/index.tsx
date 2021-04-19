@@ -3,7 +3,7 @@ import { PageProps } from 'gatsby';
 import Container from '@/components/Container';
 import HeroSlides from '@/components/HeroSlides';
 
-const TestHome: React.FC<PageProps> = () => (
+const Index: React.FC<PageProps> = () => (
   <Container location="home">
     <HeroSlides />
 
@@ -29,4 +29,4 @@ const TestHome: React.FC<PageProps> = () => (
   </Container>
 );
 
-export default TestHome;
+export default Index;

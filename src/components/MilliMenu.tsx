@@ -6,7 +6,7 @@ import { MenuOutlined } from '@ant-design/icons';
 const data = [
   {
     value: '1',
-    label: 'About',
+    label: 'Home',
   },
   {
     value: '2',
@@ -72,7 +72,7 @@ class MilliMenu extends React.Component {
     const { initData, show } = this.state;
     const menuEl = (
       <Menu
-        className="single-foo-menu"
+        className="milli-menu container"
         data={initData}
         value={['1']}
         level={1}
