@@ -56,6 +56,9 @@ header .container {
 	margin-top: 5px;
 }
 
+header .am-menu .am-flexbox .am-flexbox-item {
+	overflow-y: hidden; 
+}
 
 .about {
 	font-size: 23px;
@@ -69,6 +72,7 @@ footer {
 	max-height: 200px;
 	height: 200px;
 	background-color: var(--color-logo-grey);
+	padding: 15px;
 }
 
 footer .container {
@@ -97,12 +101,15 @@ footer a:hover {
 }
 .contact {
 	font-weight: 600;
-	font-size:24px;
+	font-size:20px;
 }
 .contact div {
 	font-weight: 400;
 	font-size: 18px;
 	margin-bottom: -15px;
+}
+.copyright {
+	margin-top: 10px;
 }
 .anticon {
 	margin: 5px;
@@ -117,7 +124,7 @@ footer a:hover {
 }
 
 .anticon-menu {
-	font-size: 32px;
+	font-size: 26px;
 	color: var(--color-logo-grey);
 	cursor: pointer;
 }
