@@ -137,12 +137,6 @@ input niosxEntityInput {
   level: String!
 }
 
-type Language {
-  id: String!
-  displayName: String!
-  recordCount: Int
-}
-
 input DateRangeInput {
   from: Date
   to: Date
@@ -151,41 +145,6 @@ input DateRangeInput {
 type DateRange {
   from: Date
   to: Date
-}
-
-enum MediaType {
-  IMAGE
-  VIDEO
-  TEXT
-}
-
-type Subject {
-  id: String!
-  displayName: String!
-  recordCount: Int
-}
-
-type People {
-  id: String!
-  displayName: String!
-  recordCount: Int
-}
-
-type Place {
-  id: String!
-  displayName: String!
-  recordCount: Int
-}
-
-type Partner {
-  id: String!
-  displayName: String!
-  recordCount: Int
-}
-
-type Media {
-  type: MediaType
-  recordCount: Int 
 }
 
 input filterEntityInput {
@@ -197,18 +156,25 @@ input filterEntityInput {
   people: [String!]
   places: [String!]
   partners: [String!]
-  mediaTypes: [MediaType!]
+  mediaTypes: [String!]
 }
-  
+
+type FilterValue {
+  id: String!
+  displayName: String!
+  recordCount: Int
+  isSelected: Boolean
+}
+
 type EntityFilter {
   blob: String
-  lang: [Language!]
   date: DateRange!
-  subjects: [Subject!]
-  people: [People!]
-  places: [Place!]
-  partners: [Partner!]
-  mediaTypes: [Media!]
+  lang: [FilterValue!]
+  subjects: [FilterValue!]
+  people: [FilterValue!]
+  places: [FilterValue!]
+  partners: [FilterValue!]
+  mediaTypes: [FilterValue!]
 }
 
 type PageEdge {

@@ -4,6 +4,7 @@ import { graphql, PageProps } from 'gatsby';
 import React from 'react';
 import { NiosxDataQuery } from '../../graphql-types';
 import * as styles from '../styles/search.module.css';
+import { hFilterValue } from './hFilterValue';
 
 const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
   Object.keys(o);
@@ -17,15 +18,11 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
         <div className={styles.filters}>
           {data.niosx.searchCollections.pageInfo.filters
             ? keysOf(data.niosx.searchCollections.pageInfo.filters).map((key) =>
-                key !== 'blob' ? (
+                key !== 'blob' && key !== 'date' ? (
                   <div key={key}>
                     <h3>{key}</h3>
                     {data.niosx.searchCollections.pageInfo.filters[key].map(
-                      (f) => (
-                        <div key={f.id}>
-                          {f.displayName} ({f.recordCount ?? '--'})
-                        </div>
-                      ),
+                      hFilterValue,
                     )}
                   </div>
                 ) : (
@@ -82,15 +79,45 @@ export const query = graphql`
           hasNextPage
           filters {
             blob
+            date {
+              from
+              to
+            }
             lang {
               id
               displayName
               recordCount
+              isSelected
             }
             subjects {
               id
               displayName
               recordCount
+              isSelected
+            }
+            people {
+              id
+              displayName
+              recordCount
+              isSelected
+            }
+            places {
+              id
+              displayName
+              recordCount
+              isSelected
+            }
+            partners {
+              id
+              displayName
+              recordCount
+              isSelected
+            }
+            mediaTypes {
+              id
+              displayName
+              recordCount
+              isSelected
             }
           }
         }
