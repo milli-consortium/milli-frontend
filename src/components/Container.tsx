@@ -8,9 +8,9 @@ import {
   MediumCircleFilled,
 } from '@ant-design/icons';
 
-const Container = ({ children }) => (
+const Container: React.FC<{ location: string }> = ({ children, location }) => (
   <main>
-    <Seo />
+    <Seo title={location} />
     <header>
       <MilliMenu />
       <div className="header-line margin-auto" />

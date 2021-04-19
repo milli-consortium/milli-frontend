@@ -6,7 +6,7 @@ import { NiosxDataQuery } from '../../graphql-types';
 const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
   Object.keys(o);
 
-const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
+const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   <main>
     <Title />
     <div>
@@ -18,9 +18,9 @@ const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
               const filter = data.niosx.searchCollections.pageInfo.filters[key];
 
               return typeof filter === 'string' ? (
-                <div>{`Showing results for: ${filter}`}</div>
+                <div key="blob">{`Showing results for: ${filter}`}</div>
               ) : (
-                <div>
+                <div key={key}>
                   <h3>{key}</h3>
                   {filter.map((f) => (
                     <div key={f.id}>
@@ -35,13 +35,13 @@ const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
     </div>
     <div>
       {data.niosx.searchCollections.edges.map((e) => (
-        <div>{JSON.stringify(e.node)}</div>
+        <div key={e.node.graphId}>{JSON.stringify(e.node)}</div>
       )) ?? <div>No Records Found</div>}
     </div>
   </main>
 );
 
-export default Home;
+export default Search;
 
 export const query = graphql`
   query NiosxData {
@@ -71,10 +71,12 @@ export const query = graphql`
           filters {
             blob
             lang {
+              id
               displayName
               recordCount
             }
             subjects {
+              id
               displayName
               recordCount
             }
