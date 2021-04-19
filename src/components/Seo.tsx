@@ -1,12 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+type SeoProps = { title: string; description?: string };
+
 // to had page metadata
-const Seo = () => (
+const Seo: React.FC<SeoProps> = ({ title }) => (
   <>
     <Helmet>
       {/* General tags */}
-      <title>Milli</title>
+      <title>Milli - {title}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
