@@ -61,7 +61,7 @@ header .am-menu .am-flexbox .am-flexbox-item {
 }
 
 .milli-menu {
-	height:100%;
+	height: auto;
 }
 
 header .am-radio.am-radio-checked .am-radio-inner::after {
@@ -115,6 +115,10 @@ footer .social {
 footer a {
 	color: var(--color-mg-light);
 	opacity: 0.7;
+	border-bottom: 2px solid var(--color-mg-light);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	line-height: 1.2;
 }
 footer a:hover {
 	opacity: 1;

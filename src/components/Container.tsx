@@ -27,8 +27,9 @@ const Container: React.FC<{ location: string }> = ({ children, location }) => (
 
         <div className="copyright">
           © {new Date().getFullYear()}, All Rights Reserved. Built with{' '}
-          <a href="https://notabug.org/prasoon/niosx">Niosx</a> and
-          <a href="https://www.gatsbyjs.org"> Gatsby</a>
+          <a href="https://notabug.org/prasoon/niosx">Niosx</a>
+          <span> and </span>
+          <a href="https://www.gatsbyjs.org">Gatsby</a>
         </div>
       </div>
     </footer>
