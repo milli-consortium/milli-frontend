@@ -1,7 +1,7 @@
-import React from 'react';
-/* eslint global-require:0, no-nested-ternary:0 */
-import { Menu, ActivityIndicator, NavBar, Icon } from 'antd-mobile';
 import { MenuOutlined } from '@ant-design/icons';
+/* eslint global-require:0, no-nested-ternary:0 */
+import { ActivityIndicator, Menu, NavBar } from 'antd-mobile';
+import React from 'react';
 
 const data = [
   {
@@ -18,6 +18,8 @@ const data = [
     isLeaf: true,
   },
 ];
+
+const isBrowser = typeof document !== 'undefined';
 
 class MilliMenu extends React.Component {
   constructor(...args) {
@@ -70,6 +72,7 @@ class MilliMenu extends React.Component {
 
   render() {
     const { initData, show } = this.state;
+    const height = isBrowser ? document.documentElement.clientHeight * 0.6 : 20;
     const menuEl = (
       <Menu
         className="milli-menu container"
@@ -77,7 +80,7 @@ class MilliMenu extends React.Component {
         value={['1']}
         level={1}
         onChange={this.onChange}
-        height={document.documentElement.clientHeight * 0.6}
+        height={height}
       />
     );
     const loadingEl = (
@@ -85,7 +88,7 @@ class MilliMenu extends React.Component {
         style={{
           position: 'absolute',
           width: '100%',
-          height: document.documentElement.clientHeight * 0.6,
+          height,
           display: 'flex',
           justifyContent: 'center',
         }}
