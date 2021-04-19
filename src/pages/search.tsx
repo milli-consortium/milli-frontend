@@ -15,24 +15,21 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
       <div className={styles.container}>
         <div>
           {data.niosx.searchCollections.pageInfo.filters
-            ? keysOf(data.niosx.searchCollections.pageInfo.filters).map(
-                (key) => {
-                  const filter =
-                    data.niosx.searchCollections.pageInfo.filters[key];
-
-                  return typeof filter === 'string' ? (
-                    <div key="blob">{`Showing results for: ${filter}`}</div>
-                  ) : (
-                    <div key={key}>
-                      <h3>{key}</h3>
-                      {filter.map((f) => (
+            ? keysOf(data.niosx.searchCollections.pageInfo.filters).map((key) =>
+                key !== 'blob' ? (
+                  <div key={key}>
+                    <h3>{key}</h3>
+                    {data.niosx.searchCollections.pageInfo.filters[key].map(
+                      (f) => (
                         <div key={f.id}>
                           {f.displayName} ({f.recordCount ?? '--'})
                         </div>
-                      ))}
-                    </div>
-                  );
-                },
+                      ),
+                    )}
+                  </div>
+                ) : (
+                  ''
+                ),
               )
             : ''}
         </div>
