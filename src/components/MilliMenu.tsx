@@ -3,7 +3,13 @@ import { MenuOutlined } from '@ant-design/icons';
 import { ActivityIndicator, Menu, NavBar } from 'antd-mobile';
 import React from 'react';
 
-const data = [
+type MenuItem = {
+  value: '1' | '2' | '3';
+  label: string;
+  children?: MenuItem[];
+};
+
+const data: MenuItem[] = [
   {
     value: '1',
     label: 'Home',
@@ -15,17 +21,20 @@ const data = [
   {
     value: '3',
     label: 'Partners',
-    isLeaf: true,
   },
 ];
 
 const isBrowser = typeof document !== 'undefined';
 
-class MilliMenu extends React.Component {
-  constructor(...args) {
-    super(...args);
+type MenuState = {
+  initData: MenuItem[] | null;
+  show: boolean;
+};
+class MilliMenu extends React.Component<Record<string, unknown>, MenuState> {
+  constructor(props: Record<string, unknown>) {
+    super(props);
     this.state = {
-      initData: '',
+      initData: null,
       show: false,
     };
   }
@@ -44,7 +53,6 @@ class MilliMenu extends React.Component {
         }
       }
     });
-    console.log(label);
   };
 
   handleClick = (e) => {

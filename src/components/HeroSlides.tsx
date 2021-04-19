@@ -2,9 +2,13 @@ import React from 'react';
 
 import { Carousel, WingBlank } from 'antd-mobile';
 
-class HeroSlides extends React.Component {
-  constructor(...args) {
-    super(...args);
+type SlidesState = {
+  imgHeight: number | string;
+  data: string[];
+};
+class HeroSlides extends React.Component<Record<string, unknown>, SlidesState> {
+  constructor(props) {
+    super(props);
     this.state = {
       data: ['1', '2', '3'],
       imgHeight: 176,
@@ -32,8 +36,10 @@ class HeroSlides extends React.Component {
           autoplay
           infinite
           beforeChange={(from, to) =>
+            // eslint-disable-next-line no-console
             console.log(`slide from ${from} to ${to}`)
           }
+          // eslint-disable-next-line no-console
           afterChange={(index) => console.log('slide to', index)}
         >
           {data.map((val) => (
@@ -53,6 +59,7 @@ class HeroSlides extends React.Component {
                 onLoad={() => {
                   // fire window resize event to change height
                   window.dispatchEvent(new Event('resize'));
+                  // TODO: remove presentation related info from state
                   this.setState({ imgHeight: 'auto' });
                 }}
               />
