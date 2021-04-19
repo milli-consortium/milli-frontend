@@ -60,6 +60,26 @@ header .am-menu .am-flexbox .am-flexbox-item {
 	overflow-y: hidden; 
 }
 
+.milli-menu {
+	height:100%;
+}
+
+header .am-radio.am-radio-checked .am-radio-inner::after {
+	border-color: var(--color-logo-grey);
+}
+
+.am-list-item .am-list-content {
+	color: var(--color-mg-black);
+	cursor: pointer;
+	font-size: 18px;
+
+}
+/* menu text active state query */
+.am-menu .am-flexbox .am-flexbox-item:last-child 
+.am-list .am-list-item.am-sub-menu-item-selected 
+.am-list-line .am-list-content {
+	color: var(--color-logo-grey) !important;
+}
 .about {
 	font-size: 23px;
 	padding: 15px;
