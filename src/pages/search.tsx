@@ -6,7 +6,7 @@ import { NiosxDataQuery } from '../../graphql-types';
 const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
   Object.keys(o);
 
-const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
+const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   <main>
     <Title />
     <div>
@@ -41,7 +41,7 @@ const Home: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   </main>
 );
 
-export default Home;
+export default Search;
 
 export const query = graphql`
   query NiosxData {
