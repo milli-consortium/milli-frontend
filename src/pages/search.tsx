@@ -1,6 +1,6 @@
+import { Header } from '@/components/Header';
+import { graphql, PageProps } from 'gatsby';
 import React from 'react';
-import { PageProps, graphql } from 'gatsby';
-import Title from '@/components/Title';
 import { NiosxDataQuery } from '../../graphql-types';
 
 const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
@@ -8,9 +8,8 @@ const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
 
 const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   <main>
-    <Title />
+    <Header title="Search Page" />
     <div>
-      <div>Header</div>
       <div>Search Bar</div>
       <div>
         {data.niosx.searchCollections.pageInfo.filters
