@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { Card } from 'antd-mobile';
 import { graphql, PageProps } from 'gatsby';
 import React from 'react';
 import { NiosxDataQuery } from '../../graphql-types';
@@ -13,7 +14,7 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
     <div>
       <div>Search Bar</div>
       <div className={styles.container}>
-        <div>
+        <div className={styles.filters}>
           {data.niosx.searchCollections.pageInfo.filters
             ? keysOf(data.niosx.searchCollections.pageInfo.filters).map((key) =>
                 key !== 'blob' ? (
@@ -33,9 +34,18 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
               )
             : ''}
         </div>
-        <div>
-          {data.niosx.searchCollections.edges.map((e) => (
-            <div key={e.node.graphId}>{JSON.stringify(e.node)}</div>
+        <div className={styles.entities}>
+          {data.niosx.searchCollections.edges.map(({ node }) => (
+            <Card key={node.graphId}>
+              <Card.Header
+                title={node.title}
+                thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
+              />
+              <Card.Body>
+                <div>Created on: {node.dateOfCreation}</div>
+              </Card.Body>
+              <Card.Footer content="footer content" />
+            </Card>
           )) ?? <div>No Records Found</div>}
         </div>
       </div>
