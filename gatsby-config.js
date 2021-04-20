@@ -39,8 +39,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-antd-mobile',
       options: {
-        style: true
-      }
+        style: true,
+      },
     },
+    'gatsby-theme-apollo',
   ],
 };

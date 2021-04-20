@@ -1,13 +1,29 @@
 import { Header } from '@/components/Header';
+import { gql } from '@apollo/client';
 import { Card } from 'antd-mobile';
 import { graphql, PageProps } from 'gatsby';
 import React from 'react';
 import { NiosxDataQuery } from '../../graphql-types';
 import * as styles from '../styles/search.module.css';
 import { hFilterValue } from './hFilterValue';
+import client from '../client';
 
 const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
   Object.keys(o);
+
+// TODO: implement useEffect
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const cli = client
+  .query({
+    query: gql`
+      query GetRates {
+        rates(currency: "USD") {
+          currency
+        }
+      }
+    `,
+  })
+  .then((result) => console.log(result));
 
 const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => (
   <main>
