@@ -1,39 +1,14 @@
 import { Header } from '@/components/Header';
-import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/react-hooks';
 import { Card, SearchBar } from 'antd-mobile';
-import { PageProps } from 'gatsby';
-import React, { useEffect, useState } from 'react';
-import { NiosxDataQuery } from '../../graphql-types';
-import client from '../client';
+import React, { useState } from 'react';
+import searchQuery from '../queries/search';
+import { NiosxData } from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
-import { hFilterValue } from './hFilterValue';
 
-const keysOf = <T extends Record<string, unknown>>(o: T): Array<keyof T> =>
-  Object.keys(o);
-
-const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => {
+const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
-  useEffect(() => {
-    client
-      .query({
-        query: gql`
-          query getEntities {
-            searchCollections {
-              edges {
-                node {
-                  graphId
-                  title
-                }
-                cursor
-                offset
-              }
-            }
-          }
-        `,
-      })
-      // eslint-disable-next-line no-console
-      .then((result) => console.log('useEffect result', result));
-  }, [searchBlob]);
+  const { loading, error, data } = useQuery<NiosxData>(searchQuery);
 
   return (
     <main>
@@ -45,39 +20,56 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => {
           onChange={setSearchBlob}
           cancelText="Clear"
         />
-        <div className={styles.container}>
-          <div className={styles.filters}>
-            {data.niosx.searchCollections.pageInfo.filters
-              ? keysOf(data.niosx.searchCollections.pageInfo.filters).map(
-                  (key) =>
-                    key !== 'blob' && key !== 'date' ? (
-                      <div key={key}>
-                        <h3>{key}</h3>
-                        {data.niosx.searchCollections.pageInfo.filters[key].map(
-                          hFilterValue,
-                        )}
-                      </div>
-                    ) : (
-                      ''
-                    ),
-                )
-              : ''}
+        {!loading && error === undefined && (
+          <div className={styles.container}>
+            <div className={styles.filters}>
+              {data.searchCollections.pageInfo.filters !== null ? (
+                <div>
+                  <div>
+                    Blob: {data.searchCollections.pageInfo.filters.blob}
+                  </div>
+                  <div>
+                    From: {data.searchCollections.pageInfo.filters.date.from}
+                  </div>
+                  <div>
+                    Languages:{' '}
+                    {data.searchCollections.pageInfo.filters.lang.join(' | ')}
+                  </div>
+                  <div>
+                    Media Types:{' '}
+                    {data.searchCollections.pageInfo.filters.mediaTypes.join(
+                      ' | ',
+                    )}
+                  </div>
+                  <div>
+                    Partners:{' '}
+                    {data.searchCollections.pageInfo.filters.partners.join(
+                      ' | ',
+                    )}
+                  </div>
+                </div>
+              ) : (
+                'No Filters Found'
+              )}
+            </div>
+            <div className={styles.entities}>
+              {data.searchCollections.edges.map(({ node }) => (
+                <Card key={node.graphId}>
+                  <Card.Header
+                    title={node.title}
+                    thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
+                  />
+                  <Card.Body>
+                    <div>Created on: {node.dateOfCreation}</div>
+                  </Card.Body>
+                  <Card.Footer content="footer content" />
+                </Card>
+              )) ?? <div>No Records Found</div>}
+            </div>
           </div>
-          <div className={styles.entities}>
-            {data.niosx.searchCollections.edges.map(({ node }) => (
-              <Card key={node.graphId}>
-                <Card.Header
-                  title={node.title}
-                  thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
-                />
-                <Card.Body>
-                  <div>Created on: {node.dateOfCreation}</div>
-                </Card.Body>
-                <Card.Footer content="footer content" />
-              </Card>
-            )) ?? <div>No Records Found</div>}
-          </div>
-        </div>
+        )}
+        {loading && 'Loading data...'}
+        {!loading && error && <div>{JSON.stringify(error.message)}</div>}
       </div>
     </main>
   );
