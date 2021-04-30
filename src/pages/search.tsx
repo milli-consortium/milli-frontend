@@ -1,7 +1,7 @@
 import { Header } from '@/components/Header';
 import { gql } from '@apollo/client';
 import { Card, SearchBar } from 'antd-mobile';
-import { graphql, PageProps } from 'gatsby';
+import { PageProps } from 'gatsby';
 import React, { useEffect, useState } from 'react';
 import { NiosxDataQuery } from '../../graphql-types';
 import client from '../client';
@@ -84,77 +84,3 @@ const Search: React.FC<PageProps<NiosxDataQuery>> = ({ data }) => {
 };
 
 export default Search;
-
-export const query = graphql`
-  query NiosxData {
-    niosx {
-      searchCollections {
-        edges {
-          node {
-            graphId
-            title
-            partner
-            subjects
-            dateOfCreation
-            images {
-              src
-              alt
-              size
-            }
-          }
-          cursor
-          offset
-          isDirectMatch
-          annotationMatchCount
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          filters {
-            blob
-            date {
-              from
-              to
-            }
-            lang {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-            subjects {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-            people {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-            places {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-            partners {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-            mediaTypes {
-              id
-              displayName
-              recordCount
-              isSelected
-            }
-          }
-        }
-      }
-    }
-  }
-`;
