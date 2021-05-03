@@ -1,5 +1,6 @@
 import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
+import { ImageSize } from '@/types/graphql-global-types';
 import { useQuery } from '@apollo/react-hooks';
 import { Card, SearchBar } from 'antd-mobile';
 import React, { useState } from 'react';
@@ -33,20 +34,38 @@ const Search: React.FC = () => {
                     From: {data.searchCollections.pageInfo.filters.date.from}
                   </div>
                   <div>
-                    Languages:{' '}
+                    <h3>Languages</h3>
                     {data.searchCollections.pageInfo.filters.lang.map(
                       hFilterValue,
                     )}
                   </div>
                   <div>
-                    Media Types:{' '}
-                    {data.searchCollections.pageInfo.filters.mediaTypes.map(
+                    <h3>Subjects</h3>
+                    {data.searchCollections.pageInfo.filters.subjects.map(
                       hFilterValue,
                     )}
                   </div>
                   <div>
-                    Partners:{' '}
+                    <h3>People</h3>
+                    {data.searchCollections.pageInfo.filters.people.map(
+                      hFilterValue,
+                    )}
+                  </div>
+                  <div>
+                    <h3>Places</h3>
+                    {data.searchCollections.pageInfo.filters.places.map(
+                      hFilterValue,
+                    )}
+                  </div>
+                  <div>
+                    <h3>Partners</h3>
                     {data.searchCollections.pageInfo.filters.partners.map(
+                      hFilterValue,
+                    )}
+                  </div>
+                  <div>
+                    <h3>Media Types</h3>
+                    {data.searchCollections.pageInfo.filters.mediaTypes.map(
                       hFilterValue,
                     )}
                   </div>
@@ -56,18 +75,40 @@ const Search: React.FC = () => {
               )}
             </div>
             <div className={styles.entities}>
-              {data.searchCollections.edges.map(({ node }) => (
-                <Card key={node.graphId}>
-                  <Card.Header
-                    title={node.title}
-                    thumb="https://gw.alipayobjects.com/zos/rmsportal/MRhHctKOineMbKAZslML.jpg"
-                  />
-                  <Card.Body>
-                    <div>Created on: {node.dateOfCreation}</div>
-                  </Card.Body>
-                  <Card.Footer content="footer content" />
-                </Card>
-              )) ?? <div>No Records Found</div>}
+              {data.searchCollections.edges.map(
+                ({ node, isDirectMatch, annotationMatchCount }) => {
+                  const thumbnail = node.images.find(
+                    (i) => i.size === ImageSize.SMALL,
+                  );
+
+                  return (
+                    <Card key={node.graphId}>
+                      <Card.Header title={node.title} />
+                      <Card.Body>
+                        <div>
+                          {thumbnail && (
+                            <img src={thumbnail.src} alt={thumbnail.alt} />
+                          )}
+                          Created on: {node.dateOfCreation}
+                        </div>
+                      </Card.Body>
+                      <Card.Footer
+                        content={
+                          <div>
+                            Your search matched{' '}
+                            {isDirectMatch ? 'this object and' : ''}{' '}
+                            {annotationMatchCount > 0
+                              ? `${annotationMatchCount} annotations ${
+                                  isDirectMatch ? 'on it' : 'on this object'
+                                }`
+                              : ''}
+                          </div>
+                        }
+                      />
+                    </Card>
+                  );
+                },
+              ) ?? <div>No Records Found</div>}
             </div>
           </div>
         )}
