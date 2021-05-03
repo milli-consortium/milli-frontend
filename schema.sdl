@@ -8,29 +8,29 @@ schema {
 "Annotations object"
 type annotation {
   "GraphID for annotation node"
-  graphId: String
-  context: String!
+  graphId: String @fake(type: uuid)
+  context: String! @fake(type: password)
 
   "id"
-  id: String!
+  id: String! @fake(type: uuid)
 
   "object type"
-  type: String!
+  type: String! @fake(type: mimeType)
 
   "Annotation motivation"
-  motivation: String!
+  motivation: String! @fake(type: companyCatchPhrase)
 
   "The agent responsible for creation of annotation"
-  creator: creator!
+  creator: creator! 
 
   "The date-time of creation of annotation"
-  created: String!
+  created: String! @fake(type: pastDate)
 
   "The agent responsible for generation of annotation"
   generator: generator!
 
   "Date-time of generation of annotation"
-  generated: String!
+  generated: String! @fake(type: recentDate)
 
   "Annotation body"
   body: bodyType
@@ -65,10 +65,10 @@ input comment {
 }
 
 type creator {
-  id: String!
-  typ: String!
-  name: String!
-  nickname: String!
+  id: String! @fake(type: uuid)
+  typ: String! @fake(type: jobTitle)
+  name: String! @fake(type: fullName)
+  nickname: String! @fake(type: firstName)
 }
 
 input crosswalk {
@@ -76,10 +76,10 @@ input crosswalk {
 }
 
 type generator {
-  id: String!
-  typ: String!
-  name: String!
-  homepage: String!
+  id: String! @fake(type: uuid)
+  typ: String! @fake(type: jobTitle)
+  name: String! @fake(type: companyName)
+  homepage: String! @fake(type: url)
 }
 
 input ingestWithCrosswalk {
@@ -106,23 +106,23 @@ enum ImageSize {
 }
 
 type Image {
-  src: String!
-  alt: String
+  src: String! @fake(type: imageUrl)
+  alt: String @fake(type: hackerPhrase)
   size: ImageSize
 }
 
 type niosxEntity {
-  graphId: String!
-  agencyCode: String!
-  recordId: String!
-  unitId: String!
-  title: String!
-  partner: String
-  subjects: [String!]
-  dateOfCreation: String!
+  graphId: String! @fake(type: uuid)
+  agencyCode: String! @fake(type: countryCode)
+  recordId: String! @fake(type: uuid)
+  unitId: String! @fake(type: uuid)
+  title: String! @fake(type: words, options: {minNumber: 2, maxNumber: 15})
+  partner: String @fake(type: companyName)
+  subjects: [String!] @fake(type: word)
+  dateOfCreation: String! @fake(type: pastDate)
   extent: String!
   level: String!
-  images: [Image!]
+  images: [Image!] @listLength(min: 0, max: 5)
   annotations: [annotation!]
 }
 
@@ -160,21 +160,21 @@ input filterEntityInput {
 }
 
 type FilterValue {
-  id: String!
-  displayName: String!
+  id: String! @fake(type: uuid)
+  displayName: String! @fake(type: word)
   recordCount: Int
   isSelected: Boolean
 }
 
 type EntityFilter {
-  blob: String
+  blob: String @fake(type: words, options: {minNumber: 0, maxNumber: 5})
   date: DateRange!
-  lang: [FilterValue!]
-  subjects: [FilterValue!]
-  people: [FilterValue!]
-  places: [FilterValue!]
-  partners: [FilterValue!]
-  mediaTypes: [FilterValue!]
+  lang: [FilterValue!] @listLength(min: 2, max: 15)
+  subjects: [FilterValue!] @listLength(min: 2, max: 15)
+  people: [FilterValue!] @listLength(min: 2, max: 15)
+  places: [FilterValue!] @listLength(min: 2, max: 15)
+  partners: [FilterValue!] @listLength(min: 2, max: 15)
+  mediaTypes: [FilterValue!] @listLength(min: 2, max: 15)
 }
 
 type PageEdge {
@@ -184,7 +184,7 @@ type PageEdge {
   # true if node is a direct match
   isDirectMatch: Boolean
   # null if no annotation matches
-  annotationMatchCount: Int
+  annotationMatchCount: Int @fake(type: number, options: {minNumber: 0, maxNumber: 20})
 }
 
 type PageInfo {
@@ -195,7 +195,7 @@ type PageInfo {
 }
 
 type Page {
-  edges: [PageEdge!]
+  edges: [PageEdge!] @listLength(min: 4, max: 25)
   pageInfo: PageInfo!
 }
 
