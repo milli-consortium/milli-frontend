@@ -10,7 +10,11 @@ import * as styles from '../styles/search.module.css';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
-  const { loading, error, data } = useQuery<NiosxData>(searchQuery);
+  const { loading, error, data } = useQuery<NiosxData>(searchQuery, {
+    onCompleted: (result) => {
+      setSearchBlob(result.searchCollections.pageInfo.filters.blob ?? '');
+    },
+  });
 
   return (
     <main>
@@ -27,9 +31,6 @@ const Search: React.FC = () => {
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
                 <div>
-                  <div>
-                    Blob: {data.searchCollections.pageInfo.filters.blob}
-                  </div>
                   <div>
                     From: {data.searchCollections.pageInfo.filters.date.from}
                   </div>
