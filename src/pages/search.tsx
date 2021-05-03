@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { hFilterValue } from '@/components/hFilterValue';
 import { useQuery } from '@apollo/react-hooks';
 import { Card, SearchBar } from 'antd-mobile';
 import React, { useState } from 'react';
@@ -33,18 +34,20 @@ const Search: React.FC = () => {
                   </div>
                   <div>
                     Languages:{' '}
-                    {data.searchCollections.pageInfo.filters.lang.join(' | ')}
+                    {data.searchCollections.pageInfo.filters.lang.map(
+                      hFilterValue,
+                    )}
                   </div>
                   <div>
                     Media Types:{' '}
-                    {data.searchCollections.pageInfo.filters.mediaTypes.join(
-                      ' | ',
+                    {data.searchCollections.pageInfo.filters.mediaTypes.map(
+                      hFilterValue,
                     )}
                   </div>
                   <div>
                     Partners:{' '}
-                    {data.searchCollections.pageInfo.filters.partners.join(
-                      ' | ',
+                    {data.searchCollections.pageInfo.filters.partners.map(
+                      hFilterValue,
                     )}
                   </div>
                 </div>

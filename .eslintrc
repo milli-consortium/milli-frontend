@@ -36,7 +36,8 @@
         "js": "never",
         "jsx": "never"
       }
-    ]
+    ],
+    "camelcase": ["error", { "allow": ["^NiosxData"] }]
   },
   "overrides": [
     {
@@ -64,6 +65,10 @@
           {
             "avoidEscape": true
           }
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
         ]
       }
     }

@@ -31,44 +31,33 @@ const liftQuery = gql`
             to
           }
           lang {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
           subjects {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
           people {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
           places {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
           partners {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
           mediaTypes {
-            id
-            displayName
-            recordCount
-            isSelected
+            ...filterFields
           }
         }
       }
     }
+  }
+
+  fragment filterFields on FilterValue {
+    id
+    displayName
+    recordCount
+    isSelected
   }
 `;
 

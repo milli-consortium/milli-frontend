@@ -1,24 +1,10 @@
 import React from 'react';
+import { NiosxData_searchCollections_pageInfo_filters_lang } from '../queries/types/NiosxData';
 
-type FilterInfo = {
-  id: string;
-  displayName: string;
-  recordCount?: number;
-  isSelected?: boolean;
-};
-
-export const hFilterValue = (f: FilterInfo): JSX.Element => (
+export const hFilterValue = (
+  f: NiosxData_searchCollections_pageInfo_filters_lang,
+) => (
   <div key={f.id}>
-    {f.displayName} ({f.recordCount ?? '--'})
+    {f.isSelected ? '[x]' : '[_]'} {f.displayName} ({f.recordCount ?? '--'})
   </div>
 );
-
-// TODO: Use fragment to simplify query
-// export const query = graphql`
-//   fragment FilterInfo on FilterValue {
-//     id
-//     displayName
-//     recordCount
-//     isSelected
-//   }
-// `;

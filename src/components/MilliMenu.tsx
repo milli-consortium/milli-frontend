@@ -53,6 +53,9 @@ class MilliMenu extends React.Component<Record<string, unknown>, MenuState> {
         }
       }
     });
+
+    // eslint-disable-next-line no-console
+    console.info(label);
   };
 
   handleClick = (e) => {

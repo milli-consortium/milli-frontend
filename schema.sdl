@@ -179,7 +179,7 @@ type EntityFilter {
 
 type PageEdge {
   node: niosxEntity!
-  cursor: String!
+  cursor: String! @fake(type: uuid)
   offset: Int
   # true if node is a direct match
   isDirectMatch: Boolean
