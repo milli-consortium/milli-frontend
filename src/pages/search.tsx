@@ -10,11 +10,19 @@ import * as styles from '../styles/search.module.css';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
-  const { loading, error, data } = useQuery<NiosxData>(searchQuery, {
-    onCompleted: (result) => {
-      setSearchBlob(result.searchCollections.pageInfo.filters.blob ?? '');
+  const { loading, error, data, refetch } = useQuery<NiosxData>(searchQuery, {
+    variables: {
+      blob: searchBlob,
+    },
+    onCompleted: (_result) => {
+      // setSearchBlob(result.searchCollections.pageInfo.filters.blob ?? '');
     },
   });
+
+  const handleSearchChange = (value: string) => {
+    setSearchBlob(value);
+    refetch();
+  };
 
   return (
     <main>
@@ -23,7 +31,7 @@ const Search: React.FC = () => {
         <SearchBar
           placeholder="Search"
           value={searchBlob}
-          onChange={setSearchBlob}
+          onChange={handleSearchChange}
           cancelText="Clear"
         />
         {!loading && error === undefined && (
