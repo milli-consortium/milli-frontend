@@ -6,19 +6,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { Card, SearchBar } from 'antd-mobile';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
-import {
-  NiosxData,
-  NiosxData_searchCollections_pageInfo_filters,
-} from '../queries/types/NiosxData';
+import { NiosxData } from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
-
-const getKey = (
-  type: keyof Omit<
-    Omit<Omit<NiosxData_searchCollections_pageInfo_filters, 'blob'>, 'date'>,
-    '__typename'
-  >,
-  uuid: string,
-) => `${type}-${uuid}`;
+import { getKey } from '../utils/get-key';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
