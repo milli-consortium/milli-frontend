@@ -44,5 +44,17 @@ describe('filterReducer', () => {
 
       assert.isFalse(actual.b);
     });
+    it('should set to TRUE if previously undefined', () => {
+      const init = {
+        a: false,
+        b: true,
+      };
+      const actual = filterReducer(init, {
+        type: 'TOGGLE',
+        payload: 'c',
+      });
+
+      assert.isTrue(actual.c);
+    });
   });
 });
