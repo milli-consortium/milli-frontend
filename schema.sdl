@@ -149,9 +149,8 @@ type DateRange {
 
 input filterEntityInput {
   blob: String
-  # use `id` from `Language` 
-  lang: String
   date: DateRangeInput
+  lang: [String!]
   subjects: [String!]
   people: [String!]
   places: [String!]

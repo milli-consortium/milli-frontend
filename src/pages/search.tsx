@@ -3,7 +3,7 @@ import { hFilterValue } from '@/components/hFilterValue';
 import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, SearchBar } from 'antd-mobile';
+import { Badge, Card, SearchBar } from 'antd-mobile';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
 import { NiosxData } from '../queries/types/NiosxData';
@@ -174,6 +174,51 @@ const Search: React.FC = () => {
               )}
             </div>
             <div className={styles.entities}>
+              {data.searchCollections.pageInfo.filters.lang
+                .filter((x) => filters[getKey('lang', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={{ backgroundColor: '#f1c40f' }}
+                    text={`lang: ${x.displayName}`}
+                  />
+                ))}
+              {data.searchCollections.pageInfo.filters.mediaTypes
+                .filter((x) => filters[getKey('mediaTypes', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={{ backgroundColor: '#34495e', color: '#ecf0f1' }}
+                    text={`mediaTypes: ${x.displayName}`}
+                  />
+                ))}
+              {data.searchCollections.pageInfo.filters.partners
+                .filter((x) => filters[getKey('partners', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={{ backgroundColor: '#2ecc71' }}
+                    text={`partners: ${x.displayName}`}
+                  />
+                ))}
+              {data.searchCollections.pageInfo.filters.people
+                .filter((x) => filters[getKey('people', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={{ backgroundColor: '#3498db' }}
+                    text={`people: ${x.displayName}`}
+                  />
+                ))}
+              {data.searchCollections.pageInfo.filters.places
+                .filter((x) => filters[getKey('places', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={{ backgroundColor: '#e74c3c' }}
+                    text={`places: ${x.displayName}`}
+                  />
+                ))}
               {data.searchCollections.edges.length > 0 ? (
                 data.searchCollections.edges.map(
                   ({ node, isDirectMatch, annotationMatchCount }) => {
