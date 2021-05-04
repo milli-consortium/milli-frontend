@@ -97,38 +97,72 @@ const Search: React.FC = () => {
                   <div>
                     <h3>Languages</h3>
                     {data.searchCollections.pageInfo.filters.lang.map((x) =>
-                      hFilterValue(x, filters[getKey('lang', x.id)]),
+                      hFilterValue(x, filters[getKey('lang', x.id)], () => {
+                        dispatch({
+                          type: 'TOGGLE',
+                          payload: getKey('lang', x.id),
+                        });
+                      }),
                     )}
                   </div>
                   <div>
                     <h3>Subjects</h3>
                     {data.searchCollections.pageInfo.filters.subjects.map((x) =>
-                      hFilterValue(x, filters[getKey('subjects', x.id)]),
+                      hFilterValue(x, filters[getKey('subjects', x.id)], () => {
+                        dispatch({
+                          type: 'TOGGLE',
+                          payload: getKey('subjects', x.id),
+                        });
+                      }),
                     )}
                   </div>
                   <div>
                     <h3>People</h3>
                     {data.searchCollections.pageInfo.filters.people.map((x) =>
-                      hFilterValue(x, filters[getKey('people', x.id)]),
+                      hFilterValue(x, filters[getKey('people', x.id)], () => {
+                        dispatch({
+                          type: 'TOGGLE',
+                          payload: getKey('people', x.id),
+                        });
+                      }),
                     )}
                   </div>
                   <div>
                     <h3>Places</h3>
                     {data.searchCollections.pageInfo.filters.places.map((x) =>
-                      hFilterValue(x, filters[getKey('places', x.id)]),
+                      hFilterValue(x, filters[getKey('places', x.id)], () => {
+                        dispatch({
+                          type: 'TOGGLE',
+                          payload: getKey('places', x.id),
+                        });
+                      }),
                     )}
                   </div>
                   <div>
                     <h3>Partners</h3>
                     {data.searchCollections.pageInfo.filters.partners.map((x) =>
-                      hFilterValue(x, filters[getKey('partners', x.id)]),
+                      hFilterValue(x, filters[getKey('partners', x.id)], () => {
+                        dispatch({
+                          type: 'TOGGLE',
+                          payload: getKey('partners', x.id),
+                        });
+                      }),
                     )}
                   </div>
                   <div>
                     <h3>Media Types</h3>
                     {data.searchCollections.pageInfo.filters.mediaTypes.map(
                       (x) =>
-                        hFilterValue(x, filters[getKey('mediaTypes', x.id)]),
+                        hFilterValue(
+                          x,
+                          filters[getKey('mediaTypes', x.id)],
+                          () => {
+                            dispatch({
+                              type: 'TOGGLE',
+                              payload: getKey('partners', x.id),
+                            });
+                          },
+                        ),
                     )}
                   </div>
                 </div>
