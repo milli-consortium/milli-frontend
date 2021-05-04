@@ -84,40 +84,44 @@ const Search: React.FC = () => {
               )}
             </div>
             <div className={styles.entities}>
-              {data.searchCollections.edges.map(
-                ({ node, isDirectMatch, annotationMatchCount }) => {
-                  const thumbnail = node.images.find(
-                    (i) => i.size === ImageSize.SMALL,
-                  );
+              {data.searchCollections.edges.length > 0 ? (
+                data.searchCollections.edges.map(
+                  ({ node, isDirectMatch, annotationMatchCount }) => {
+                    const thumbnail = node.images.find(
+                      (i) => i.size === ImageSize.SMALL,
+                    );
 
-                  return (
-                    <Card key={node.graphId}>
-                      <Card.Header title={node.title} />
-                      <Card.Body>
-                        <div>
-                          {thumbnail && (
-                            <img src={thumbnail.src} alt={thumbnail.alt} />
-                          )}
-                          Created on: {node.dateOfCreation}
-                        </div>
-                      </Card.Body>
-                      <Card.Footer
-                        content={
+                    return (
+                      <Card key={node.graphId}>
+                        <Card.Header title={node.title} />
+                        <Card.Body>
                           <div>
-                            Your search matched{' '}
-                            {isDirectMatch ? 'this object and' : ''}{' '}
-                            {annotationMatchCount > 0
-                              ? `${annotationMatchCount} annotations ${
-                                  isDirectMatch ? 'on it' : 'on this object'
-                                }`
-                              : ''}
+                            {thumbnail && (
+                              <img src={thumbnail.src} alt={thumbnail.alt} />
+                            )}
+                            Created on: {node.dateOfCreation}
                           </div>
-                        }
-                      />
-                    </Card>
-                  );
-                },
-              ) ?? <div>No Records Found</div>}
+                        </Card.Body>
+                        <Card.Footer
+                          content={
+                            <div>
+                              Your search matched{' '}
+                              {isDirectMatch ? 'this object and' : ''}{' '}
+                              {annotationMatchCount > 0
+                                ? `${annotationMatchCount} annotations ${
+                                    isDirectMatch ? 'on it' : 'on this object'
+                                  }`
+                                : ''}
+                            </div>
+                          }
+                        />
+                      </Card>
+                    );
+                  },
+                )
+              ) : (
+                <div>No Records Found</div>
+              )}
             </div>
           </div>
         )}
