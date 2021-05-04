@@ -19,4 +19,30 @@ describe('filterReducer', () => {
       assert.deepEqual(actual, expected);
     });
   });
+  describe('TOGGLE', () => {
+    it('should set TRUE for the given key if previously false', () => {
+      const init = {
+        a: false,
+        b: false,
+      };
+      const actual = filterReducer(init, {
+        type: 'TOGGLE',
+        payload: 'a',
+      });
+
+      assert.isTrue(actual.a);
+    });
+    it('should set FALSE for the given key if previously true', () => {
+      const init = {
+        a: false,
+        b: true,
+      };
+      const actual = filterReducer(init, {
+        type: 'TOGGLE',
+        payload: 'b',
+      });
+
+      assert.isFalse(actual.b);
+    });
+  });
 });
