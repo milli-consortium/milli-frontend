@@ -95,6 +95,9 @@ const Search: React.FC = () => {
                     From: {data.searchCollections.pageInfo.filters.date.from}
                   </div>
                   <div>
+                    To: {data.searchCollections.pageInfo.filters.date.to}
+                  </div>
+                  <div>
                     <h3>Languages</h3>
                     {data.searchCollections.pageInfo.filters.lang.map((x) =>
                       hFilterValue(x, filters[getKey('lang', x.id)], () => {
