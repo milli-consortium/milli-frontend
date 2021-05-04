@@ -3,7 +3,7 @@ import { filterReducer } from './search-reducer';
 
 describe('filterReducer', () => {
   describe('SET', () => {
-    it('should update payload in state', () => {
+    it('should update state with payload as is', () => {
       const init = {};
       const actual = filterReducer(init, {
         type: 'SET',

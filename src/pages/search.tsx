@@ -1,21 +1,83 @@
 import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
+import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { useQuery } from '@apollo/react-hooks';
 import { Card, SearchBar } from 'antd-mobile';
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
-import { NiosxData } from '../queries/types/NiosxData';
+import {
+  NiosxData,
+  NiosxData_searchCollections_pageInfo_filters,
+} from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
+
+const getKey = (
+  type: keyof Omit<
+    Omit<Omit<NiosxData_searchCollections_pageInfo_filters, 'blob'>, 'date'>,
+    '__typename'
+  >,
+  uuid: string,
+) => `${type}-${uuid}`;
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
+  const [filters, dispatch] = useReducer(filterReducer, {});
   const { loading, error, data, refetch } = useQuery<NiosxData>(searchQuery, {
     variables: {
       blob: searchBlob,
     },
-    onCompleted: (_result) => {
-      // setSearchBlob(result.searchCollections.pageInfo.filters.blob ?? '');
+    onCompleted: (result) => {
+      dispatch({
+        type: 'SET',
+        payload: {
+          ...result.searchCollections.pageInfo.filters.lang
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({ ...acc, [getKey('lang', x.id)]: x.isSelected }),
+              {},
+            ),
+          ...result.searchCollections.pageInfo.filters.mediaTypes
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({
+                ...acc,
+                [getKey('mediaTypes', x.id)]: x.isSelected,
+              }),
+              {},
+            ),
+          ...result.searchCollections.pageInfo.filters.partners
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({
+                ...acc,
+                [getKey('partners', x.id)]: x.isSelected,
+              }),
+              {},
+            ),
+          ...result.searchCollections.pageInfo.filters.people
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({ ...acc, [getKey('people', x.id)]: x.isSelected }),
+              {},
+            ),
+          ...result.searchCollections.pageInfo.filters.places
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({ ...acc, [getKey('places', x.id)]: x.isSelected }),
+              {},
+            ),
+          ...result.searchCollections.pageInfo.filters.subjects
+            .filter((x) => x.isSelected)
+            .reduce(
+              (acc, x) => ({
+                ...acc,
+                [getKey('subjects', x.id)]: x.isSelected,
+              }),
+              {},
+            ),
+        },
+      });
     },
   });
 
@@ -44,38 +106,39 @@ const Search: React.FC = () => {
                   </div>
                   <div>
                     <h3>Languages</h3>
-                    {data.searchCollections.pageInfo.filters.lang.map(
-                      hFilterValue,
+                    {data.searchCollections.pageInfo.filters.lang.map((x) =>
+                      hFilterValue(x, filters[getKey('lang', x.id)]),
                     )}
                   </div>
                   <div>
                     <h3>Subjects</h3>
-                    {data.searchCollections.pageInfo.filters.subjects.map(
-                      hFilterValue,
+                    {data.searchCollections.pageInfo.filters.subjects.map((x) =>
+                      hFilterValue(x, filters[getKey('subjects', x.id)]),
                     )}
                   </div>
                   <div>
                     <h3>People</h3>
-                    {data.searchCollections.pageInfo.filters.people.map(
-                      hFilterValue,
+                    {data.searchCollections.pageInfo.filters.people.map((x) =>
+                      hFilterValue(x, filters[getKey('people', x.id)]),
                     )}
                   </div>
                   <div>
                     <h3>Places</h3>
-                    {data.searchCollections.pageInfo.filters.places.map(
-                      hFilterValue,
+                    {data.searchCollections.pageInfo.filters.places.map((x) =>
+                      hFilterValue(x, filters[getKey('places', x.id)]),
                     )}
                   </div>
                   <div>
                     <h3>Partners</h3>
-                    {data.searchCollections.pageInfo.filters.partners.map(
-                      hFilterValue,
+                    {data.searchCollections.pageInfo.filters.partners.map((x) =>
+                      hFilterValue(x, filters[getKey('partners', x.id)]),
                     )}
                   </div>
                   <div>
                     <h3>Media Types</h3>
                     {data.searchCollections.pageInfo.filters.mediaTypes.map(
-                      hFilterValue,
+                      (x) =>
+                        hFilterValue(x, filters[getKey('mediaTypes', x.id)]),
                     )}
                   </div>
                 </div>
