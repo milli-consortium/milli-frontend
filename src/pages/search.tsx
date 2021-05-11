@@ -1,21 +1,39 @@
 import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
-import { filterReducer } from '@/reducers/search-reducer';
+import { FilterKey, filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { useQuery } from '@apollo/react-hooks';
 import { Badge, Card, SearchBar } from 'antd-mobile';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
-import { NiosxData } from '../queries/types/NiosxData';
+import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
-import { getKey } from '../utils/get-key';
+import { getKey, getType } from '../utils/get-key';
+
+// TODO: move to utils and add tests
+export const getFilters = (flatFilters: Record<string, boolean>) =>
+  Object.keys(flatFilters)
+    .filter((key) => flatFilters[key])
+    .reduce<Partial<Record<FilterKey, string[]>>>((acc, key) => {
+      const [type, uuid] = getType(key);
+
+      return {
+        ...acc,
+        [type]: acc[type] ? acc[type].concat([uuid]) : [uuid],
+      };
+    }, {});
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
   const [filters, dispatch] = useReducer(filterReducer, {});
-  const { loading, error, data, refetch } = useQuery<NiosxData>(searchQuery, {
+
+  const { loading, error, data, refetch } = useQuery<
+    NiosxData,
+    NiosxDataVariables
+  >(searchQuery, {
     variables: {
       blob: searchBlob,
+      // ...getFilters(filters),
     },
     onCompleted: (result) => {
       dispatch({
