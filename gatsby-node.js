@@ -1,3 +1,4 @@
+const path = require(`path`);
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 exports.onCreateWebpackConfig = ({ actions }) => {
@@ -5,5 +6,15 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     resolve: {
       plugins: [new TsconfigPathsPlugin()],
     },
+  });
+};
+
+exports.createPages = async ({ actions }) => {
+  const { createPage } = actions;
+
+  createPage({
+    path: `/entities/:id`,
+    matchPath: `/entities/:id`,
+    component: path.resolve(`./src/pages/entity.tsx`),
   });
 };
