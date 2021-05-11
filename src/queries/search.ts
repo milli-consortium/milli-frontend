@@ -1,8 +1,28 @@
 import { gql } from 'apollo-boost';
 
 const liftQuery = gql`
-  query NiosxData($blob: String) {
-    searchCollections(filterBy: { blob: $blob }) {
+  query NiosxData(
+    $blob: String
+    $date: DateRangeInput
+    $lang: [String!]
+    $subjects: [String!]
+    $people: [String!]
+    $places: [String!]
+    $partners: [String!]
+    $mediaTypes: [String!]
+  ) {
+    searchCollections(
+      filterBy: {
+        blob: $blob
+        date: $date
+        lang: $lang
+        subjects: $subjects
+        people: $people
+        places: $places
+        partners: $partners
+        mediaTypes: $mediaTypes
+      }
+    ) {
       edges {
         node {
           graphId
