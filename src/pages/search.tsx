@@ -4,6 +4,7 @@ import { FilterKey, filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { useQuery } from '@apollo/react-hooks';
 import { Badge, Card, SearchBar } from 'antd-mobile';
+import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
 import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
@@ -245,30 +246,32 @@ const Search: React.FC = () => {
                     );
 
                     return (
-                      <Card key={node.graphId}>
-                        <Card.Header title={node.title} />
-                        <Card.Body>
-                          <div>
-                            {thumbnail && (
-                              <img src={thumbnail.src} alt={thumbnail.alt} />
-                            )}
-                            Created on: {node.dateOfCreation}
-                          </div>
-                        </Card.Body>
-                        <Card.Footer
-                          content={
+                      <Link key={node.graphId} to={`/entities/${node.graphId}`}>
+                        <Card>
+                          <Card.Header title={node.title} />
+                          <Card.Body>
                             <div>
-                              Your search matched{' '}
-                              {isDirectMatch ? 'this object and' : ''}{' '}
-                              {annotationMatchCount > 0
-                                ? `${annotationMatchCount} annotations ${
-                                    isDirectMatch ? 'on it' : 'on this object'
-                                  }`
-                                : ''}
+                              {thumbnail && (
+                                <img src={thumbnail.src} alt={thumbnail.alt} />
+                              )}
+                              Created on: {node.dateOfCreation}
                             </div>
-                          }
-                        />
-                      </Card>
+                          </Card.Body>
+                          <Card.Footer
+                            content={
+                              <div>
+                                Your search matched{' '}
+                                {isDirectMatch ? 'this object and' : ''}{' '}
+                                {annotationMatchCount > 0
+                                  ? `${annotationMatchCount} annotations ${
+                                      isDirectMatch ? 'on it' : 'on this object'
+                                    }`
+                                  : ''}
+                              </div>
+                            }
+                          />
+                        </Card>
+                      </Link>
                     );
                   },
                 )
