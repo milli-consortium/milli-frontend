@@ -1,9 +1,8 @@
-import { NiosxData_searchCollections_pageInfo_filters } from '../queries/types/NiosxData';
+import { FilterKey } from '@/reducers/search-reducer';
 
-export const getKey = (
-  type: keyof Omit<
-    Omit<Omit<NiosxData_searchCollections_pageInfo_filters, 'blob'>, 'date'>,
-    '__typename'
-  >,
-  uuid: string,
-) => `${type}-${uuid}`;
+export const getKey = (type: FilterKey, uuid: string) => `${type}-${uuid}`;
+
+export const getType = (key: string): [Type: FilterKey, UUID: string] => [
+  key.split('-')[0] as FilterKey,
+  key.split('-').slice(1).join('-'),
+];
