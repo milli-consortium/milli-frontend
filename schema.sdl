@@ -92,11 +92,23 @@ input mappingPair {
   val2: String!
 }
 
+type User {
+  id: String! @fake(type: uuid)
+  name: String! @fake(type:fullName)
+  email: String! @fake(type: email)
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
 type mutation {
   ingestWithCrosswalk(ingestWithCrosswalk: ingestWithCrosswalk!): niosxEntity
   addEntity(niosxEntityInput: niosxEntityInput!): niosxEntity
   addAnnotation(annotation: annotationInput!): annotation
   addComment(comment: comment!): annotation
+  login (username: String!, password: String!): AuthPayload
 }
 
 enum ImageSize {
@@ -199,6 +211,8 @@ type Page {
 }
 
 type query {
+  user(userId: String!): User
+
   "Finding Aid for a given collection (fonds, record group, manuscript group, etc.)"
   document(id: String!): niosxEntity
 
