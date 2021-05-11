@@ -37,7 +37,7 @@
         "jsx": "never"
       }
     ],
-    "camelcase": ["error", { "allow": ["^NiosxData"] }]
+    "camelcase": ["error", { "allow": ["^(NiosxData|Entity)"] }]
   },
   "overrides": [
     {
