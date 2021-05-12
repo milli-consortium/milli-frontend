@@ -136,6 +136,7 @@ type niosxEntity {
   level: String!
   images: [Image!] @listLength(min: 0, max: 5)
   annotations: [annotation!]
+  description: annotation
 }
 
 input niosxEntityInput {
@@ -211,8 +212,6 @@ type Page {
 }
 
 type query {
-  user(userId: String!): User
-
   "Finding Aid for a given collection (fonds, record group, manuscript group, etc.)"
   document(id: String!): niosxEntity
 
