@@ -4,12 +4,19 @@
 
 .info-bar {
   height: 69px;
+  background-color: gainsboro;
+  margin: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .description {
   width: 20%;
   min-width: 350px;
   max-width: 500px;
+  padding: 12px;
 }
 
 .container {
@@ -20,4 +27,8 @@
   width: 100%;
   height: 350px;
   background-color: bisque;
+  margin: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
