@@ -635,8 +635,8 @@
             "description": "Annotation body",
             "args": [],
             "type": {
-              "kind": "UNION",
-              "name": "bodyType",
+              "kind": "OBJECT",
+              "name": "textualBody",
               "ofType": null
             },
             "isDeprecated": false,
@@ -815,23 +815,6 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
-      },
-      {
-        "kind": "UNION",
-        "name": "bodyType",
-        "description": "Can be one of TextualBodyType, etc.",
-        "specifiedByUrl": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": [
-          {
-            "kind": "OBJECT",
-            "name": "textualBody",
-            "ofType": null
-          }
-        ]
       },
       {
         "kind": "OBJECT",
@@ -2492,6 +2475,23 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "bodyType",
+        "description": "Can be one of TextualBodyType, etc.",
+        "specifiedByUrl": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "textualBody",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "ENUM",

@@ -33,7 +33,7 @@ type annotation {
   generated: String! @fake(type: recentDate)
 
   "Annotation body"
-  body: bodyType
+  body: textualBody
 
   "Annotation target"
   target: targetType!
@@ -240,10 +240,10 @@ input target {
 union targetType = specificResourceType
 
 type textualBody {
-  typ: String!
-  purpose: String!
-  value: String!
-  format: String!
-  language: String!
-  creator: String!
+  typ: String! @fake(type: word)
+  purpose: String! @fake(type: product)
+  value: String! @fake(type: words)
+  format: String! @fake(type: words)
+  language: String! @fake(type: locale)
+  creator: String! @fake(type: fullName)
 }
