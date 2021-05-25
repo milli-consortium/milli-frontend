@@ -16,9 +16,7 @@ export default function EntityPage({ id }) {
 
   return (
     <div>
-      <Header
-        title={`${data.findEntity ? data.findEntity.title : 'Entity Details'}`}
-      />
+      <Header title={data?.findEntity?.title ?? 'Entity Details'} />
       {loading && <div>Loading...</div>}
       {!loading && error && <div>Error: {error.message}</div>}
       {!loading && !error && data && (
