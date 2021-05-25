@@ -3,6 +3,11 @@ import { entityQuery } from '@/queries/entity';
 import { EntityVariables, Entity } from '@/queries/types/Entity';
 import { useQuery } from '@apollo/react-hooks';
 import React from 'react';
+import * as styles from '../styles/entity.module.css';
+
+const Image: React.FC<{ index: number }> = ({ index }) => (
+  <div className={styles.image}>This is image {index}</div>
+);
 
 export default function EntityPage({ id }) {
   const { loading, error, data } = useQuery<Entity, EntityVariables>(
@@ -23,8 +28,21 @@ export default function EntityPage({ id }) {
         <div>
           {data.findEntity ? (
             <>
-              <div>{data.findEntity.title}</div>
-              <div>{data.findEntity.agencyCode}</div>
+              <div className={styles.infoBar}>{data.findEntity.title}</div>
+              <div className={styles.body}>
+                <div className={styles.description}>
+                  {data.findEntity.description.body.value}
+                </div>
+                <div className={styles.container}>
+                  <div className={styles.infoBar}>
+                    Reference Unit / Extent / {data.findEntity.level}
+                  </div>
+                  <div> Author / Date / Place / Subjects / Languages </div>
+                  <Image index={1} />
+                  <Image index={2} />
+                  <Image index={3} />
+                </div>
+              </div>
             </>
           ) : (
             'Object Not Found'

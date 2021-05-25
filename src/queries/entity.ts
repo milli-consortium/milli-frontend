@@ -15,6 +15,13 @@ export const entityQuery = gql`
         size
       }
       subjects
+      description {
+        body {
+          typ
+          value
+          creator
+        }
+      }
     }
   }
 `;

@@ -1,0 +1,23 @@
+.body {
+  display: flex;
+}
+
+.info-bar {
+  height: 69px;
+}
+
+.description {
+  width: 20%;
+  min-width: 350px;
+  max-width: 500px;
+}
+
+.container {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 350px;
+  background-color: bisque;
+}
