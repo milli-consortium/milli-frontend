@@ -242,7 +242,7 @@ union targetType = specificResourceType
 type textualBody {
   typ: String! @fake(type: word)
   purpose: String! @fake(type: product)
-  value: String! @fake(type: words)
+  value: String! @fake(type: lorem, options: {loremSize: paragraphs})
   format: String! @fake(type: words)
   language: String! @fake(type: locale)
   creator: String! @fake(type: fullName)
