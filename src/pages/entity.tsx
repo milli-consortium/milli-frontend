@@ -16,8 +16,8 @@ export default function Entity({ id }) {
   return (
     <div>
       {loading && <div>Loading...</div>}
-      {!loading && data && <div>{JSON.stringify(data)}</div>}
       {!loading && error && <div>Error: {error.message}</div>}
+      {!loading && data && <div>{JSON.stringify(data)}</div>}
     </div>
   );
 }
