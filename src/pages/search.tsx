@@ -32,10 +32,6 @@ const Search: React.FC = () => {
     NiosxData,
     NiosxDataVariables
   >(searchQuery, {
-    variables: {
-      blob: searchBlob,
-      // ...getFilters(filters),
-    },
     onCompleted: (result) => {
       dispatch({
         type: 'SET',
@@ -92,7 +88,12 @@ const Search: React.FC = () => {
 
   const handleSearchChange = (value: string) => {
     setSearchBlob(value);
-    getEntities();
+    getEntities({
+      variables: {
+        blob: value,
+        ...getFilters(filters),
+      },
+    });
   };
 
   return (
