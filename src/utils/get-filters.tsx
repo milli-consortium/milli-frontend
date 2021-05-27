@@ -1,8 +1,6 @@
 import { FilterKey } from '@/reducers/search-reducer';
 import { getType } from './get-key';
 
-// TODO: add tests
-
 export const getFilters = (flatFilters: Record<string, boolean>) =>
   Object.keys(flatFilters)
     .filter((key) => flatFilters[key])
