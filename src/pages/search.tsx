@@ -2,6 +2,7 @@ import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
 import { FilterKey, filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
+import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Badge, Button, Card, SearchBar } from 'antd-mobile';
 import { Link } from 'gatsby';
@@ -209,8 +210,17 @@ const Search: React.FC = () => {
                 .map((x) => (
                   <Badge
                     key={x.id}
-                    style={{ backgroundColor: '#f1c40f' }}
+                    style={badgeColors.lang}
                     text={`lang: ${x.displayName}`}
+                  />
+                ))}
+              {data.searchCollections.pageInfo.filters.subjects
+                .filter((x) => filters[getKey('subjects', x.id)])
+                .map((x) => (
+                  <Badge
+                    key={x.id}
+                    style={badgeColors.subjects}
+                    text={`subjects: ${x.displayName}`}
                   />
                 ))}
               {data.searchCollections.pageInfo.filters.mediaTypes
@@ -218,7 +228,7 @@ const Search: React.FC = () => {
                 .map((x) => (
                   <Badge
                     key={x.id}
-                    style={{ backgroundColor: '#34495e', color: '#ecf0f1' }}
+                    style={badgeColors.mediaTypes}
                     text={`mediaTypes: ${x.displayName}`}
                   />
                 ))}
@@ -227,7 +237,7 @@ const Search: React.FC = () => {
                 .map((x) => (
                   <Badge
                     key={x.id}
-                    style={{ backgroundColor: '#2ecc71' }}
+                    style={badgeColors.partners}
                     text={`partners: ${x.displayName}`}
                   />
                 ))}
@@ -236,7 +246,7 @@ const Search: React.FC = () => {
                 .map((x) => (
                   <Badge
                     key={x.id}
-                    style={{ backgroundColor: '#3498db' }}
+                    style={badgeColors.people}
                     text={`people: ${x.displayName}`}
                   />
                 ))}
@@ -245,7 +255,7 @@ const Search: React.FC = () => {
                 .map((x) => (
                   <Badge
                     key={x.id}
-                    style={{ backgroundColor: '#e74c3c' }}
+                    style={badgeColors.places}
                     text={`places: ${x.displayName}`}
                   />
                 ))}
