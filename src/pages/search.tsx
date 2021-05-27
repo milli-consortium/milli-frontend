@@ -2,7 +2,7 @@ import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
 import { FilterKey, filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { Badge, Card, SearchBar } from 'antd-mobile';
 import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
@@ -28,7 +28,7 @@ const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
   const [filters, dispatch] = useReducer(filterReducer, {});
 
-  const { loading, error, data, refetch } = useQuery<
+  const [getEntities, { loading, error, data }] = useLazyQuery<
     NiosxData,
     NiosxDataVariables
   >(searchQuery, {
@@ -92,7 +92,7 @@ const Search: React.FC = () => {
 
   const handleSearchChange = (value: string) => {
     setSearchBlob(value);
-    refetch();
+    getEntities();
   };
 
   return (
@@ -105,9 +105,12 @@ const Search: React.FC = () => {
           onChange={handleSearchChange}
           cancelText="Clear"
         />
-        {loading && 'Loading data...'}
-        {!loading && error && <div>{JSON.stringify(error.message)}</div>}
-        {!loading && error === undefined && (
+        {loading ? 'Loading data...' : ''}
+        {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
+        {!loading && !error && !data
+          ? 'Enter a query to search the Archive'
+          : ''}
+        {!loading && !error && data && (
           <div className={styles.container}>
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
