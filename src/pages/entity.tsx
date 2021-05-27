@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import React from 'react';
 import * as styles from '../styles/entity.module.css';
 
+// TODO: render actual image
 const Image: React.FC<{ index: number }> = ({ index }) => (
   <div className={styles.image}>This is image {index}</div>
 );
