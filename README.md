@@ -22,6 +22,15 @@ If you prefer you can clone this repository and run the following commands insid
 
 To view the project you can open `http://localhost:8000`.
 
+## Notes
+
+- If you make a change to a query, rerun `yarn gql:update` to regenerate the typescript typings
+  - if not, your changes won't reflect in your auto-complete
+- if you make a change to the schema, restart `yarn start:gql`
+  - re-run `yarn gql:fetch` to download the JSON version of the schema from the mock schema
+  - commit `schema.sdl` and `graphql-schema.json` in the same git-commit
+  - re-run `gql:update` if needed
+
 ## 🤝 Contributing
 
 1. Fork this repository;
