@@ -17,6 +17,7 @@ If you prefer you can clone this repository and run the following commands insid
 
 1. Clone the repo
 1. Run `yarn start:gql` to start the mock-graphql server
+1. Run `yarn gql:update` to generate typings for the graphql queries
 1. Run `yarn start` to start the dev environment
 
 To view the project you can open `http://localhost:8000`.
