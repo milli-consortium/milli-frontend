@@ -1,6 +1,6 @@
 import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
-import { FilterKey, filterReducer } from '@/reducers/search-reducer';
+import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
@@ -10,20 +10,8 @@ import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
 import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
-import { getKey, getType } from '../utils/get-key';
-
-// TODO: move to utils and add tests
-export const getFilters = (flatFilters: Record<string, boolean>) =>
-  Object.keys(flatFilters)
-    .filter((key) => flatFilters[key])
-    .reduce<Partial<Record<FilterKey, string[]>>>((acc, key) => {
-      const [type, uuid] = getType(key);
-
-      return {
-        ...acc,
-        [type]: acc[type] ? acc[type].concat([uuid]) : [uuid],
-      };
-    }, {});
+import { getKey } from '../utils/get-key';
+import { getFilters } from '../utils/get-filters';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
