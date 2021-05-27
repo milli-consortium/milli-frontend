@@ -3,7 +3,7 @@ import { hFilterValue } from '@/components/hFilterValue';
 import { FilterKey, filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Badge, Card, SearchBar } from 'antd-mobile';
+import { Badge, Button, Card, SearchBar } from 'antd-mobile';
 import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
@@ -86,14 +86,18 @@ const Search: React.FC = () => {
     },
   });
 
-  const handleSearchChange = (value: string) => {
-    setSearchBlob(value);
+  const refetchEntities = (val?: string) => {
     getEntities({
       variables: {
-        blob: value,
+        blob: val ?? searchBlob,
         ...getFilters(filters),
       },
     });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchBlob(value);
+    refetchEntities(value);
   };
 
   return (
@@ -106,6 +110,7 @@ const Search: React.FC = () => {
           onChange={handleSearchChange}
           cancelText="Clear"
         />
+        <Button onClick={() => refetchEntities()}>Refetch</Button>
         {loading ? 'Loading data...' : ''}
         {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
         {!loading && !error && !data
