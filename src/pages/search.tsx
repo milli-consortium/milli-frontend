@@ -105,6 +105,8 @@ const Search: React.FC = () => {
           onChange={handleSearchChange}
           cancelText="Clear"
         />
+        {loading && 'Loading data...'}
+        {!loading && error && <div>{JSON.stringify(error.message)}</div>}
         {!loading && error === undefined && (
           <div className={styles.container}>
             <div className={styles.filters}>
@@ -281,8 +283,6 @@ const Search: React.FC = () => {
             </div>
           </div>
         )}
-        {loading && 'Loading data...'}
-        {!loading && error && <div>{JSON.stringify(error.message)}</div>}
       </div>
     </main>
   );
