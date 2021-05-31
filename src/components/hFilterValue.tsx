@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from 'react';
-import { NiosxData_searchCollections_pageInfo_filters_lang } from '../queries/types/NiosxData';
 import { DownOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { NiosxData_searchCollections_pageInfo_filters_lang } from '../queries/types/NiosxData';
 
 export const hFilterValue = (
   f: Omit<NiosxData_searchCollections_pageInfo_filters_lang, 'isSelected'>,

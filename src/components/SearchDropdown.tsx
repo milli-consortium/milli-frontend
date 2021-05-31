@@ -1,8 +1,8 @@
 import React from 'react';
-import * as styles from '../styles/search.module.css';
 import { Flex, WhiteSpace } from 'antd-mobile';
 import { Menu, Dropdown, Button, message, Space, Tooltip } from 'antd';
 import { DownOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons';
+import * as styles from '../styles/search.module.css';
 import 'antd/dist/antd.css';
 import '../styles/search.css';
 

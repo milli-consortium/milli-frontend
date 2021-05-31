@@ -3,8 +3,8 @@ import * as styles from '../styles/search.module.css';
 import '../styles/search.css';
 import { Accordion, List } from 'antd-mobile';
 import { hFilterValue } from '@/components/hFilterValue';
-import { getKey } from '../utils/get-key';
 import { filterReducer } from '@/reducers/search-reducer';
+import { getKey } from '../utils/get-key';
 
 const SearchAccordion = ({ title, items }) => {
   const [filters, dispatch] = useReducer(filterReducer, {});

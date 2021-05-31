@@ -1,7 +1,7 @@
 import React from 'react';
-import * as styles from '../styles/search.module.css';
 import { Flex } from 'antd-mobile';
 import SearchDropdown from '@/components/SearchDropdown';
+import * as styles from '../styles/search.module.css';
 
 const sortbyData = ['Relevance', 'sort1', 'sort2', 'sort3'];
 const perPages = ['10', '20', '50', '100'];
