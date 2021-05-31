@@ -6,27 +6,24 @@ import { DownOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import '../styles/search.css';
 
-
-
-export const SearchDropdown = ({list, first}) => {
+export const SearchDropdown = ({ list, first }) => {
   const menu = (
     <Menu>
-      {
-        list && list.map((item, index) => (
+      {list &&
+        list.map((item, index) => (
           <Menu.Item key={index} icon={<CheckOutlined />}>
             {item}
           </Menu.Item>
-        ))
-      }
+        ))}
     </Menu>
   );
   return (
-      <Dropdown overlay={menu}>
-          <Button>
-              {first} <DownOutlined />
-          </Button>
-      </Dropdown>
-  )
-}
+    <Dropdown overlay={menu}>
+      <Button>
+        {first} <DownOutlined />
+      </Button>
+    </Dropdown>
+  );
+};
 
 export default SearchDropdown;

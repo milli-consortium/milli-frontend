@@ -9,6 +9,7 @@ export const hFilterValue = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.id} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName} ({f.recordCount ?? '--'})
+    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName} (
+    {f.recordCount ?? '--'})
   </div>
 );

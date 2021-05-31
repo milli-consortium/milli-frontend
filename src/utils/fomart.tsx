@@ -1,4 +1,4 @@
 export const dateformat = (date) => {
-    var res = date.split("T");
-    return res[0];
-}
+  var res = date.split('T');
+  return res[0];
+};
