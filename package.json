@@ -16,14 +16,14 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "type-check": "tsc",
     "test:unit": "jest",
     "gql:fetch": "apollo schema:download --endpoint=http://localhost:9002/graphql graphql-schema.json",
     "gql:update": "apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --config apollo.config.js --tagName=gql --addTypename --useReadOnlyTypes --globalTypesFile=src/types/graphql-global-types.ts types",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --check",
-    "format:fix": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "lint:format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --check",
+    "lint:format:fix": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "lint:types": "tsc",
     "postinstall": "husky install"
   },
   "lint-staged": {
