@@ -28,6 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           ref: ${{ github.head_ref }}
       - run: npm install
+      - run: npm run gql:update
       - run: npm run lint:format
       - run: npm run lint:types
       - run: npm run lint
