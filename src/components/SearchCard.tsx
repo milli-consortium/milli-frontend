@@ -1,7 +1,7 @@
 import React from 'react';
 import * as styles from '../styles/search.module.css';
 import '../styles/search.css';
-import { dateFormat } from '../utils/fomart';
+import { dateFormat } from '../utils/format';
 import { Button, Card, Flex } from 'antd-mobile';
 import { RightOutlined } from '@ant-design/icons';
 
