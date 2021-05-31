@@ -110,13 +110,6 @@ const Search: React.FC = () => {
     <main>
       <Header title="Search Page" />
       <div>
-        {/* <div className={styles.width25}>
-            <Button className="rightOpt textLeft"><RightOutlined />Objective Identity</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Access Points</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />About the Object</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Object Format Data</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Annotation</Button>
-        </div> */}
         <div className="px15">
           <SearchBar
             placeholder="Blog"
@@ -138,16 +131,6 @@ const Search: React.FC = () => {
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
                 <div>
-                  {console.log(
-                    'fitereeeeer',
-                    data.searchCollections.pageInfo.filters,
-                  )}
-                  {/* <div>
-                    From123123: {data.searchCollections.pageInfo.filters.date.from}
-                  </div>
-                  <div>
-                    To234234: {data.searchCollections.pageInfo.filters.date.to}
-                  </div> */}
                   <div>
                     <span className={styles.subSearch}>Refine Results</span>
                     <SearchBar
