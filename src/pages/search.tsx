@@ -1,34 +1,23 @@
-import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 import { hFilterValue } from '@/components/hFilterValue';
+import SearchCard from '@/components/SearchCard';
+import SearchSetting from '@/components/SearchSetting';
 import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
-import {
-  Badge,
-  Button,
-  Card,
-  SearchBar,
-  Flex,
-  Accordion,
-  List,
-} from 'antd-mobile';
+import { Input, Pagination } from 'antd';
+import { Accordion, Badge, Button, Flex, List, SearchBar } from 'antd-mobile';
+import 'antd/dist/antd.css';
 import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
 import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
-import * as styles from '../styles/search.module.css';
 import '../styles/search.css';
-import 'antd/dist/antd.css';
-import { Pagination } from 'antd';
-
-import { getKey } from '../utils/get-key';
+import * as styles from '../styles/search.module.css';
 import { getFilters } from '../utils/get-filters';
-import SearchCard from '@/components/SearchCard';
-import SearchSetting from '@/components/SearchSetting';
-import { Input } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { getKey } from '../utils/get-key';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
