@@ -5,9 +5,7 @@ import { hFilterValue } from '@/components/hFilterValue';
 import { getKey } from '../utils/get-key';
 import { filterReducer } from '@/reducers/search-reducer';
 
-// class SearchAccordion extends React.Component<Record<string, unknown>> {
-const SearchAccordion: React.FC = ({ title, items }) => {
-        // const { title, items } = this.props
+const SearchAccordion = ({ title, items }) => {
         const [filters, dispatch] = useReducer(filterReducer, {});
 
         return (
