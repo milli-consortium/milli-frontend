@@ -11,7 +11,6 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
-  console.log('111222')
   createPage({
     path: `/entities/:id`,
     matchPath: `/entities/:id`,

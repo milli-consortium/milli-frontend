@@ -1,7 +1,5 @@
 import React from 'react';
-import MilliMenu from '@/components/MilliMenu';
 import { Flex } from 'antd-mobile';
-import { Pagination } from 'antd';
 import * as styles from '../styles/search.module.css';
 import '../styles/search.css';
 import { Link } from 'gatsby';
@@ -16,7 +14,7 @@ export const Footer = () => (
           </Flex.Item>
           <Flex.Item>
             <h4>Contact</h4>
-            <Link to="#"><h3 style={{color:"#434343"}}>hello@milli.link</h3></Link>
+            <Link to="#"><h3 className="linkColor">hello@milli.link</h3></Link>
           </Flex.Item>
           <Flex.Item>
             <Link to="https://github.com/"><div className="fleft github"></div></Link>

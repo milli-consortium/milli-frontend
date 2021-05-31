@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import * as styles from '../styles/search.module.css';
+import '../styles/search.css';
 import { Accordion, List } from 'antd-mobile';
 import { hFilterValue } from '@/components/hFilterValue';
 import { getKey } from '../utils/get-key';
@@ -9,7 +10,7 @@ const SearchAccordion = ({ title, items }) => {
         const [filters, dispatch] = useReducer(filterReducer, {});
 
         return (
-            <div style={{ marginTop: 10, marginBottom: 10 }}>
+            <div className="mtb10">
                 <Accordion defaultActiveKey="0" className={styles.myAccordion}>
                     <Accordion.Panel header={title}>
                         <List>

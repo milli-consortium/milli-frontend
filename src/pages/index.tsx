@@ -2,11 +2,9 @@ import React from 'react';
 import { PageProps } from 'gatsby';
 import Container from '@/components/Container';
 import HeroSlides from '@/components/HeroSlides';
-import SearchCard from '@/components/SearchCard';
 
 const Index: React.FC<PageProps> = () => (
   <Container location="home">
-    {/* <SearchCard /> */}
     <HeroSlides />
 
     <div className="about">

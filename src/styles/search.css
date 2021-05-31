@@ -21,7 +21,14 @@
 .am-accordion-content-box{
     border-bottom: 0px solid rgb(221, 221, 221) !important;
 }
+.linkColor{
+    color: #434343;
+}
 
+.mtb10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .px15{
     padding-left: 15%;
     padding-right: 15%;
