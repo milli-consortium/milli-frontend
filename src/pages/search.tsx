@@ -5,7 +5,15 @@ import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Badge, Button, Card, SearchBar, Flex, Accordion, List } from 'antd-mobile';
+import {
+  Badge,
+  Button,
+  Card,
+  SearchBar,
+  Flex,
+  Accordion,
+  List,
+} from 'antd-mobile';
 import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
@@ -21,7 +29,6 @@ import SearchCard from '@/components/SearchCard';
 import SearchSetting from '@/components/SearchSetting';
 import { Input } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
@@ -44,13 +51,19 @@ const Search: React.FC = () => {
           ...result.searchCollections.pageInfo.filters.mediaTypes
             .filter((x) => x.isSelected)
             .reduce(
-              (acc, x) => ({ ...acc, [getKey('mediaTypes', x.id)]: x.isSelected }),
+              (acc, x) => ({
+                ...acc,
+                [getKey('mediaTypes', x.id)]: x.isSelected,
+              }),
               {},
             ),
           ...result.searchCollections.pageInfo.filters.partners
             .filter((x) => x.isSelected)
             .reduce(
-              (acc, x) => ({ ...acc, [getKey('partners', x.id)]: x.isSelected }),
+              (acc, x) => ({
+                ...acc,
+                [getKey('partners', x.id)]: x.isSelected,
+              }),
               {},
             ),
           ...result.searchCollections.pageInfo.filters.people
@@ -68,7 +81,10 @@ const Search: React.FC = () => {
           ...result.searchCollections.pageInfo.filters.subjects
             .filter((x) => x.isSelected)
             .reduce(
-              (acc, x) => ({ ...acc, [getKey('subjects', x.id)]: x.isSelected }),
+              (acc, x) => ({
+                ...acc,
+                [getKey('subjects', x.id)]: x.isSelected,
+              }),
               {},
             ),
         },
@@ -112,17 +128,20 @@ const Search: React.FC = () => {
         <Button onClick={() => refetchEntities()}>Refetch</Button>
         {loading ? 'Loading data...' : ''}
         {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
-        {!loading && !error && !data
-          ? <div className="textCenter">Enter a query to search the Archive</div>
-          : ''}
+        {!loading && !error && !data ? (
+          <div className="textCenter">Enter a query to search the Archive</div>
+        ) : (
+          ''
+        )}
         {!loading && !error && data && (
           <div className={styles.container}>
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
                 <div>
-                  {
-                    console.log('fitereeeeer', data.searchCollections.pageInfo.filters)
-                  }
+                  {console.log(
+                    'fitereeeeer',
+                    data.searchCollections.pageInfo.filters,
+                  )}
                   {/* <div>
                     From123123: {data.searchCollections.pageInfo.filters.date.from}
                   </div>
@@ -140,186 +159,217 @@ const Search: React.FC = () => {
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion defaultActiveKey="0" className={styles.myAccordion}>
-                            <Accordion.Panel header='Placeholder'>
-                                <List>
-                                  <List.Item>
-                                      <div>
-                                        <div className="radioContent"><input type='radio' className="radioOpt" checked />Original Records(900)</div>
-                                        <div className="radioContent"><input type='radio' className="radioOpt" />User Created(30)</div>
-                                      </div>
-                                  </List.Item>
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion
+                        defaultActiveKey="0"
+                        className={styles.myAccordion}
+                      >
+                        <Accordion.Panel header="Placeholder">
+                          <List>
+                            <List.Item>
+                              <div>
+                                <div className="radioContent">
+                                  <input
+                                    type="radio"
+                                    className="radioOpt"
+                                    checked
+                                  />
+                                  Original Records(900)
+                                </div>
+                                <div className="radioContent">
+                                  <input type="radio" className="radioOpt" />
+                                  User Created(30)
+                                </div>
+                              </div>
+                            </List.Item>
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Languages'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.lang.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('lang', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('lang', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Languages">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.lang.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('lang', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('lang', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Date'>
-                                <List>
-                                  <List.Item>
-                                  <div className={styles.flexContainer}>
-                                    <Flex>
-                                        <Flex.Item>
-                                            <Input className="dateInput" placeholder="2019"/>
-                                        </Flex.Item>
-                                        <Flex.Item>
-                                            <div className="alignRight">
-                                                <Input className="dateInput" placeholder="2021"/>
-                                            </div>
-                                        </Flex.Item>
-                                    </Flex>
-                                  </div>
-                                  </List.Item>
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Date">
+                          <List>
+                            <List.Item>
+                              <div className={styles.flexContainer}>
+                                <Flex>
+                                  <Flex.Item>
+                                    <Input
+                                      className="dateInput"
+                                      placeholder="2019"
+                                    />
+                                  </Flex.Item>
+                                  <Flex.Item>
+                                    <div className="alignRight">
+                                      <Input
+                                        className="dateInput"
+                                        placeholder="2021"
+                                      />
+                                    </div>
+                                  </Flex.Item>
+                                </Flex>
+                              </div>
+                            </List.Item>
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Subjects'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.subjects.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('subjects', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('subjects', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Subjects">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.subjects.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('subjects', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('subjects', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='People'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.people.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('people', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('people', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="People">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.people.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('people', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('people', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Places'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.places.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('places', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('places', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Places">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.places.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('places', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('places', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Partners'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.partners.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('partners', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('partners', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Partners">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.partners.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('partners', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('partners', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                   <div>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion className={styles.myAccordion}>
-                            <Accordion.Panel header='Media Types'>
-                                <List>
-                                    {
-                                        data.searchCollections.pageInfo.filters.mediaTypes.map((x, index) => (
-                                            <List.Item key={index}>
-                                                {
-                                                     hFilterValue(x, filters[getKey('mediaTypes', x.id)], () => {
-                                                      dispatch({
-                                                        type: 'TOGGLE',
-                                                        payload: getKey('mediaTypes', x.id),
-                                                      });
-                                                    })
-                                                }
-                                            </List.Item>
-                                        ))
-                                    }
-                                </List>
-                            </Accordion.Panel>
-                        </Accordion>
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Media Types">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.mediaTypes.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('mediaTypes', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('mediaTypes', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
                     </div>
                   </div>
                 </div>
@@ -393,15 +443,17 @@ const Search: React.FC = () => {
 
                     return (
                       <>
-                      <Link key={node.graphId} to={`/entities/${node.graphId}`}>
-                            <SearchCard 
-                            thumbnail={thumbnail} 
-                            node={node} 
-                            isDirectMatch={isDirectMatch} 
-                            annotationMatchCount={annotationMatchCount} 
-                            />
-                      </Link>
-                      
+                        <Link
+                          key={node.graphId}
+                          to={`/entities/${node.graphId}`}
+                        >
+                          <SearchCard
+                            thumbnail={thumbnail}
+                            node={node}
+                            isDirectMatch={isDirectMatch}
+                            annotationMatchCount={annotationMatchCount}
+                          />
+                        </Link>
                       </>
                     );
                   },
@@ -410,7 +462,7 @@ const Search: React.FC = () => {
                 <div>No Records Found</div>
               )}
               <div className="paginationDiv textCenter">
-                <Pagination defaultCurrent={1} total={50} />  
+                <Pagination defaultCurrent={1} total={50} />
               </div>
             </div>
           </div>
