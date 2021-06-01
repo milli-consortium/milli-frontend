@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/search.css';
-import { dateformat } from '../utils/fomart';
-import { Button, Card, Flex } from 'antd-mobile';
 import { RightOutlined } from '@ant-design/icons';
+import { Button, Card, Flex } from 'antd-mobile';
+import { dateFormat } from '../utils/format';
+import '../styles/search.css';
 import * as styles from '../styles/search.module.css';
 import { Row, Col } from 'antd';
 
@@ -40,7 +40,7 @@ const SearchCard = ({
                 </span>
               ))}
           </h4>
-          <h4>Date : {dateformat(node.dateOfCreation)}</h4>
+          <h4>Date : {dateFormat(node.dateOfCreation)}</h4>
           Your search matched {isDirectMatch
             ? 'this object and'
             : ''}{' '}

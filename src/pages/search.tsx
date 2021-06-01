@@ -125,7 +125,7 @@ const Search: React.FC = () => {
             </Col>
           </Row>
         </div>
-        {loading ? 'Loading data...' : ''}
+        {loading ? <div className="textCenter">Loading data...</div> : ''}
         {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
         {!loading && !error && !data ? (
           <div className={styles.container}>
