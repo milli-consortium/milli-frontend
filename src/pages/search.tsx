@@ -4,7 +4,6 @@ import { hFilterValue } from '@/components/hFilterValue';
 import SearchCard from '@/components/SearchCard';
 import SearchSetting from '@/components/SearchSetting';
 import { filterReducer } from '@/reducers/search-reducer';
-import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Input, Pagination } from 'antd';
@@ -141,6 +140,7 @@ const Search: React.FC = () => {
                               <div>
                                 <div className="radioContent">
                                   <input
+                                    title="select Origin records"
                                     type="radio"
                                     className="radioOpt"
                                     checked
@@ -148,7 +148,11 @@ const Search: React.FC = () => {
                                   Original Records(900)
                                 </div>
                                 <div className="radioContent">
-                                  <input type="radio" className="radioOpt" />
+                                  <input
+                                    title="select Origin records"
+                                    type="radio"
+                                    className="radioOpt"
+                                  />
                                   User Created(30)
                                 </div>
                               </div>
@@ -164,8 +168,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="Languages">
                           <List>
                             {data.searchCollections.pageInfo.filters.lang.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('lang', x.id)],
@@ -220,8 +224,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="Subjects">
                           <List>
                             {data.searchCollections.pageInfo.filters.subjects.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('subjects', x.id)],
@@ -246,8 +250,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="People">
                           <List>
                             {data.searchCollections.pageInfo.filters.people.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('people', x.id)],
@@ -272,8 +276,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="Places">
                           <List>
                             {data.searchCollections.pageInfo.filters.places.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('places', x.id)],
@@ -298,8 +302,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="Partners">
                           <List>
                             {data.searchCollections.pageInfo.filters.partners.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('partners', x.id)],
@@ -324,8 +328,8 @@ const Search: React.FC = () => {
                         <Accordion.Panel header="Media Types">
                           <List>
                             {data.searchCollections.pageInfo.filters.mediaTypes.map(
-                              (x, index) => (
-                                <List.Item key={index}>
+                              (x) => (
+                                <List.Item key={x.id}>
                                   {hFilterValue(
                                     x,
                                     filters[getKey('mediaTypes', x.id)],
@@ -408,27 +412,17 @@ const Search: React.FC = () => {
                 ))}
               {data.searchCollections.edges.length > 0 ? (
                 data.searchCollections.edges.map(
-                  ({ node, isDirectMatch, annotationMatchCount }) => {
-                    const thumbnail = node.images.find(
-                      (i) => i.size === ImageSize.SMALL,
-                    );
-
-                    return (
-                      <>
-                        <Link
-                          key={node.graphId}
-                          to={`/entities/${node.graphId}`}
-                        >
-                          <SearchCard
-                            thumbnail={thumbnail}
-                            node={node}
-                            isDirectMatch={isDirectMatch}
-                            annotationMatchCount={annotationMatchCount}
-                          />
-                        </Link>
-                      </>
-                    );
-                  },
+                  ({ node, isDirectMatch, annotationMatchCount }) => (
+                    <>
+                      <Link key={node.graphId} to={`/entities/${node.graphId}`}>
+                        <SearchCard
+                          node={node}
+                          isDirectMatch={isDirectMatch}
+                          annotationMatchCount={annotationMatchCount}
+                        />
+                      </Link>
+                    </>
+                  ),
                 )
               ) : (
                 <div>No Records Found</div>

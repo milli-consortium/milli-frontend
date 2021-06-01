@@ -1,9 +1,9 @@
-import React, { useReducer } from 'react';
-import * as styles from '../styles/search.module.css';
-import '../styles/search.css';
-import { Accordion, List } from 'antd-mobile';
 import { hFilterValue } from '@/components/hFilterValue';
 import { filterReducer } from '@/reducers/search-reducer';
+import { Accordion, List } from 'antd-mobile';
+import React, { useReducer } from 'react';
+import '../styles/search.css';
+import * as styles from '../styles/search.module.css';
 import { getKey } from '../utils/get-key';
 
 const SearchAccordion = ({ title, items }) => {
@@ -15,6 +15,7 @@ const SearchAccordion = ({ title, items }) => {
           <List>
             {items &&
               items.map((x, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <List.Item key={index}>
                   {hFilterValue(x, filters[getKey('lang', x.id)], () => {
                     dispatch({

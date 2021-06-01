@@ -1,5 +1,5 @@
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import React, { MouseEventHandler } from 'react';
-import { DownOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import { NiosxData_searchCollections_pageInfo_filters_lang } from '../queries/types/NiosxData';
 
 export const hFilterValue = (
