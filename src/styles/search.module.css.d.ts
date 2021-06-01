@@ -4,7 +4,6 @@
 export const container: string;
 export const filters: string;
 export const entities: string;
-export const imageCard: string;
 export const subTitle: string;
 export const flexContainer: string;
 export const placeholder: string;

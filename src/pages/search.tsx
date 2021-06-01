@@ -8,7 +8,6 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import {
   Badge,
   Button,
-  Card,
   SearchBar,
   Flex,
   Accordion,
@@ -28,7 +27,7 @@ import { getFilters } from '../utils/get-filters';
 import SearchCard from '@/components/SearchCard';
 import SearchSetting from '@/components/SearchSetting';
 import { Input } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Row, Col } from 'antd';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
@@ -107,29 +106,130 @@ const Search: React.FC = () => {
   };
 
   return (
+    <>
     <main>
       <Header title="Search Page" />
       <div>
-        {/* <div className={styles.width25}>
-            <Button className="rightOpt textLeft"><RightOutlined />Objective Identity</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Access Points</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />About the Object</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Object Format Data</Button>
-            <Button className="rightOpt textLeft"><RightOutlined />Annotation</Button>
-        </div> */}
         <div className="px15">
-          <SearchBar
-            placeholder="Blog"
-            value={searchBlob}
-            onChange={handleSearchChange}
-            cancelText="Clear"
-          />
+          <Row gutter={16}>
+            <Col className="gutter-row" span={20}>
+              <SearchBar
+                placeholder="Blog"
+                value={searchBlob}
+                onChange={handleSearchChange}
+                cancelText="Clear"
+              />
+            </Col>
+            <Col className="gutter-row" span={4}>
+            <Button onClick={() => refetchEntities()}>Refetch</Button>
+            </Col>
+          </Row>
         </div>
-        <Button onClick={() => refetchEntities()}>Refetch</Button>
         {loading ? 'Loading data...' : ''}
         {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
         {!loading && !error && !data ? (
-          <div className="textCenter">Enter a query to search the Archive</div>
+          <div className={styles.container}>
+            <div className={styles.filters}>
+              <div>
+                <div>
+                  <span className={styles.subSearch}>Refine Results</span>
+                  <SearchBar
+                    placeholder="Part of..."
+                    value={searchBlob}
+                    onChange={handleSearchChange}
+                    cancelText="Clear"
+                  />
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion
+                      defaultActiveKey="0"
+                      className={styles.myAccordion}
+                    >
+                      <Accordion.Panel header="Placeholder">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Languages">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Date">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Subjects">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="People">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Places">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Partners">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Media Types">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.entities}>
+              <SearchSetting />
+              <div className="textCenter">Oops. We couldn't find what you were hoping for. Try changing your queries oir help others find material related to the query by annotating it.</div>
+            </div>
+          </div>
         ) : (
           ''
         )}
@@ -138,16 +238,6 @@ const Search: React.FC = () => {
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
                 <div>
-                  {console.log(
-                    'fitereeeeer',
-                    data.searchCollections.pageInfo.filters,
-                  )}
-                  {/* <div>
-                    From123123: {data.searchCollections.pageInfo.filters.date.from}
-                  </div>
-                  <div>
-                    To234234: {data.searchCollections.pageInfo.filters.date.to}
-                  </div> */}
                   <div>
                     <span className={styles.subSearch}>Refine Results</span>
                     <SearchBar
@@ -158,7 +248,7 @@ const Search: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion
                         defaultActiveKey="0"
                         className={styles.myAccordion}
@@ -187,7 +277,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Languages">
                           <List>
@@ -213,7 +303,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Date">
                           <List>
@@ -243,7 +333,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Subjects">
                           <List>
@@ -269,7 +359,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="People">
                           <List>
@@ -295,7 +385,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Places">
                           <List>
@@ -321,7 +411,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Partners">
                           <List>
@@ -347,7 +437,7 @@ const Search: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
+                    <div className="mtb10">
                       <Accordion className={styles.myAccordion}>
                         <Accordion.Panel header="Media Types">
                           <List>
@@ -468,8 +558,10 @@ const Search: React.FC = () => {
           </div>
         )}
       </div>
-      <Footer />
+      
     </main>
+    <Footer data={data}/>
+    </>
   );
 };
 

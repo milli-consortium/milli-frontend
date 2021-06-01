@@ -1,10 +1,10 @@
 import React, { useReducer } from 'react';
+import { filterReducer } from '@/reducers/search-reducer';
 import * as styles from '../styles/search.module.css';
 import '../styles/search.css';
 import { Accordion, List } from 'antd-mobile';
 import { hFilterValue } from '@/components/hFilterValue';
 import { getKey } from '../utils/get-key';
-import { filterReducer } from '@/reducers/search-reducer';
 
 const SearchAccordion = ({ title, items }) => {
     const [filters, dispatch] = useReducer(filterReducer, {});
@@ -14,8 +14,8 @@ const SearchAccordion = ({ title, items }) => {
                 <Accordion.Panel header={title}>
                     <List>
                         {
-                            items && items.map((x, index) => (
-                                <List.Item key={index}>
+                            items && items.map((x, i) => (
+                                <List.Item key={i}>
                                     {
                                         hFilterValue(x, filters[getKey('lang', x.id)], () => {
                                             dispatch({
