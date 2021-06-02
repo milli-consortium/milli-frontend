@@ -7,7 +7,6 @@ type SeoProps = { title: string; description?: string };
 const Seo: React.FC<SeoProps> = ({ title }) => (
   <>
     <Helmet>
-      {/* General tags */}
       <title>Milli - {title}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta

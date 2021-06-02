@@ -5,9 +5,94 @@
 
 .filters {
   flex-basis: 250px;
+  margin-top: 10px;
 }
 
 .entities {
   flex-basis: 600px;
   flex-grow: 1;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.subTitle{
+  color: #888;
+  font-size: 14px;
+  padding: 30px 0 18px 0;
+}
+
+.flexContainer {
+  margin: 10px 0px;
+}
+.flexContainer .inline {
+  width: 80px!important;
+  margin: 9px 9px 9px 0;
+}
+.flexContainer .small {
+  height: 20px!important;
+  line-height: 20px!important;
+}
+
+.placeholder {
+  background-color: #ebebef;
+  color: #bbb;
+  text-align: center;
+  height: 2.713rem;
+  line-height: 30px;
+  width: 100%;
+}
+
+.width25 {
+  width: 25%;
+  float : left;
+}
+
+.width40 {
+  width: 30%;
+  float : left;
+}
+
+.width50 {
+  width: 50%;
+  float : left;
+}
+
+.width60 {
+  width: 70%;
+  float : left;
+}
+
+.width75 {
+  width: 75%;
+  float : left;
+}
+
+.width70 {
+  width: 70%;
+  text-align: center;
+}
+
+.floatLeft {
+  float : left;
+}
+
+.rightItem{
+  width: 90%;
+  height: 2.713rem;
+  background-color: #FAFAFA;
+  border: 1px solid #D9D9D9;
+}
+
+.myAccordion .pad{
+  padding: 10px;
+}
+
+.mx15{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.subSearch{
+  font-weight: 500;
+  font-size: 20px;
 }

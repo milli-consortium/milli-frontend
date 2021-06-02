@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "./src/**/*.{ts,jsx,tsx}": [
-      "yarn format",
+      "yarn lint:format",
       "yarn lint"
     ]
   },
@@ -38,6 +38,7 @@
     "@apollo/react-hooks": "^4.0.0",
     "@fontsource/roboto": "^4.2.3",
     "@fontsource/rufina": "^4.2.2",
+    "antd": "^4.16.0",
     "antd-mobile": "^2.3.4",
     "apollo-boost": "^0.4.9",
     "babel-preset-gatsby": "^1.4.0",

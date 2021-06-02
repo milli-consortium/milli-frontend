@@ -1,17 +1,33 @@
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { hFilterValue } from '@/components/hFilterValue';
 import { filterReducer } from '@/reducers/search-reducer';
 import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Badge, Button, Card, SearchBar } from 'antd-mobile';
+import {
+  Badge,
+  Button,
+  SearchBar,
+  Flex,
+  Accordion,
+  List,
+} from 'antd-mobile';
 import { Link } from 'gatsby';
 import React, { useReducer, useState } from 'react';
 import searchQuery from '../queries/search';
 import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
 import * as styles from '../styles/search.module.css';
+import '../styles/search.css';
+import 'antd/dist/antd.css';
+import { Pagination } from 'antd';
+
 import { getKey } from '../utils/get-key';
 import { getFilters } from '../utils/get-filters';
+import SearchCard from '@/components/SearchCard';
+import SearchSetting from '@/components/SearchSetting';
+import { Input } from 'antd';
+import { Row, Col } from 'antd';
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
@@ -90,102 +106,361 @@ const Search: React.FC = () => {
   };
 
   return (
+    <>
     <main>
       <Header title="Search Page" />
       <div>
-        <SearchBar
-          placeholder="Search"
-          value={searchBlob}
-          onChange={handleSearchChange}
-          cancelText="Clear"
-        />
-        <Button onClick={() => refetchEntities()}>Refetch</Button>
-        {loading ? 'Loading data...' : ''}
+        <div className="px15">
+          <Row gutter={16}>
+            <Col className="gutter-row" span={20}>
+              <SearchBar
+                placeholder="Blog"
+                value={searchBlob}
+                onChange={handleSearchChange}
+                cancelText="Clear"
+              />
+            </Col>
+            <Col className="gutter-row" span={4}>
+            <Button onClick={() => refetchEntities()}>Refetch</Button>
+            </Col>
+          </Row>
+        </div>
+        {loading ? <div className="textCenter">Loading data...</div> : ''}
         {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
-        {!loading && !error && !data
-          ? 'Enter a query to search the Archive'
-          : ''}
+        {!loading && !error && !data ? (
+          <div className={styles.container}>
+            <div className={styles.filters}>
+              <div>
+                <div>
+                  <span className={styles.subSearch}>Refine Results</span>
+                  <SearchBar
+                    placeholder="Part of..."
+                    value={searchBlob}
+                    onChange={handleSearchChange}
+                    cancelText="Clear"
+                  />
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion
+                      defaultActiveKey="0"
+                      className={styles.myAccordion}
+                    >
+                      <Accordion.Panel header="Placeholder">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Languages">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Date">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Subjects">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="People">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Places">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Partners">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div className="mtb10">
+                    <Accordion className={styles.myAccordion}>
+                      <Accordion.Panel header="Media Types">
+                        <List>
+                        </List>
+                      </Accordion.Panel>
+                    </Accordion>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.entities}>
+              <SearchSetting />
+              <div className="textCenter">Oops. We couldn't find what you were hoping for. Try changing your queries oir help others find material related to the query by annotating it.</div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
         {!loading && !error && data && (
           <div className={styles.container}>
             <div className={styles.filters}>
               {data.searchCollections.pageInfo.filters !== null ? (
                 <div>
                   <div>
-                    From: {data.searchCollections.pageInfo.filters.date.from}
+                    <span className={styles.subSearch}>Refine Results</span>
+                    <SearchBar
+                      placeholder="Part of..."
+                      value={searchBlob}
+                      onChange={handleSearchChange}
+                      cancelText="Clear"
+                    />
                   </div>
                   <div>
-                    To: {data.searchCollections.pageInfo.filters.date.to}
+                    <div className="mtb10">
+                      <Accordion
+                        defaultActiveKey="0"
+                        className={styles.myAccordion}
+                      >
+                        <Accordion.Panel header="Placeholder">
+                          <List>
+                            <List.Item>
+                              <div>
+                                <div className="radioContent">
+                                  <input
+                                    type="radio"
+                                    className="radioOpt"
+                                    checked
+                                  />
+                                  Original Records(900)
+                                </div>
+                                <div className="radioContent">
+                                  <input type="radio" className="radioOpt" />
+                                  User Created(30)
+                                </div>
+                              </div>
+                            </List.Item>
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>Languages</h3>
-                    {data.searchCollections.pageInfo.filters.lang.map((x) =>
-                      hFilterValue(x, filters[getKey('lang', x.id)], () => {
-                        dispatch({
-                          type: 'TOGGLE',
-                          payload: getKey('lang', x.id),
-                        });
-                      }),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Languages">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.lang.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('lang', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('lang', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>Subjects</h3>
-                    {data.searchCollections.pageInfo.filters.subjects.map((x) =>
-                      hFilterValue(x, filters[getKey('subjects', x.id)], () => {
-                        dispatch({
-                          type: 'TOGGLE',
-                          payload: getKey('subjects', x.id),
-                        });
-                      }),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Date">
+                          <List>
+                            <List.Item>
+                              <div className={styles.flexContainer}>
+                                <Flex>
+                                  <Flex.Item>
+                                    <Input
+                                      className="dateInput"
+                                      placeholder="2019"
+                                    />
+                                  </Flex.Item>
+                                  <Flex.Item>
+                                    <div className="alignRight">
+                                      <Input
+                                        className="dateInput"
+                                        placeholder="2021"
+                                      />
+                                    </div>
+                                  </Flex.Item>
+                                </Flex>
+                              </div>
+                            </List.Item>
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>People</h3>
-                    {data.searchCollections.pageInfo.filters.people.map((x) =>
-                      hFilterValue(x, filters[getKey('people', x.id)], () => {
-                        dispatch({
-                          type: 'TOGGLE',
-                          payload: getKey('people', x.id),
-                        });
-                      }),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Subjects">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.subjects.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('subjects', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('subjects', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>Places</h3>
-                    {data.searchCollections.pageInfo.filters.places.map((x) =>
-                      hFilterValue(x, filters[getKey('places', x.id)], () => {
-                        dispatch({
-                          type: 'TOGGLE',
-                          payload: getKey('places', x.id),
-                        });
-                      }),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="People">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.people.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('people', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('people', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>Partners</h3>
-                    {data.searchCollections.pageInfo.filters.partners.map((x) =>
-                      hFilterValue(x, filters[getKey('partners', x.id)], () => {
-                        dispatch({
-                          type: 'TOGGLE',
-                          payload: getKey('partners', x.id),
-                        });
-                      }),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Places">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.places.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('places', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('places', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                   <div>
-                    <h3>Media Types</h3>
-                    {data.searchCollections.pageInfo.filters.mediaTypes.map(
-                      (x) =>
-                        hFilterValue(
-                          x,
-                          filters[getKey('mediaTypes', x.id)],
-                          () => {
-                            dispatch({
-                              type: 'TOGGLE',
-                              payload: getKey('partners', x.id),
-                            });
-                          },
-                        ),
-                    )}
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Partners">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.partners.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('partners', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('partners', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="mtb10">
+                      <Accordion className={styles.myAccordion}>
+                        <Accordion.Panel header="Media Types">
+                          <List>
+                            {data.searchCollections.pageInfo.filters.mediaTypes.map(
+                              (x, index) => (
+                                <List.Item key={index}>
+                                  {hFilterValue(
+                                    x,
+                                    filters[getKey('mediaTypes', x.id)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('mediaTypes', x.id),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ),
+                            )}
+                          </List>
+                        </Accordion.Panel>
+                      </Accordion>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -193,6 +468,8 @@ const Search: React.FC = () => {
               )}
             </div>
             <div className={styles.entities}>
+              <SearchSetting />
+              <span className="catefont">Refined by:</span>
               {data.searchCollections.pageInfo.filters.lang
                 .filter((x) => filters[getKey('lang', x.id)])
                 .map((x) => (
@@ -255,43 +532,36 @@ const Search: React.FC = () => {
                     );
 
                     return (
-                      <Link key={node.graphId} to={`/entities/${node.graphId}`}>
-                        <Card>
-                          <Card.Header title={node.title} />
-                          <Card.Body>
-                            <div>
-                              {thumbnail && (
-                                <img src={thumbnail.src} alt={thumbnail.alt} />
-                              )}
-                              Created on: {node.dateOfCreation}
-                            </div>
-                          </Card.Body>
-                          <Card.Footer
-                            content={
-                              <div>
-                                Your search matched{' '}
-                                {isDirectMatch ? 'this object and' : ''}{' '}
-                                {annotationMatchCount > 0
-                                  ? `${annotationMatchCount} annotations ${
-                                      isDirectMatch ? 'on it' : 'on this object'
-                                    }`
-                                  : ''}
-                              </div>
-                            }
+                      <>
+                        <Link
+                          key={node.graphId}
+                          to={`/entities/${node.graphId}`}
+                        >
+                          <SearchCard
+                            thumbnail={thumbnail}
+                            node={node}
+                            isDirectMatch={isDirectMatch}
+                            annotationMatchCount={annotationMatchCount}
                           />
-                        </Card>
-                      </Link>
+                        </Link>
+                      </>
                     );
                   },
                 )
               ) : (
                 <div>No Records Found</div>
               )}
+              <div className="paginationDiv textCenter">
+                <Pagination defaultCurrent={1} total={50} />
+              </div>
             </div>
           </div>
         )}
       </div>
+      
     </main>
+    <Footer data={data}/>
+    </>
   );
 };
 
