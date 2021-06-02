@@ -2,16 +2,19 @@ import { gql } from 'apollo-boost';
 
 const liftQuery = gql`
   query NiosxData(
+    $next: Int = 10
+    $cursor: String!
     $blob: String!
     $date: DateRangeInput
-    $lang: [LanguageInput!]
-    $subjects: [SubjectInput!]
-    $people: [PersonInput!]
-    $places: [PlaceInput!]
-    $partners: [PartnerInput!]
-    $mediaTypes: [MediaType!]
+    $lang: [String!]
+    $subjects: [String!]
+    $people: [String!]
+    $places: [String!]
+    $partners: [String!]
   ) {
     searchCollections(
+      next: $next
+      cursor: $cursor
       entityFilterInputArg: {
         blob: $blob
         dateRange: $date
@@ -20,7 +23,6 @@ const liftQuery = gql`
         people: $people
         places: $places
         partners: $partners
-        mediaTypes: $mediaTypes
       }
     ) {
       edges {
