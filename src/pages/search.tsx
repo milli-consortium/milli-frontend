@@ -388,7 +388,7 @@ const Search: React.FC = () => {
           )}
         </div>
       </main>
-      <Footer data={data} />
+      <Footer />
     </>
   );
 };

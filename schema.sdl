@@ -186,7 +186,7 @@ input NiosxUser {
 }
 
 type Page {
-  edges: [PageEdge!]!
+  edges: [PageEdge!]! @listLength(min: 3, max: 25)
   pageInfo: PageInfo!
 }
 

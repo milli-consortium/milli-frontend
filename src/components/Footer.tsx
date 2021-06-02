@@ -4,14 +4,8 @@ import React from 'react';
 import '../styles/search.css';
 import * as styles from '../styles/search.module.css';
 
-export const Footer = ({ data }) => (
-  <div
-    className={
-      !data
-        ? 'positionFixed footerDiv margin-auto'
-        : 'positionStatic footerDiv margin-auto'
-    }
-  >
+export const Footer = () => (
+  <div className="positionFixed footerDiv margin-auto">
     <div className={styles.flexContainer}>
       <Flex>
         <Flex.Item>

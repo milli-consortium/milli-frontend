@@ -88,12 +88,21 @@
 .cardHeight {
   height: 10.8vw;
 }
+
 .mycard {
   border: 1px gray solid;
   padding: 10px;
   margin-top: 4px;
   margin-bottom: 4px;
+  height: max-content;
+  display: flex;
+  align-items: center;
 }
+
+.mycard > div {
+  margin: 0 6px;
+}
+
 .radioOpt {
   margin-right: 15px;
 }
