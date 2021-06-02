@@ -318,6 +318,7 @@ const Search: React.FC = () => {
                   .filter((x) => filters[getKey('lang', x.graphId)])
                   .map((x) => (
                     <Badge
+                      className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.lang}
                       text={`lang: ${x.displayName}`}
@@ -327,6 +328,7 @@ const Search: React.FC = () => {
                   .filter((x) => filters[getKey('subjects', x.graphId)])
                   .map((x) => (
                     <Badge
+                      className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.subjects}
                       text={`subjects: ${x.label}`}
@@ -336,6 +338,7 @@ const Search: React.FC = () => {
                   .filter((x) => filters[getKey('partners', x.graphId)])
                   .map((x) => (
                     <Badge
+                      className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.partners}
                       text={`partners: ${x.displayName}`}
@@ -345,6 +348,7 @@ const Search: React.FC = () => {
                   .filter((x) => filters[getKey('people', x.graphId)])
                   .map((x) => (
                     <Badge
+                      className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.people}
                       text={`people: ${x.displayName}`}
@@ -354,6 +358,7 @@ const Search: React.FC = () => {
                   .filter((x) => filters[getKey('places', x.graphId)])
                   .map((x) => (
                     <Badge
+                      className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.places}
                       text={`places: ${x.displayName}`}

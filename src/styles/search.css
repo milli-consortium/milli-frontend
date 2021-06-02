@@ -127,8 +127,13 @@ body {
 .positionStatic {
   position: static;
 }
+
 .width80 {
   width: 80%;
+}
+
+.filter-badge {
+  margin: 1px 2px;
 }
 
 .github {
