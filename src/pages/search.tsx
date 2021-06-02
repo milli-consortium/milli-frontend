@@ -488,27 +488,20 @@ const Search: React.FC = () => {
                   ))}
                 {data.searchCollections.edges.length > 0 ? (
                   data.searchCollections.edges.map(
-                    ({ node, isDirectMatch, annotationMatchCount }) => {
-                      const thumbnail = node.images.find(
-                        (i) => i.size === ImageSize.SMALL,
-                      );
-
-                      return (
-                        <>
-                          <Link
-                            key={node.graphId}
-                            to={`/entities/${node.graphId}`}
-                          >
-                            <SearchCard
-                              thumbnail={thumbnail}
-                              node={node}
-                              isDirectMatch={isDirectMatch}
-                              annotationMatchCount={annotationMatchCount}
-                            />
-                          </Link>
-                        </>
-                      );
-                    },
+                    ({ node, isDirectMatch, annotationMatchCount }) => (
+                      <>
+                        <Link
+                          key={node.graphId}
+                          to={`/entities/${node.graphId}`}
+                        >
+                          <SearchCard
+                            node={node}
+                            isDirectMatch={isDirectMatch}
+                            annotationMatchCount={annotationMatchCount}
+                          />
+                        </Link>
+                      </>
+                    ),
                   )
                 ) : (
                   <div>No Records Found</div>
