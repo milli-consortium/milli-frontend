@@ -321,7 +321,7 @@ const Search: React.FC = () => {
                       className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.lang}
-                      text={`lang: ${x.displayName}`}
+                      text={`language: ${x.displayName}`}
                     />
                   ))}
                 {data.searchCollections.pageInfo.filters.subjects
@@ -331,7 +331,7 @@ const Search: React.FC = () => {
                       className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.subjects}
-                      text={`subjects: ${x.label}`}
+                      text={`subject: ${x.label}`}
                     />
                   ))}
                 {data.searchCollections.pageInfo.filters.partners
@@ -341,7 +341,7 @@ const Search: React.FC = () => {
                       className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.partners}
-                      text={`partners: ${x.displayName}`}
+                      text={`partner: ${x.displayName}`}
                     />
                   ))}
                 {data.searchCollections.pageInfo.filters.people
@@ -351,7 +351,7 @@ const Search: React.FC = () => {
                       className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.people}
-                      text={`people: ${x.displayName}`}
+                      text={`person: ${x.displayName}`}
                     />
                   ))}
                 {data.searchCollections.pageInfo.filters.places
@@ -361,7 +361,7 @@ const Search: React.FC = () => {
                       className="filter-badge"
                       key={x.graphId}
                       style={badgeColors.places}
-                      text={`places: ${x.displayName}`}
+                      text={`place: ${x.displayName}`}
                     />
                   ))}
                 {data.searchCollections.edges.length > 0 ? (
