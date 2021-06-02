@@ -32,7 +32,7 @@ export default function EntityPage({ id }) {
               <div className={styles.infoBar}>{data.findEntity.title}</div>
               <div className={styles.body}>
                 <div className={styles.description}>
-                  {data.findEntity.description.body.value}
+                  {data.findEntity.description.body[0].value}
                 </div>
                 <div className={styles.container}>
                   <div className={styles.infoBar}>

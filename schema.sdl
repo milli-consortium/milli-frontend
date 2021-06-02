@@ -1,12 +1,10 @@
-scalar Date
-
 schema {
   query: query
   mutation: mutation
 }
 
 "Annotations object"
-type annotation {
+type Annotation {
   "GraphID for annotation node"
   graphId: String @fake(type: uuid)
   context: String! @fake(type: password)
@@ -21,33 +19,38 @@ type annotation {
   motivation: String! @fake(type: companyCatchPhrase)
 
   "The agent responsible for creation of annotation"
-  creator: creator! 
+  creator: Creator!
 
   "The date-time of creation of annotation"
   created: String! @fake(type: pastDate)
 
   "The agent responsible for generation of annotation"
-  generator: generator!
+  generator: Generator!
 
   "Date-time of generation of annotation"
   generated: String! @fake(type: recentDate)
 
   "Annotation body"
-  body: textualBody
+  body: [bodyType!]
 
   "Annotation target"
-  target: targetType!
+  target: [targetType!]!
 }
 
-input annotationInput {
+input AnnotationInput {
   targetId: String!
   motivation: String!
-  body: bodyInput!
-  target: target!
+  body: BodyInput!
+  target: Target!
   concept: String
 }
 
-input bodyInput {
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input BodyInput {
   typ: String!
   motivation: String!
   value: String!
@@ -56,194 +59,288 @@ input bodyInput {
   creator: String!
 }
 
-"Can be one of TextualBodyType, etc."
-union bodyType = textualBody
-
-input comment {
+input Comment {
   targetId: String!
   value: String!
 }
 
-type creator {
-  id: String! @fake(type: uuid)
+type Creator {
+  graphId: String! @fake(type: uuid)
+  label: String!
   typ: String! @fake(type: jobTitle)
   name: String! @fake(type: fullName)
   nickname: String! @fake(type: firstName)
 }
 
-input crosswalk {
-  args: [mappingPair!]!
+input CsvIngestInput {
+  filePath: String!
+  crosswalk: [FlatRecordMapper!]!
+  partner: PartnerInput!
 }
 
-type generator {
-  id: String! @fake(type: uuid)
-  typ: String! @fake(type: jobTitle)
-  name: String! @fake(type: companyName)
-  homepage: String! @fake(type: url)
+"Date range, inclusive"
+type DateRange {
+  "Date starting from"
+  from: String!
+
+  "Date ending"
+  to: String!
 }
 
-input ingestWithCrosswalk {
-  url: String!
-  crosswalk: crosswalk!
+"ISO-8601 formatted string of format: 2017-06-25"
+input DateRangeInput {
+  from: String!
+  to: String!
 }
 
-input mappingPair {
-  val1: String!
-  val2: String!
+type EntityFilter {
+  blob: String!
+  lang: [Language!]
+  dateRange: DateRange
+  subjects: [Subject!]
+  people: [Person!]
+  places: [Place!]
+  partners: [Partner!]
 }
 
-type User {
-  id: String! @fake(type: uuid)
-  name: String! @fake(type:fullName)
-  email: String! @fake(type: email)
+input EntityFilterInput {
+  blob: String!
+  dateRange: DateRangeInput
+  lang: [LanguageInput!]
+  subjects: [SubjectInput!]
+  people: [PersonInput!]
+  places: [PlaceInput!]
+  partners: [PartnerInput!]
+  mediaTypes: [MediaType!]
 }
 
-type AuthPayload {
-  token: String
-  user: User
+"""
+Map from a flat-record to any level of 
+      nested record structure. Ensure column names are unique.
+"""
+input FlatRecordMapper {
+  field: ValidField!
+  columnName: String!
+  default: String!
 }
 
-type mutation {
-  ingestWithCrosswalk(ingestWithCrosswalk: ingestWithCrosswalk!): niosxEntity
-  addEntity(niosxEntityInput: niosxEntityInput!): niosxEntity
-  addAnnotation(annotation: annotationInput!): annotation
-  addComment(comment: comment!): annotation
-  login (username: String!, password: String!): AuthPayload
-}
-
-enum ImageSize {
-  SMALL
-  MEDIUM
-  LARGE
+type Generator {
+  graphId: String!
+  label: String!
+  typ: String!
+  name: String!
+  homepage: String!
 }
 
 type Image {
-  src: String! @fake(type: imageUrl, options: {randomizeImageUrl:true, imageSize: {width: 100, height: 100} })
+  src: String! @fake(type: imageUrl)
   alt: String @fake(type: hackerPhrase)
-  size: ImageSize
+  size: ImageSize!
 }
 
-type niosxEntity {
+enum ImageSize {
+  LARGE
+  MEDIUM
+  SMALL
+}
+
+type Language {
+  graphId: String!
+  langId: String!
+  displayName: String!
+  isSelected: Boolean
+}
+
+input LanguageInput {
+  graphId: String!
+  langId: String!
+  displayName: String!
+}
+
+enum MediaType {
+  TEXT
+  VIDEO
+  IMAGE
+}
+
+type NiosxEntity {
   graphId: String! @fake(type: uuid)
   agencyCode: String! @fake(type: countryCode)
   recordId: String! @fake(type: uuid)
   unitId: String! @fake(type: uuid)
   title: String! @fake(type: words, options: {minNumber: 2, maxNumber: 15})
-  partner: String @fake(type: companyName)
-  subjects: [String!] @fake(type: word)
+  creator: String!
   dateOfCreation: String! @fake(type: pastDate)
   extent: String!
   level: String!
+  partner: Partner!
+  subjects: [Subject!]!
   images: [Image!] @listLength(min: 0, max: 5)
-  annotations: [annotation!]
-  description: annotation
+  description: Annotation
+  annotations: [Annotation!]!
 }
 
-input niosxEntityInput {
+input NiosxEntityInput {
   agencyCode: String!
   recordId: String!
   unitId: String!
   title: String!
   creator: String!
-  dateOfCreation: String!
+  dateOfCreation: String! 
   extent: String!
   level: String!
+  partner: String!
 }
 
-input DateRangeInput {
-  from: Date
-  to: Date
-}
-
-type DateRange {
-  from: Date
-  to: Date
-}
-
-input filterEntityInput {
-  blob: String
-  date: DateRangeInput
-  lang: [String!]
-  subjects: [String!]
-  people: [String!]
-  places: [String!]
-  partners: [String!]
-  mediaTypes: [String!]
-}
-
-type FilterValue {
-  id: String! @fake(type: uuid)
-  displayName: String! @fake(type: word)
-  recordCount: Int
-  isSelected: Boolean
-}
-
-type EntityFilter {
-  blob: String @fake(type: words, options: {minNumber: 0, maxNumber: 5})
-  date: DateRange!
-  lang: [FilterValue!] @listLength(min: 2, max: 15)
-  subjects: [FilterValue!] @listLength(min: 2, max: 15)
-  people: [FilterValue!] @listLength(min: 2, max: 15)
-  places: [FilterValue!] @listLength(min: 2, max: 15)
-  partners: [FilterValue!] @listLength(min: 2, max: 15)
-  mediaTypes: [FilterValue!] @listLength(min: 2, max: 15)
-}
-
-type PageEdge {
-  node: niosxEntity!
-  cursor: String! @fake(type: uuid)
-  offset: Int
-  # true if node is a direct match
-  isDirectMatch: Boolean
-  # null if no annotation matches
-  annotationMatchCount: Int @fake(type: number, options: {minNumber: 0, maxNumber: 20})
-}
-
-type PageInfo {
-  pageNumber: Int
-  endCursor: String
-  hasNextPage: Boolean
-  filters: EntityFilter
+input NiosxUser {
+  username: String!
+  password: String!
+  role: String!
 }
 
 type Page {
-  edges: [PageEdge!] @listLength(min: 4, max: 25)
+  edges: [PageEdge!]!
   pageInfo: PageInfo!
 }
 
-type query {
-  "Finding Aid for a given collection (fonds, record group, manuscript group, etc.)"
-  document(id: String!): niosxEntity
-
-  "Look up an entity with its graphId"
-  findEntity(id: String!): niosxEntity
-
-  "All documents in the archive."
-  allCollections: [niosxEntity!]!
-  
-  "Query for Entities"
-  searchCollections(first: Int = 10, afterCursor: String, filterBy: filterEntityInput): Page!
+type PageEdge {
+  node: NiosxEntity!
+  cursor: String!
+  offset: Int!
+  isDirectMatch: Boolean!
+  annotationMatchCount: Int!
 }
 
-type specificResourceType {
+type PageInfo {
+  pageNumber: Int!
+  endCursor: String!
+  hasNextPage: Boolean!
+  filters: EntityFilter!
+}
+
+type Partner {
+  graphId: String!
+  displayName: String!
+  isSelected: Boolean
+}
+
+input PartnerInput {
+  graphId: String!
+  displayName: String!
+}
+
+type Person {
+  graphId: String!
+  displayName: String!
+  isSelected: Boolean
+}
+
+input PersonInput {
+  graphId: String!
+  displayName: String!
+}
+
+type Place {
+  graphId: String!
+  lat: Float!
+  lon: Float!
+  displayName: String!
+  isSelected: Boolean
+}
+
+input PlaceInput {
+  graphId: String!
+  lat: Float!
+  lon: Float!
+  displayName: String!
+}
+
+type SpecificResourceType {
+  graphId: String!
   typ: String!
   source: String!
   targetId: String
 }
 
-input target {
+type Subject {
+  label: String! @fake(type: locale)
+  graphId: String! @fake(type: uuid)
+  prefLabel: String!
+  inScheme: String!
+  id: String! @fake(type: uuid)
+  isSelected: Boolean
+}
+
+input SubjectInput {
+  label: String = "subject_heading"
+  graphId: String!
+  prefLabel: String!
+  inScheme: String!
+  id: String!
+}
+
+input Target {
   source: String!
   targetId: String
 }
 
-"Can be one of SpecificResource, etc."
-union targetType = specificResourceType
-
-type textualBody {
-  typ: String! @fake(type: word)
-  purpose: String! @fake(type: product)
+type TextualBody {
+  graphId: String! @fake(type: uuid)
+  typ: String!
+  purpose: String! @fake(type: companyCatchPhrase)
   value: String! @fake(type: lorem, options: {loremSize: paragraphs})
-  format: String! @fake(type: words)
-  language: String! @fake(type: locale)
+  format: String!
+  language: String!
   creator: String! @fake(type: fullName)
 }
+
+type User {
+  username: String!
+  permissions: [String!]
+}
+
+enum ValidField {
+  ME_subject
+  ME_level
+  ME_extent
+  ME_dateOfCreation
+  ME_creator
+  ME_title
+  ME_unitId
+  ME_agencyCode
+  ME_recordId
+}
+
+"Can be one of TextualBodyType, etc."
+union bodyType = TextualBody
+
+type mutation {
+  addSubjectRDF(xml: String!, schema: String!): Subject
+  rdfIngest(rdf_file: String!, schema: String!): Int!
+  ingestWithCrosswalk(csvIngestInput: CsvIngestInput!): Int!
+  addEntity(niosxEntityInput: NiosxEntityInput!): NiosxEntity
+  addAnnotation(annotation: AnnotationInput!): Annotation
+  addComment(comment: Comment!): Annotation
+  login(username: String!, password: String!): AuthPayload
+  register(niosxUserInput: NiosxUser!): String!
+}
+
+type query {
+  "Paginated list of entities"
+  searchCollections(next: Int, cursor: String, entityFilterInputArg: EntityFilterInput!): Page
+
+  "Returns everything! Be careful!"
+  crudeSearch(blob: String!): [NiosxEntity!]!
+
+  "Test if there is an object with this graphId"
+  isValidGraphId(id: String!): Boolean!
+
+  "Look up an entity with its graphId"
+  findEntity(id: String!): NiosxEntity
+
+  "Look up a user with its username"
+  findUser(username: String!): User
+}
+
+"Can be one of SpecificResource, etc."
+union targetType = SpecificResourceType

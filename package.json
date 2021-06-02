@@ -18,6 +18,7 @@
     "clean": "gatsby clean",
     "test:unit": "jest",
     "gql:fetch": "apollo schema:download --endpoint=http://localhost:9002/graphql graphql-schema.json",
+    "gql:fetch:remote": "apollo schema:download --endpoint=https://api.milli.link/graphql graphql-schema.json",
     "gql:update": "apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --config apollo.config.js --tagName=gql --addTypename --useReadOnlyTypes --globalTypesFile=src/types/graphql-global-types.ts types",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",

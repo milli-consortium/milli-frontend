@@ -2,19 +2,19 @@ import { gql } from 'apollo-boost';
 
 const liftQuery = gql`
   query NiosxData(
-    $blob: String
+    $blob: String!
     $date: DateRangeInput
-    $lang: [String!]
-    $subjects: [String!]
-    $people: [String!]
-    $places: [String!]
-    $partners: [String!]
-    $mediaTypes: [String!]
+    $lang: [LanguageInput!]
+    $subjects: [SubjectInput!]
+    $people: [PersonInput!]
+    $places: [PlaceInput!]
+    $partners: [PartnerInput!]
+    $mediaTypes: [MediaType!]
   ) {
     searchCollections(
-      filterBy: {
+      entityFilterInputArg: {
         blob: $blob
-        date: $date
+        dateRange: $date
         lang: $lang
         subjects: $subjects
         people: $people
@@ -27,8 +27,14 @@ const liftQuery = gql`
         node {
           graphId
           title
-          partner
-          subjects
+          partner {
+            graphId
+            displayName
+          }
+          subjects {
+            graphId
+            label
+          }
           dateOfCreation
           images {
             src
@@ -46,38 +52,39 @@ const liftQuery = gql`
         hasNextPage
         filters {
           blob
-          date {
+          dateRange {
             from
             to
           }
           lang {
-            ...filterFields
+            graphId
+            langId
+            displayName
+            isSelected
           }
           subjects {
-            ...filterFields
+            graphId
+            label
+            isSelected
           }
           people {
-            ...filterFields
+            graphId
+            displayName
+            isSelected
           }
           places {
-            ...filterFields
+            graphId
+            displayName
+            isSelected
           }
           partners {
-            ...filterFields
-          }
-          mediaTypes {
-            ...filterFields
+            graphId
+            displayName
+            isSelected
           }
         }
       }
     }
-  }
-
-  fragment filterFields on FilterValue {
-    id
-    displayName
-    recordCount
-    isSelected
   }
 `;
 

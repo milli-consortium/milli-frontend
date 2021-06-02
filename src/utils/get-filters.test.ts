@@ -8,14 +8,14 @@ describe('getFilters', () => {
       [getKey('lang', '1')]: true,
       [getKey('lang', '2')]: false,
       [getKey('lang', '3')]: true,
-      [getKey('mediaTypes', '1')]: true,
-      [getKey('mediaTypes', '2')]: false,
+      [getKey('people', '1')]: true,
+      [getKey('people', '2')]: false,
       [getKey('partners', '1')]: false,
     });
 
     const expected = {
       lang: ['1', '3'],
-      mediaTypes: ['1'],
+      people: ['1'],
     };
 
     assert.deepEqual(actual, expected);
