@@ -12,7 +12,7 @@ import { filterReducer } from '@/reducers/search-reducer';
 import { badgeColors } from '@/utils/badge-color';
 import { getFilters } from '@/utils/get-filters';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Col, Input, Pagination, Row } from 'antd';
+import { Col, Input, Row } from 'antd';
 import { Accordion, Badge, Button, Flex, List, SearchBar } from 'antd-mobile';
 import 'antd/dist/antd.css';
 import { Link } from 'gatsby';
@@ -383,9 +383,6 @@ const Search: React.FC = () => {
                     to the query by annotating it.
                   </div>
                 )}
-                <div className="paginationDiv textCenter">
-                  <Pagination defaultCurrent={1} total={50} />
-                </div>
               </div>
             </div>
           )}
