@@ -1,18 +1,19 @@
-import React from 'react';
 import { RightOutlined } from '@ant-design/icons';
-import { Button, Card, Flex } from 'antd-mobile';
-import { dateFormat } from '../utils/format';
+import { Col, Row } from 'antd';
+import { Button } from 'antd-mobile';
+import React from 'react';
 import '../styles/search.css';
-import * as styles from '../styles/search.module.css';
-import { Row, Col } from 'antd';
+import { dateFormat } from '../utils/format';
 
+// TODO: add types
 const SearchCard = ({
   node,
   thumbnail,
   isDirectMatch,
   annotationMatchCount,
 }) => {
-  const defaultImage = 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png';
+  const defaultImage =
+    'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png';
 
   return (
     <div className="cardHeight mycard">
@@ -25,7 +26,7 @@ const SearchCard = ({
               className="imageCard"
             />
           ) : (
-            <img src={defaultImage} className="imageCard" />
+            <img alt="placeholder" src={defaultImage} className="imageCard" />
           )}
         </Col>
         <Col className="gutter-row" span={16}>
@@ -34,16 +35,14 @@ const SearchCard = ({
           <h4>
             Subject :
             {node.subjects &&
-              node.subjects.map((item, index) => (
-                <span className="mr10" key={index}>
+              node.subjects.map((item) => (
+                <span className="mr10" key={item.graphId}>
                   {item},
                 </span>
               ))}
           </h4>
           <h4>Date : {dateFormat(node.dateOfCreation)}</h4>
-          Your search matched {isDirectMatch
-            ? 'this object and'
-            : ''}{' '}
+          Your search matched {isDirectMatch ? 'this object and' : ''}{' '}
           {annotationMatchCount > 0
             ? `${annotationMatchCount} annotations ${
                 isDirectMatch ? 'on it' : 'on this object'
