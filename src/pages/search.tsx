@@ -10,6 +10,7 @@ import {
 import SearchCard from '@/components/SearchCard';
 import { filterReducer } from '@/reducers/search-reducer';
 import { badgeColors } from '@/utils/badge-color';
+import { getFilters } from '@/utils/get-filters';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Col, Input, Pagination, Row } from 'antd';
 import { Accordion, Badge, Button, Flex, List, SearchBar } from 'antd-mobile';
@@ -21,6 +22,8 @@ import { NiosxData, NiosxDataVariables } from '../queries/types/NiosxData';
 import '../styles/search.css';
 import * as styles from '../styles/search.module.css';
 import { getKey } from '../utils/get-key';
+
+const RESULTS_PER_PAGE = 25;
 
 const Search: React.FC = () => {
   const [searchBlob, setSearchBlob] = useState<string>('');
@@ -87,8 +90,10 @@ const Search: React.FC = () => {
   const refetchEntities = (val?: string) => {
     getEntities({
       variables: {
+        cursor: 'default cursor',
+        next: RESULTS_PER_PAGE,
         blob: val ?? searchBlob,
-        // ...getFilters(filters),
+        ...getFilters(filters),
       },
     });
   };
