@@ -1,4 +1,4 @@
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { BorderOutlined, CheckSquareFilled } from '@ant-design/icons';
 import React, { MouseEventHandler } from 'react';
 import {
   NiosxData_searchCollections_pageInfo_filters_lang,
@@ -15,7 +15,7 @@ export const hLanguageFilter = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.graphId} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName}
+    {isSelected ? <CheckSquareFilled /> : <BorderOutlined />} {f.displayName}
   </div>
 );
 
@@ -26,7 +26,7 @@ export const hSubjectFilter = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.graphId} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.label}
+    {isSelected ? <CheckSquareFilled /> : <BorderOutlined />} {f.label}
   </div>
 );
 
@@ -37,7 +37,7 @@ export const hPersonFilter = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.graphId} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName}
+    {isSelected ? <CheckSquareFilled /> : <BorderOutlined />} {f.displayName}
   </div>
 );
 
@@ -48,7 +48,7 @@ export const hPlaceFilter = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.graphId} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName}
+    {isSelected ? <CheckSquareFilled /> : <BorderOutlined />} {f.displayName}
   </div>
 );
 
@@ -59,6 +59,6 @@ export const hPartnerFilter = (
 ) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div key={f.graphId} onClick={handleClick}>
-    {isSelected ? <CheckOutlined /> : <CloseOutlined />} {f.displayName}
+    {isSelected ? <CheckSquareFilled /> : <BorderOutlined />} {f.displayName}
   </div>
 );
