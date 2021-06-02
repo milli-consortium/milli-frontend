@@ -6,7 +6,10 @@ export const entityQuery = gql`
       graphId
       agencyCode
       title
-      partner
+      partner {
+        graphId
+        displayName
+      }
       dateOfCreation
       level
       images {
@@ -14,13 +17,20 @@ export const entityQuery = gql`
         alt
         size
       }
-      subjects
+      subjects {
+        graphId
+        label
+      }
       description {
+        id
         body {
-          typ
-          value
-          creator
+          ... on TextualBody {
+            graphId
+            value
+            creator
+          }
         }
+        graphId
       }
     }
   }
