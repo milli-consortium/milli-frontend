@@ -8,9 +8,7 @@ import {
   hSubjectFilter,
 } from '@/components/hFilterValue';
 import SearchCard from '@/components/SearchCard';
-import SearchSetting from '@/components/SearchSetting';
 import { filterReducer } from '@/reducers/search-reducer';
-import { ImageSize } from '@/types/graphql-global-types';
 import { badgeColors } from '@/utils/badge-color';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { Col, Input, Pagination, Row } from 'antd';
@@ -124,100 +122,9 @@ const Search: React.FC = () => {
           {!loading && error ? <div>{JSON.stringify(error.message)}</div> : ''}
           {!loading && !error && !data ? (
             <div className={styles.container}>
-              <div className={styles.filters}>
-                <div>
-                  <div>
-                    <span className={styles.subSearch}>Refine Results</span>
-                    <SearchBar
-                      placeholder="Part of..."
-                      value={searchBlob}
-                      onChange={handleSearchChange}
-                      cancelText="Clear"
-                    />
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion
-                        defaultActiveKey="0"
-                        className={styles.myAccordion}
-                      >
-                        <Accordion.Panel header="Placeholder">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Languages">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Date">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Subjects">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="People">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Places">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Partners">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mtb10">
-                      <Accordion className={styles.myAccordion}>
-                        <Accordion.Panel header="Media Types">
-                          <List />
-                        </Accordion.Panel>
-                      </Accordion>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className={styles.entities}>
-                <SearchSetting />
                 <div className="textCenter">
-                  Oops. We could not find what you were hoping for. Try changing
-                  your queries oir help others find material related to the
-                  query by annotating it.
+                  What would you like to Explore Today?
                 </div>
               </div>
             </div>
@@ -229,44 +136,6 @@ const Search: React.FC = () => {
               <div className={styles.filters}>
                 {data.searchCollections.pageInfo.filters !== null ? (
                   <div>
-                    <div>
-                      <span className={styles.subSearch}>Refine Results</span>
-                      <SearchBar
-                        placeholder="Part of..."
-                        value={searchBlob}
-                        onChange={handleSearchChange}
-                        cancelText="Clear"
-                      />
-                    </div>
-                    <div>
-                      <div className="mtb10">
-                        <Accordion
-                          defaultActiveKey="0"
-                          className={styles.myAccordion}
-                        >
-                          <Accordion.Panel header="Placeholder">
-                            <List>
-                              <List.Item>
-                                <div>
-                                  <div className="radioContent">
-                                    <input
-                                      type="radio"
-                                      className="radioOpt"
-                                      checked
-                                    />
-                                    Original Records(900)
-                                  </div>
-                                  <div className="radioContent">
-                                    <input type="radio" className="radioOpt" />
-                                    User Created(30)
-                                  </div>
-                                </div>
-                              </List.Item>
-                            </List>
-                          </Accordion.Panel>
-                        </Accordion>
-                      </div>
-                    </div>
                     <div>
                       <div className="mtb10">
                         <Accordion className={styles.myAccordion}>
@@ -439,7 +308,6 @@ const Search: React.FC = () => {
                 )}
               </div>
               <div className={styles.entities}>
-                <SearchSetting />
                 <span className="catefont">Refined by:</span>
                 {data.searchCollections.pageInfo.filters.lang
                   .filter((x) => filters[getKey('lang', x.graphId)])
@@ -504,7 +372,11 @@ const Search: React.FC = () => {
                     ),
                   )
                 ) : (
-                  <div>No Records Found</div>
+                  <div className="textCenter">
+                    Oops. We could not find what you were hoping for. Try
+                    changing your queries oir help others find material related
+                    to the query by annotating it.
+                  </div>
                 )}
                 <div className="paginationDiv textCenter">
                   <Pagination defaultCurrent={1} total={50} />
