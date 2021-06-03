@@ -90,7 +90,7 @@ const Search: React.FC = () => {
   const refetchEntities = (val?: string) => {
     getEntities({
       variables: {
-        cursor: 'default cursor',
+        cursor: '0',
         next: RESULTS_PER_PAGE,
         blob: val ?? searchBlob,
         ...getFilters(filters),
