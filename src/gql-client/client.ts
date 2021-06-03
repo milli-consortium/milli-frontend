@@ -1,3 +1,4 @@
+// Reference docs here: https://www.apollographql.com/docs/react/networking/authentication/
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import fetch from 'isomorphic-fetch';
 
