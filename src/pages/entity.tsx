@@ -10,7 +10,12 @@ const Image: React.FC<{ index: number }> = ({ index }) => (
   <div className={styles.image}>This is image {index}</div>
 );
 
-export default function EntityPage({ id }) {
+type EntityProps = {
+  id: string;
+};
+
+export default function EntityPage(props: EntityProps) {
+  const { id } = props;
   const { loading, error, data } = useQuery<Entity, EntityVariables>(
     entityQuery,
     {
@@ -32,7 +37,9 @@ export default function EntityPage({ id }) {
               <div className={styles.infoBar}>{data.findEntity.title}</div>
               <div className={styles.body}>
                 <div className={styles.description}>
-                  {data.findEntity.description.body[0].value}
+                  {data.findEntity.description?.body
+                    ? data.findEntity.description?.body[0].value
+                    : 'Description Not Found'}
                 </div>
                 <div className={styles.container}>
                   <div className={styles.infoBar}>

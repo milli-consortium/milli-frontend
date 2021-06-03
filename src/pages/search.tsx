@@ -34,56 +34,57 @@ const Search: React.FC = () => {
     NiosxDataVariables
   >(searchQuery, {
     onCompleted: (result) => {
-      dispatch({
-        type: 'SET',
-        payload: {
-          ...result.searchCollections.pageInfo.filters.lang
-            .filter((x) => x.isSelected)
-            .reduce(
-              (acc, x) => ({
-                ...acc,
-                [getKey('lang', x.graphId)]: x.isSelected,
-              }),
-              {},
-            ),
-          ...result.searchCollections.pageInfo.filters.partners
-            .filter((x) => x.isSelected)
-            .reduce(
-              (acc, x) => ({
-                ...acc,
-                [getKey('partners', x.graphId)]: x.isSelected,
-              }),
-              {},
-            ),
-          ...result.searchCollections.pageInfo.filters.people
-            .filter((x) => x.isSelected)
-            .reduce(
-              (acc, x) => ({
-                ...acc,
-                [getKey('people', x.graphId)]: x.isSelected,
-              }),
-              {},
-            ),
-          ...result.searchCollections.pageInfo.filters.places
-            .filter((x) => x.isSelected)
-            .reduce(
-              (acc, x) => ({
-                ...acc,
-                [getKey('places', x.graphId)]: x.isSelected,
-              }),
-              {},
-            ),
-          ...result.searchCollections.pageInfo.filters.subjects
-            .filter((x) => x.isSelected)
-            .reduce(
-              (acc, x) => ({
-                ...acc,
-                [getKey('subjects', x.graphId)]: x.isSelected,
-              }),
-              {},
-            ),
-        },
-      });
+      if (result.searchCollections?.pageInfo.filters)
+        dispatch({
+          type: 'SET',
+          payload: {
+            ...(result.searchCollections.pageInfo.filters.lang ?? [])
+              .filter((x) => x.isSelected)
+              .reduce(
+                (acc, x) => ({
+                  ...acc,
+                  [getKey('lang', x.graphId)]: x.isSelected,
+                }),
+                {},
+              ),
+            ...(result.searchCollections.pageInfo.filters.partners ?? [])
+              .filter((x) => x.isSelected)
+              .reduce(
+                (acc, x) => ({
+                  ...acc,
+                  [getKey('partners', x.graphId)]: x.isSelected,
+                }),
+                {},
+              ),
+            ...(result.searchCollections.pageInfo.filters.people ?? [])
+              .filter((x) => x.isSelected)
+              .reduce(
+                (acc, x) => ({
+                  ...acc,
+                  [getKey('people', x.graphId)]: x.isSelected,
+                }),
+                {},
+              ),
+            ...(result.searchCollections.pageInfo.filters.places ?? [])
+              .filter((x) => x.isSelected)
+              .reduce(
+                (acc, x) => ({
+                  ...acc,
+                  [getKey('places', x.graphId)]: x.isSelected,
+                }),
+                {},
+              ),
+            ...(result.searchCollections.pageInfo.filters.subjects ?? [])
+              .filter((x) => x.isSelected)
+              .reduce(
+                (acc, x) => ({
+                  ...acc,
+                  [getKey('subjects', x.graphId)]: x.isSelected,
+                }),
+                {},
+              ),
+          },
+        });
     },
   });
 
@@ -136,7 +137,7 @@ const Search: React.FC = () => {
           ) : (
             ''
           )}
-          {!loading && !error && data && (
+          {!loading && !error && data?.searchCollections && (
             <div className={styles.container}>
               <div className={styles.filters}>
                 {data.searchCollections.pageInfo.filters !== null ? (
@@ -146,22 +147,23 @@ const Search: React.FC = () => {
                         <Accordion className={styles.myAccordion}>
                           <Accordion.Panel header="Languages">
                             <List>
-                              {data.searchCollections.pageInfo.filters.lang.map(
-                                (x) => (
-                                  <List.Item key={x.graphId}>
-                                    {hLanguageFilter(
-                                      x,
-                                      filters[getKey('lang', x.graphId)],
-                                      () => {
-                                        dispatch({
-                                          type: 'TOGGLE',
-                                          payload: getKey('lang', x.graphId),
-                                        });
-                                      },
-                                    )}
-                                  </List.Item>
-                                ),
-                              )}
+                              {(
+                                data.searchCollections.pageInfo.filters.lang ??
+                                []
+                              ).map((x) => (
+                                <List.Item key={x.graphId}>
+                                  {hLanguageFilter(
+                                    x,
+                                    filters[getKey('lang', x.graphId)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('lang', x.graphId),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ))}
                             </List>
                           </Accordion.Panel>
                         </Accordion>
@@ -202,25 +204,23 @@ const Search: React.FC = () => {
                         <Accordion className={styles.myAccordion}>
                           <Accordion.Panel header="Subjects">
                             <List>
-                              {data.searchCollections.pageInfo.filters.subjects.map(
-                                (x) => (
-                                  <List.Item key={x.graphId}>
-                                    {hSubjectFilter(
-                                      x,
-                                      filters[getKey('subjects', x.graphId)],
-                                      () => {
-                                        dispatch({
-                                          type: 'TOGGLE',
-                                          payload: getKey(
-                                            'subjects',
-                                            x.graphId,
-                                          ),
-                                        });
-                                      },
-                                    )}
-                                  </List.Item>
-                                ),
-                              )}
+                              {(
+                                data.searchCollections.pageInfo.filters
+                                  .subjects ?? []
+                              ).map((x) => (
+                                <List.Item key={x.graphId}>
+                                  {hSubjectFilter(
+                                    x,
+                                    filters[getKey('subjects', x.graphId)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('subjects', x.graphId),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ))}
                             </List>
                           </Accordion.Panel>
                         </Accordion>
@@ -231,22 +231,23 @@ const Search: React.FC = () => {
                         <Accordion className={styles.myAccordion}>
                           <Accordion.Panel header="People">
                             <List>
-                              {data.searchCollections.pageInfo.filters.people.map(
-                                (x) => (
-                                  <List.Item key={x.graphId}>
-                                    {hPersonFilter(
-                                      x,
-                                      filters[getKey('people', x.graphId)],
-                                      () => {
-                                        dispatch({
-                                          type: 'TOGGLE',
-                                          payload: getKey('people', x.graphId),
-                                        });
-                                      },
-                                    )}
-                                  </List.Item>
-                                ),
-                              )}
+                              {(
+                                data.searchCollections.pageInfo.filters
+                                  .people ?? []
+                              ).map((x) => (
+                                <List.Item key={x.graphId}>
+                                  {hPersonFilter(
+                                    x,
+                                    filters[getKey('people', x.graphId)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('people', x.graphId),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ))}
                             </List>
                           </Accordion.Panel>
                         </Accordion>
@@ -257,22 +258,23 @@ const Search: React.FC = () => {
                         <Accordion className={styles.myAccordion}>
                           <Accordion.Panel header="Places">
                             <List>
-                              {data.searchCollections.pageInfo.filters.places.map(
-                                (x) => (
-                                  <List.Item key={x.graphId}>
-                                    {hPlaceFilter(
-                                      x,
-                                      filters[getKey('places', x.graphId)],
-                                      () => {
-                                        dispatch({
-                                          type: 'TOGGLE',
-                                          payload: getKey('places', x.graphId),
-                                        });
-                                      },
-                                    )}
-                                  </List.Item>
-                                ),
-                              )}
+                              {(
+                                data.searchCollections.pageInfo.filters
+                                  .places ?? []
+                              ).map((x) => (
+                                <List.Item key={x.graphId}>
+                                  {hPlaceFilter(
+                                    x,
+                                    filters[getKey('places', x.graphId)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('places', x.graphId),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ))}
                             </List>
                           </Accordion.Panel>
                         </Accordion>
@@ -283,25 +285,23 @@ const Search: React.FC = () => {
                         <Accordion className={styles.myAccordion}>
                           <Accordion.Panel header="Partners">
                             <List>
-                              {data.searchCollections.pageInfo.filters.partners.map(
-                                (x) => (
-                                  <List.Item key={x.graphId}>
-                                    {hPartnerFilter(
-                                      x,
-                                      filters[getKey('partners', x.graphId)],
-                                      () => {
-                                        dispatch({
-                                          type: 'TOGGLE',
-                                          payload: getKey(
-                                            'partners',
-                                            x.graphId,
-                                          ),
-                                        });
-                                      },
-                                    )}
-                                  </List.Item>
-                                ),
-                              )}
+                              {(
+                                data.searchCollections.pageInfo.filters
+                                  .partners ?? []
+                              ).map((x) => (
+                                <List.Item key={x.graphId}>
+                                  {hPartnerFilter(
+                                    x,
+                                    filters[getKey('partners', x.graphId)],
+                                    () => {
+                                      dispatch({
+                                        type: 'TOGGLE',
+                                        payload: getKey('partners', x.graphId),
+                                      });
+                                    },
+                                  )}
+                                </List.Item>
+                              ))}
                             </List>
                           </Accordion.Panel>
                         </Accordion>
@@ -313,57 +313,63 @@ const Search: React.FC = () => {
                 )}
               </div>
               <div className={styles.entities}>
-                <span className="catefont">Refined by:</span>
-                {data.searchCollections.pageInfo.filters.lang
-                  .filter((x) => filters[getKey('lang', x.graphId)])
-                  .map((x) => (
-                    <Badge
-                      className="filter-badge"
-                      key={x.graphId}
-                      style={badgeColors.lang}
-                      text={`language: ${x.displayName}`}
-                    />
-                  ))}
-                {data.searchCollections.pageInfo.filters.subjects
-                  .filter((x) => filters[getKey('subjects', x.graphId)])
-                  .map((x) => (
-                    <Badge
-                      className="filter-badge"
-                      key={x.graphId}
-                      style={badgeColors.subjects}
-                      text={`subject: ${x.label}`}
-                    />
-                  ))}
-                {data.searchCollections.pageInfo.filters.partners
-                  .filter((x) => filters[getKey('partners', x.graphId)])
-                  .map((x) => (
-                    <Badge
-                      className="filter-badge"
-                      key={x.graphId}
-                      style={badgeColors.partners}
-                      text={`partner: ${x.displayName}`}
-                    />
-                  ))}
-                {data.searchCollections.pageInfo.filters.people
-                  .filter((x) => filters[getKey('people', x.graphId)])
-                  .map((x) => (
-                    <Badge
-                      className="filter-badge"
-                      key={x.graphId}
-                      style={badgeColors.people}
-                      text={`person: ${x.displayName}`}
-                    />
-                  ))}
-                {data.searchCollections.pageInfo.filters.places
-                  .filter((x) => filters[getKey('places', x.graphId)])
-                  .map((x) => (
-                    <Badge
-                      className="filter-badge"
-                      key={x.graphId}
-                      style={badgeColors.places}
-                      text={`place: ${x.displayName}`}
-                    />
-                  ))}
+                {data.searchCollections.pageInfo.filters ? (
+                  <>
+                    <span className="catefont">Refined by:</span>
+                    {(data.searchCollections.pageInfo.filters.lang ?? [])
+                      .filter((x) => filters[getKey('lang', x.graphId)])
+                      .map((x) => (
+                        <Badge
+                          className="filter-badge"
+                          key={x.graphId}
+                          style={badgeColors.lang}
+                          text={`language: ${x.displayName}`}
+                        />
+                      ))}
+                    {(data.searchCollections.pageInfo.filters.subjects ?? [])
+                      .filter((x) => filters[getKey('subjects', x.graphId)])
+                      .map((x) => (
+                        <Badge
+                          className="filter-badge"
+                          key={x.graphId}
+                          style={badgeColors.subjects}
+                          text={`subject: ${x.label}`}
+                        />
+                      ))}
+                    {(data.searchCollections.pageInfo.filters.partners ?? [])
+                      .filter((x) => filters[getKey('partners', x.graphId)])
+                      .map((x) => (
+                        <Badge
+                          className="filter-badge"
+                          key={x.graphId}
+                          style={badgeColors.partners}
+                          text={`partner: ${x.displayName}`}
+                        />
+                      ))}
+                    {(data.searchCollections.pageInfo.filters.people ?? [])
+                      .filter((x) => filters[getKey('people', x.graphId)])
+                      .map((x) => (
+                        <Badge
+                          className="filter-badge"
+                          key={x.graphId}
+                          style={badgeColors.people}
+                          text={`person: ${x.displayName}`}
+                        />
+                      ))}
+                    {(data.searchCollections.pageInfo.filters.places ?? [])
+                      .filter((x) => filters[getKey('places', x.graphId)])
+                      .map((x) => (
+                        <Badge
+                          className="filter-badge"
+                          key={x.graphId}
+                          style={badgeColors.places}
+                          text={`place: ${x.displayName}`}
+                        />
+                      ))}
+                  </>
+                ) : (
+                  ''
+                )}
                 {data.searchCollections.edges.length > 0 ? (
                   data.searchCollections.edges.map(
                     ({ node, isDirectMatch, annotationMatchCount }) => (

@@ -6,9 +6,10 @@ export const getFilters = (flatFilters: Record<string, boolean>) =>
     .filter((key) => flatFilters[key])
     .reduce<Partial<Record<FilterKey, string[]>>>((acc, key) => {
       const [type, uuid] = getType(key);
+      const currentFilters = acc[type];
 
       return {
         ...acc,
-        [type]: acc[type] ? acc[type].concat([uuid]) : [uuid],
+        [type]: currentFilters ? currentFilters.concat([uuid]) : [uuid],
       };
     }, {});

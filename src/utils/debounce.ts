@@ -8,7 +8,7 @@ export const debounce = <T extends (...x: unknown[]) => void>(
   t: number,
   fn: T,
 ) => {
-  let handle = null;
+  let handle: NodeJS.Timeout | null = null;
 
   return (...args: unknown[]) => {
     if (handle !== null) clearTimeout(handle);

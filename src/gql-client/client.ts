@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'https://api.milli.link/graphql',
   fetch,
 });
 

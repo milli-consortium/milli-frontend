@@ -21,7 +21,11 @@ const SearchCard = (props: SearchProps) => {
     <div className="cardHeight mycard">
       <div>
         {thumbnail ? (
-          <img src={thumbnail.src} alt={thumbnail.alt} className="imageCard" />
+          <img
+            src={thumbnail.src}
+            alt={thumbnail.alt ?? 'Alt-Text not found'}
+            className="imageCard"
+          />
         ) : (
           <img alt="placeholder" src={DEFAULT_IMAGE} className="imageCard" />
         )}
@@ -39,7 +43,7 @@ const SearchCard = (props: SearchProps) => {
         </h4>
         <h4>Date : {dateFormat(node.dateOfCreation)}</h4>
         Your search matched {isDirectMatch ? 'this object and' : ''}{' '}
-        {annotationMatchCount > 0
+        {annotationMatchCount && annotationMatchCount > 0
           ? `${annotationMatchCount} annotations ${
               isDirectMatch ? 'on it' : 'on this object'
             }`

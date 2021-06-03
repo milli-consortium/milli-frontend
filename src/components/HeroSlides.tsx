@@ -6,8 +6,10 @@ type SlidesState = {
   imgHeight: number | string;
   data: string[];
 };
-class HeroSlides extends React.Component<Record<string, unknown>, SlidesState> {
-  constructor(props) {
+
+type HeroSlidesProps = Record<string, unknown>;
+class HeroSlides extends React.Component<HeroSlidesProps, SlidesState> {
+  constructor(props: HeroSlidesProps) {
     super(props);
     this.state = {
       data: ['1', '2', '3'],

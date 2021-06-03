@@ -1,6 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons';
 /* eslint global-require:0, no-nested-ternary:0 */
 import { ActivityIndicator, Menu, NavBar } from 'antd-mobile';
+import { ValueType } from 'antd-mobile/lib/menu/PropsType';
 import React from 'react';
 
 type MenuItem = {
@@ -27,39 +28,35 @@ const data: MenuItem[] = [
 const isBrowser = typeof document !== 'undefined';
 
 type MenuState = {
-  initData: MenuItem[] | null;
+  initData?: MenuItem[];
   show: boolean;
 };
 class MilliMenu extends React.Component<Record<string, unknown>, MenuState> {
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
-      initData: null,
       show: false,
     };
   }
 
-  onChange = (value) => {
-    let label = '';
-    data.forEach((dataItem) => {
-      if (dataItem.value === value[0]) {
-        label = dataItem.label;
-        if (dataItem.children && value[1]) {
-          dataItem.children.forEach((cItem) => {
-            if (cItem.value === value[1]) {
-              label += ` ${cItem.label}`;
-            }
-          });
-        }
-      }
-    });
-
-    // eslint-disable-next-line no-console
-    console.info(label);
+  onChange = (_value?: ValueType) => {
+    // let label = '';
+    // data.forEach((dataItem) => {
+    //   if (dataItem.value === value[0]) {
+    //     label = dataItem.label;
+    //     if (dataItem.children && value[1]) {
+    //       dataItem.children.forEach((cItem) => {
+    //         if (cItem.value === value[1]) {
+    //           label += ` ${cItem.label}`;
+    //         }
+    //       });
+    //     }
+    //   }
+    // });
+    // console.info(label);
   };
 
-  handleClick = (e) => {
-    e.preventDefault(); // Fix event propagation on Android
+  handleClick = () => {
     const { show, initData } = this.state;
 
     this.setState({
