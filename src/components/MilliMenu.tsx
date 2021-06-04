@@ -23,6 +23,14 @@ const data: MenuItem[] = [
     value: '3',
     label: 'Partners',
   },
+  {
+    value: '4',
+    label: 'Search',
+  },
+  {
+    value: '5',
+    label: 'Contact',
+  },
 ];
 
 const isBrowser = typeof document !== 'undefined';
