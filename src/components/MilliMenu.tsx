@@ -5,7 +5,7 @@ import { ValueType } from 'antd-mobile/lib/menu/PropsType';
 import React from 'react';
 
 type MenuItem = {
-  value: '1' | '2' | '3';
+  value: '1' | '2' | '3' | '4' | '5';
   label: string;
   children?: MenuItem[];
 };
