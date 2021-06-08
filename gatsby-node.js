@@ -12,7 +12,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
   createPage({
-    path: `/entities/:id`,
+    path: `/entities/`,
     matchPath: `/entities/:id`,
     component: path.resolve(`./src/pages/entity.tsx`),
   });
