@@ -54,6 +54,7 @@ const liftQuery = gql`
                 typ
                 purpose
                 value
+                creator
               }
             }
             target {

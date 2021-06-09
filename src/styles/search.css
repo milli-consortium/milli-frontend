@@ -90,10 +90,9 @@
 }
 
 .myCard {
-  border: 1px gray solid;
+  border: 1px lightgray solid;
   padding: 10px;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin: 8px 0;
   height: max-content;
   display: flex;
   align-items: center;
@@ -101,6 +100,19 @@
 
 .myCard > div {
   margin: 0 6px;
+}
+
+.annotationCard {
+  box-shadow: 2px 2px 5px lightgray;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+.annotationCard > .annotation-card__body {
+  margin-left: 8px;
+  padding-left: 8px;
+  margin-top: 8px;
+  border-left: 2px gray solid;
 }
 
 .radioOpt {
