@@ -21,7 +21,7 @@ const SearchCard = (props: SearchProps) => {
   const thumbnail = node.images.find((i) => i.size === ImageSize.SMALL);
 
   return (
-    <div className="cardHeight mycard">
+    <div className="cardHeight myCard">
       <div>
         {thumbnail ? (
           <img
