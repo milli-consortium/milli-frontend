@@ -9,15 +9,10 @@ const DEFAULT_IMAGE =
 
 type SearchProps = {
   node: NiosxData_searchCollections_edges_node;
-  isDirectMatch: boolean;
-  annotationMatchCount: number | null;
 };
 
-const pluralize = (count: number, word: string) =>
-  `${word}${count > 1 ? 's' : ''}`;
-
 const SearchCard = (props: SearchProps) => {
-  const { node, isDirectMatch, annotationMatchCount } = props;
+  const { node } = props;
   const thumbnail = node.images.find((i) => i.size === ImageSize.SMALL);
 
   return (
@@ -45,13 +40,6 @@ const SearchCard = (props: SearchProps) => {
           ))}
         </h4>
         <h4>Date : {dateFormat(node.dateOfCreation)}</h4>
-        Your search matched {isDirectMatch ? 'this object' : ''}
-        {annotationMatchCount && annotationMatchCount > 0
-          ? `${isDirectMatch ? 'and ' : ''} ${annotationMatchCount} ${pluralize(
-              annotationMatchCount,
-              'annotation',
-            )}`
-          : ''}
       </div>
     </div>
   );

@@ -371,22 +371,13 @@ const Search: React.FC = () => {
                   ''
                 )}
                 {data.searchCollections.edges.length > 0 ? (
-                  data.searchCollections.edges.map(
-                    ({ node, isDirectMatch, annotationMatchCount }) => (
-                      <>
-                        <Link
-                          key={node.graphId}
-                          to={`/entities/${node.graphId}`}
-                        >
-                          <SearchCard
-                            node={node}
-                            isDirectMatch={isDirectMatch}
-                            annotationMatchCount={annotationMatchCount}
-                          />
-                        </Link>
-                      </>
-                    ),
-                  )
+                  data.searchCollections.edges.map(({ node }) => (
+                    <>
+                      <Link key={node.graphId} to={`/entities/${node.graphId}`}>
+                        <SearchCard node={node} />
+                      </Link>
+                    </>
+                  ))
                 ) : (
                   <div className="textCenter">
                     Oops. We could not find what you were hoping for. Try

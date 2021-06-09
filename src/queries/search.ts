@@ -43,11 +43,30 @@ const liftQuery = gql`
             alt
             size
           }
+          annotations {
+            graphId
+            context
+            id
+            type
+            motivation
+            body {
+              ... on TextualBody {
+                typ
+                purpose
+                value
+              }
+            }
+            target {
+              ... on SpecificResourceType {
+                typ
+                source
+                targetId
+              }
+            }
+          }
         }
         cursor
         offset
-        isDirectMatch
-        annotationMatchCount
       }
       pageInfo {
         endCursor
