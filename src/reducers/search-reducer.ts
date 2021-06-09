@@ -1,9 +1,5 @@
 import { NiosxData_searchCollections_pageInfo_filters } from '@/queries/types/NiosxData';
-
-type Action<T extends string, K extends unknown = never> = {
-  type: T;
-  payload: K;
-};
+import { Action } from './reducer-utils';
 
 export type FilterKey = keyof Omit<
   Omit<Omit<NiosxData_searchCollections_pageInfo_filters, 'blob'>, 'date'>,
