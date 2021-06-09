@@ -1,10 +1,19 @@
-import { entityQuery } from '@/queries/entity';
-import { EntityVariables, Entity } from '@/queries/types/Entity';
-import { useQuery } from '@apollo/react-hooks';
-import React from 'react';
 import Container from '@/components/Container';
-import { Row, Col, List } from 'antd';
+import { entityQuery } from '@/queries/entity';
+import {
+  Entity,
+  EntityVariables,
+  Entity_findEntity_annotations,
+} from '@/queries/types/Entity';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Col, List, notification, Row } from 'antd';
+import React, { useState } from 'react';
+import { addAnnotationMutation } from '../mutations/add-annotation';
+import {
+  AnnotationInput,
+  AnnotationInputVariables,
+} from '../mutations/types/AnnotationInput';
 import * as styles from '../styles/entity.module.css';
 
 // TODO: render actual image
@@ -16,13 +25,27 @@ type EntityProps = {
   id: string;
 };
 
+const isValidAnnotation = (
+  values: unknown,
+): values is AnnotationInputVariables => {
+  throw new Error('Not Implemented');
+};
+
 export default function EntityPage(props: EntityProps) {
   const { id } = props;
+
+  const [annotations, setAnnotations] = useState<
+    Entity_findEntity_annotations[] | null
+  >(null);
+
   const { loading, error, data } = useQuery<Entity, EntityVariables>(
     entityQuery,
     {
       variables: {
         id,
+      },
+      onCompleted: (d) => {
+        setAnnotations(d.findEntity ? [...d.findEntity.annotations] : null);
       },
     },
   );
@@ -68,6 +91,43 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Rights', value: 'To be added' },
     { label: 'Format', value: 'Computer print with images' },
   ];
+  const [addAnnotation, { loading: addAnnotationLoading }] = useMutation<
+    AnnotationInput,
+    AnnotationInputVariables
+  >(addAnnotationMutation, {
+    onCompleted: (val) => {
+      if (val.addAnnotation)
+        setAnnotations(
+          annotations
+            ? [...annotations, val.addAnnotation]
+            : [val.addAnnotation],
+        );
+      // eslint-disable-next-line no-console
+      else console.error('Failed to create annotation');
+    },
+    onError: (err) =>
+      notification.open({
+        message: err.name,
+        description: err.message,
+      }),
+  });
+
+  const handleSubmit = (values: unknown) => {
+    if (isValidAnnotation(values)) {
+      addAnnotation({
+        variables: values,
+      });
+    }
+  };
+
+  const onFinishFailed = () => {
+    notification.open({
+      message: 'Notification Title',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+  };
+
   return (
     <Container location={data?.findEntity?.title ?? 'Entity Details'}>
       {loading && <div>Loading...</div>}

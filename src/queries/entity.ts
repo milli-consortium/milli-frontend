@@ -37,6 +37,27 @@ export const entityQuery = gql`
         }
         graphId
       }
+      annotations {
+        graphId
+        context
+        id
+        type
+        motivation
+        body {
+          ... on TextualBody {
+            typ
+            purpose
+            value
+          }
+        }
+        target {
+          ... on SpecificResourceType {
+            typ
+            source
+            targetId
+          }
+        }
+      }
     }
   }
 `;
