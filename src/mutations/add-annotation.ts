@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const addAnnotation = gql`
+export const addAnnotationMutation = gql`
   mutation AnnotationInput(
     $body: BodyInput!
     $concept: String
