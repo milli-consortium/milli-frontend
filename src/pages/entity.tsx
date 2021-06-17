@@ -7,8 +7,8 @@ import { Row, Col, List } from 'antd';
 import * as styles from '../styles/entity.module.css';
 
 // TODO: render actual image
-const Image: React.FC<{ index: number }> = ({ index }) => (
-  <div className={styles.image}>This is image {index}</div>
+const Image: React.FC<{ src: string }> = ({ src }) => (
+  <img className={styles.image} src={src} alt="thumbnail" />
 );
 
 type EntityProps = {
@@ -67,7 +67,7 @@ export default function EntityPage(props: EntityProps) {
                 <Row gutter={[16, 16]}>
                   <Col className="gutter-row" span={16}>
                     <h2>{data.findEntity.title}</h2>
-                    <Image index={1} />
+                    <Image src={data?.findEntity?.images[0].src} />
 
                     <List
                       header={
