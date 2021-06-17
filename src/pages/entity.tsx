@@ -25,7 +25,7 @@ export default function EntityPage(props: EntityProps) {
       },
     },
   );
-  const objectIdentityList: { label: string; value: string }[] = [
+  const objectIdentityList: any[] = [
     {
       label: 'Partner or Repository (URL)',
       value: data?.findEntity?.agencyCode,
@@ -37,7 +37,7 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Milli Reference Code', value: data?.findEntity?.graphId },
   ];
 
-  const aboutObjectList: { label: string; value: string }[] = [
+  const aboutObjectList: any[] = [
     { label: 'Date', value: data?.findEntity?.dateOfCreation },
     { label: 'Creator', value: data?.findEntity?.creator },
     { label: 'Location', value: data?.findEntity?.location },
@@ -45,7 +45,7 @@ export default function EntityPage(props: EntityProps) {
     // {label: "Subjects", value: data?.findEntity?.subjects},
   ];
 
-  const objectFormatList: { label: string; value: string }[] = [
+  const objectFormatList: any[] = [
     { label: 'Language', value: 'English' },
     { label: 'Type', value: 'Photograph' },
     { label: 'Rights', value: 'Dummy rights' },
