@@ -6,3 +6,4 @@ export const infoBar: string;
 export const description: string;
 export const container: string;
 export const image: string;
+export const listHeading: string;

@@ -157,6 +157,13 @@ footer a:hover {
   margin-left: -9px !important;
 }
 
+.ant-list-header {
+  background-color: #fafafa !important;
+}
+
+.ant-list {
+  margin-top: 15px !important;
+}
 /* Media queries */
 /* Navbar height for large devices */
 
