@@ -10,6 +10,7 @@ export const entityQuery = gql`
         graphId
         displayName
       }
+      creator
       dateOfCreation
       level
       images {

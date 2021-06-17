@@ -40,7 +40,7 @@ export default function EntityPage(props: EntityProps) {
   const aboutObjectList: any[] = [
     { label: 'Date', value: data?.findEntity?.dateOfCreation },
     { label: 'Creator', value: data?.findEntity?.creator },
-    { label: 'Location', value: data?.findEntity?.location },
+    { label: 'Location', value: '' },
     { label: 'Description', value: data?.findEntity?.description },
     // {label: "Subjects", value: data?.findEntity?.subjects},
   ];
