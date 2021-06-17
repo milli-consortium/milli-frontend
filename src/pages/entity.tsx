@@ -37,6 +37,7 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Milli Reference Code', value: data?.findEntity?.graphId },
   ];
 
+  // TODO subjects and Location fields
   const aboutObjectList: any[] = [
     { label: 'Date', value: data?.findEntity?.dateOfCreation },
     { label: 'Creator', value: data?.findEntity?.creator },
@@ -44,6 +45,8 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Description', value: data?.findEntity?.description },
     // {label: "Subjects", value: data?.findEntity?.subjects},
   ];
+
+  const subjects = data?.findEntity?.subjects.slice(0);
 
   const objectFormatList: any[] = [
     { label: 'Language', value: 'English' },
@@ -128,7 +131,7 @@ export default function EntityPage(props: EntityProps) {
                       }
                       itemLayout="vertical"
                       bordered
-                      dataSource={data.findEntity.subjects}
+                      dataSource={subjects}
                       renderItem={(item) => (
                         <List.Item>
                           <div>{item.label}</div>
