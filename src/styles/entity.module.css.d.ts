@@ -7,3 +7,4 @@ export const description: string;
 export const container: string;
 export const image: string;
 export const listHeading: string;
+export const txtSpacing: string;
