@@ -4,6 +4,7 @@ export const entityQuery = gql`
   query Entity($id: String!) {
     findEntity(id: $id) {
       graphId
+      recordId
       agencyCode
       title
       partner {
@@ -13,6 +14,8 @@ export const entityQuery = gql`
       creator
       dateOfCreation
       level
+      unitId
+      extent
       images {
         src
         alt
@@ -21,6 +24,7 @@ export const entityQuery = gql`
       subjects {
         graphId
         label
+        prefLabel
       }
       description {
         id

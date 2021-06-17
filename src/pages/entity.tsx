@@ -1,8 +1,8 @@
-import { Header } from '@/components/Header';
 import { entityQuery } from '@/queries/entity';
 import { EntityVariables, Entity } from '@/queries/types/Entity';
 import { useQuery } from '@apollo/react-hooks';
 import React from 'react';
+import Container from '@/components/Container';
 import { Row, Col, List } from 'antd';
 import * as styles from '../styles/entity.module.css';
 
@@ -25,6 +25,7 @@ export default function EntityPage(props: EntityProps) {
       },
     },
   );
+
   const objectIdentityList: any[] = [
     {
       label: 'Partner or Repository (URL)',
@@ -32,7 +33,19 @@ export default function EntityPage(props: EntityProps) {
     },
     {
       label: 'Partner Reference Code',
-      value: data?.findEntity?.partner.graphId,
+      value: data?.findEntity?.recordId,
+    },
+    {
+      label: 'Unit ID',
+      value: data?.findEntity?.unitId,
+    },
+    {
+      label: 'Extent',
+      value: data?.findEntity?.extent,
+    },
+    {
+      label: 'Level',
+      value: data?.findEntity?.level,
     },
     { label: 'Milli Reference Code', value: data?.findEntity?.graphId },
   ];
@@ -51,12 +64,11 @@ export default function EntityPage(props: EntityProps) {
   const objectFormatList: any[] = [
     { label: 'Language', value: 'English' },
     { label: 'Type', value: 'Photograph' },
-    { label: 'Rights', value: 'Dummy rights' },
+    { label: 'Rights', value: 'To be added' },
     { label: 'Extent', value: 'Computer print with images' },
   ];
   return (
-    <div>
-      <Header title={data?.findEntity?.title ?? 'Entity Details'} />
+    <Container location={data?.findEntity?.title ?? 'Entity Details'}>
       {loading && <div>Loading...</div>}
       {!loading && error && <div>Error: {error.message}</div>}
       {!loading && !error && data && (
@@ -134,7 +146,7 @@ export default function EntityPage(props: EntityProps) {
                       dataSource={subjects}
                       renderItem={(item) => (
                         <List.Item>
-                          <div>{item.label}</div>
+                          <div>{item.prefLabel}</div>
                         </List.Item>
                       )}
                     />
@@ -147,6 +159,6 @@ export default function EntityPage(props: EntityProps) {
           )}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
