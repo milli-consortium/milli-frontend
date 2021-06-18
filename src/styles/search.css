@@ -37,7 +37,7 @@
 
 .imageCard {
   width: 200px;
-  border: 2px solid #868e96;
+  height: auto;
   padding: 2px;
 }
 

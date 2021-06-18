@@ -36,6 +36,7 @@ const liftQuery = gql`
           subjects {
             graphId
             label
+            prefLabel
           }
           dateOfCreation
           images {

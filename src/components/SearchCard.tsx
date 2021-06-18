@@ -14,7 +14,6 @@ type SearchProps = {
 const SearchCard = (props: SearchProps) => {
   const { node } = props;
   const thumbnail = node.images.find((i) => i.size === ImageSize.MEDIUM);
-
   return (
     <div className="cardHeight myCard">
       <div>
@@ -32,10 +31,10 @@ const SearchCard = (props: SearchProps) => {
         <h2>{node.title}</h2>
         <h4>Partner : {node.partner.displayName}</h4>
         <h4>
-          Subject :
+          Subject :<span>&nbsp;</span>
           {node.subjects.map((item) => (
             <span className="mr10" key={item.graphId}>
-              {item.label},
+              {item.prefLabel},
             </span>
           ))}
         </h4>
