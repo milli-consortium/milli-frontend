@@ -126,6 +126,7 @@ footer a {
   line-height: 1.2;
 }
 footer a:hover {
+  color: var(--color-mg-light);
   opacity: 1;
 }
 .contact {

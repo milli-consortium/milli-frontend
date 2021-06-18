@@ -1,39 +1,54 @@
-import { Flex } from 'antd-mobile';
 import { Link } from 'gatsby';
 import React from 'react';
-import '../styles/search.css';
-import * as styles from '../styles/search.module.css';
+import {
+  GithubOutlined,
+  TwitterOutlined,
+  MediumCircleFilled,
+} from '@ant-design/icons';
 
 export const Footer = () => (
-  <div className="positionFixed footerDiv margin-auto">
-    <div className={styles.flexContainer}>
-      <Flex>
-        <Flex.Item>
-          <Link to="/">
-            <div className="logo margin-auto">M1ll1</div>
-          </Link>
-        </Flex.Item>
-        <Flex.Item>
-          <h4>Contact</h4>
-          <a href="mailto:hello@milli.link">
-            <h3 className="linkColor">hello [at] milli [dot] link</h3>
-          </a>
-        </Flex.Item>
-        <Flex.Item>
-          <Link to="https://github.com/">
-            <div className="fleft github" />
-          </Link>
-          <Link to="https://gmail.com/">
-            <div className="fleft gmail" />
-          </Link>
-          <Link to="https://twitter.com/">
-            <div className="fleft twitter" />
-          </Link>
-        </Flex.Item>
-        <Flex.Item>
-          <h4>© All Rights Reserved. Made with ❤️</h4>
-        </Flex.Item>
-      </Flex>
+  <footer>
+    <div className="container">
+      <div className="logo">M1ll1</div>
+
+      <div className="contact">
+        <div>Contact</div> <br />
+        hello@milli.link
+      </div>
+
+      <div className="social">
+        <Link
+          to="https://github.com/milli-consortium/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ border: 'none' }}
+        >
+          <GithubOutlined />
+        </Link>
+        <Link
+          to="https://medium.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ border: 'none' }}
+        >
+          <MediumCircleFilled />
+        </Link>
+        <Link
+          to="https://twitter.com/archivesmilli"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ border: 'none' }}
+        >
+          <TwitterOutlined />
+        </Link>
+      </div>
+
+      <div className="copyright">
+        © {new Date().getFullYear()}, All Rights Reserved. Built with{' '}
+        <a href="https://notabug.org/prasoon/niosx">Niosx</a>
+        <span> and </span>
+        <a href="https://www.gatsbyjs.org">Gatsby</a>
+      </div>
     </div>
-  </div>
+  </footer>
 );
