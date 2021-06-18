@@ -1,5 +1,4 @@
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
+import Container from '@/components/Container';
 import {
   hLanguageFilter,
   hPartnerFilter,
@@ -105,11 +104,10 @@ const Search: React.FC = () => {
   };
 
   return (
-    <>
-      <main>
-        <Header title="Search Page" />
+    <Container location="Search Page">
+      <main className={styles.containerHeight}>
         <div>
-          <div className="px15">
+          <div>
             <Row gutter={16}>
               <Col className="gutter-row" span={20}>
                 <SearchBar
@@ -390,8 +388,7 @@ const Search: React.FC = () => {
           )}
         </div>
       </main>
-      <Footer />
-    </>
+    </Container>
   );
 };
 

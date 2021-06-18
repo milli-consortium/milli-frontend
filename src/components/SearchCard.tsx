@@ -13,7 +13,7 @@ type SearchProps = {
 
 const SearchCard = (props: SearchProps) => {
   const { node } = props;
-  const thumbnail = node.images.find((i) => i.size === ImageSize.SMALL);
+  const thumbnail = node.images.find((i) => i.size === ImageSize.MEDIUM);
 
   return (
     <div className="cardHeight myCard">

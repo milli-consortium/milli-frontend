@@ -94,6 +94,7 @@ footer {
   height: 200px;
   background-color: var(--color-logo-grey);
   padding: 15px;
+  margin-top: 25px;
 }
 
 footer .container {

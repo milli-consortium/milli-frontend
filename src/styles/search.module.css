@@ -1,8 +1,10 @@
 .container {
   display: flex;
-  margin: auto 60px;
 }
 
+.containerHeight {
+  min-height: 400px;
+}
 .filters {
   flex-basis: 250px;
   margin-top: 10px;

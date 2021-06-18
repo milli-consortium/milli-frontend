@@ -18,3 +18,4 @@ export const rightItem: string;
 export const myAccordion: string;
 export const mx15: string;
 export const subSearch: string;
+export const containerHeight: string;
