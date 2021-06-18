@@ -9,7 +9,7 @@ import { Header } from './Header';
 const Container: React.FC<{ location: string }> = ({ children, location }) => (
   <main>
     <Header title={location} />
-    <section className="container">{children}</section>
+    <section className="container minHeight">{children}</section>
     <footer>
       <div className="container">
         <div className="logo">M1ll1</div>

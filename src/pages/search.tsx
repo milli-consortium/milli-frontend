@@ -105,7 +105,7 @@ const Search: React.FC = () => {
 
   return (
     <Container location="Search Page">
-      <main className={styles.containerHeight}>
+      <main>
         <div>
           <div>
             <Row gutter={16}>

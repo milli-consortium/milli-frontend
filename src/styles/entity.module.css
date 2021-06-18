@@ -19,8 +19,8 @@
   padding: 12px;
 }
 
-.container {
-  width: 100%;
+.wrapper {
+  min-height: 400px;
 }
 
 .image {

@@ -2,9 +2,6 @@
   display: flex;
 }
 
-.containerHeight {
-  min-height: 400px;
-}
 .filters {
   flex-basis: 250px;
   margin-top: 10px;

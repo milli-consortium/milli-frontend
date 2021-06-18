@@ -75,7 +75,7 @@ export default function EntityPage(props: EntityProps) {
         <div>
           {data.findEntity ? (
             <>
-              <div className="container">
+              <div className={styles.wrapper}>
                 <Row gutter={[16, 16]}>
                   <Col className="gutter-row" span={16}>
                     <h2>{data.findEntity.title}</h2>
