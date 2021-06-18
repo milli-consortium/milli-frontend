@@ -46,7 +46,7 @@ export default function EntityPage(props: EntityProps) {
     },
     {
       label: 'Level',
-      value: data?.findEntity?.level,
+      value: 'Item',
     },
     { label: 'Milli Reference Code', value: data?.findEntity?.graphId },
   ];
