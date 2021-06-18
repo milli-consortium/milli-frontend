@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import React from 'react';
 import Container from '@/components/Container';
 import { Row, Col, List } from 'antd';
+import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import * as styles from '../styles/entity.module.css';
 
 // TODO: render actual image
@@ -65,7 +66,7 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Language', value: 'English' },
     { label: 'Type', value: 'Photograph' },
     { label: 'Rights', value: 'To be added' },
-    { label: 'Extent', value: 'Computer print with images' },
+    { label: 'Format', value: 'Computer print with images' },
   ];
   return (
     <Container location={data?.findEntity?.title ?? 'Entity Details'}>
@@ -85,16 +86,26 @@ export default function EntityPage(props: EntityProps) {
                       header={
                         <div className={styles.listHeading}>
                           About the Object
+                          <span className={styles.alignRight}>
+                            <EditOutlined className={styles.iconStyles} />
+                            <EyeOutlined className={styles.iconStyles} />
+                          </span>
                         </div>
                       }
                       bordered
                       dataSource={aboutObjectList}
                       renderItem={(item) => (
                         <List.Item>
-                          <span className={styles.txtSpacing}>
-                            {item.label}
-                          </span>
-                          {item.value}
+                          <div className={styles.fullWidth}>
+                            <Row gutter={[16, 16]}>
+                              <Col className="gutter-row" span={4}>
+                                {item.label}
+                              </Col>
+                              <Col className="gutter-row" span={20}>
+                                {item.value}
+                              </Col>
+                            </Row>
+                          </div>
                         </List.Item>
                       )}
                     />
@@ -103,6 +114,10 @@ export default function EntityPage(props: EntityProps) {
                       header={
                         <div className={styles.listHeading}>
                           Object Format Data
+                          <span className={styles.alignRight}>
+                            <EditOutlined className={styles.iconStyles} />
+                            <EyeOutlined className={styles.iconStyles} />
+                          </span>
                         </div>
                       }
                       itemLayout="horizontal"
@@ -110,10 +125,16 @@ export default function EntityPage(props: EntityProps) {
                       dataSource={objectFormatList}
                       renderItem={(item) => (
                         <List.Item>
-                          <span className={styles.txtSpacing}>
-                            {item.label}
-                          </span>
-                          {item.value}
+                          <div className={styles.fullWidth}>
+                            <Row gutter={[16, 16]}>
+                              <Col className="gutter-row" span={4}>
+                                {item.label}
+                              </Col>
+                              <Col className="gutter-row" span={20}>
+                                {item.value}
+                              </Col>
+                            </Row>
+                          </div>
                         </List.Item>
                       )}
                     />

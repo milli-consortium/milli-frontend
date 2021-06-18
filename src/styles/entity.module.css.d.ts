@@ -8,3 +8,6 @@ export const wrapper: string;
 export const image: string;
 export const listHeading: string;
 export const txtSpacing: string;
+export const alignRight: string;
+export const iconStyles: string;
+export const fullWidth: string;

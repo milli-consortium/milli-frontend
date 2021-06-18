@@ -41,3 +41,13 @@
 .txtSpacing {
   margin-right: 25px;
 }
+.alignRight {
+  float: right;
+}
+.fullWidth {
+  width: 100%;
+}
+.iconStyles {
+  color: #96b753 !important;
+  font-size: 20px;
+}
