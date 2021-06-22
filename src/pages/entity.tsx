@@ -63,13 +63,11 @@ interface FormValues {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-function hasOwnProperty<X extends {}, Y extends PropertyKey>(
+const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y,
-): obj is X & Record<Y, unknown> {
-  // eslint-disable-next-line no-prototype-builtins
-  return obj.hasOwnProperty(prop);
-}
+): obj is X & Record<Y, unknown> =>
+  Object.prototype.hasOwnProperty.call(obj, prop);
 
 const isValidAnnotation = (values: unknown): values is FormValues =>
   typeof values === 'object' &&
