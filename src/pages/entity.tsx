@@ -150,6 +150,8 @@ export default function EntityPage(props: EntityProps) {
   });
 
   const handleSubmit = (values: unknown) => {
+    // eslint-disable-next-line no-console
+    console.log('form Values: ', values);
     if (isValidAnnotation(values) && data?.findEntity) {
       const { graphId: targetId, title: source } = data.findEntity;
 
@@ -168,6 +170,8 @@ export default function EntityPage(props: EntityProps) {
           },
         },
       });
+    } else {
+      throw new Error('Invalid values or Entity not available');
     }
   };
 
