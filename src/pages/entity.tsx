@@ -85,12 +85,13 @@ export default function EntityPage(props: EntityProps) {
 
   const subjects = data?.findEntity?.subjects.slice(0);
 
-  const objectFormatList: any[] = [
+  const objectFormatList = [
     { label: 'Language', value: 'English' },
     { label: 'Type', value: 'Photograph' },
     { label: 'Rights', value: 'To be added' },
     { label: 'Format', value: 'Computer print with images' },
   ];
+
   const [addAnnotation, { loading: addAnnotationLoading }] = useMutation<
     AnnotationInput,
     AnnotationInputVariables
@@ -199,7 +200,6 @@ export default function EntityPage(props: EntityProps) {
                       )}
                     />
                   </Col>
-
                   <Col className="gutter-row" span={8}>
                     <List
                       header={
@@ -217,7 +217,6 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
-
                     <List
                       header={
                         <div className={styles.listHeading}>Access Points</div>
@@ -231,6 +230,24 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
+                    {annotations ? (
+                      <List
+                        header={
+                          <div className={styles.listHeading}>Annotations</div>
+                        }
+                        itemLayout="vertical"
+                        bordered
+                        dataSource={annotations}
+                        renderItem={(item) => (
+                          <List.Item key={item.graphId}>
+                            <div>{item.motivation}</div>
+                            <div>{item.body ? item.body[0].value : ''}</div>
+                          </List.Item>
+                        )}
+                      />
+                    ) : (
+                      'No Annotations Found'
+                    )}
                   </Col>
                 </Row>
               </div>
