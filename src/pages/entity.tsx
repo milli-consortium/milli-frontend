@@ -7,7 +7,19 @@ import {
 } from '@/queries/types/Entity';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Col, List, notification, Row } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  FormInstance,
+  Input,
+  List,
+  notification,
+  Row,
+  Select,
+  Spin,
+} from 'antd';
 import React, { useState } from 'react';
 import { addAnnotationMutation } from '../mutations/add-annotation';
 import {
@@ -15,6 +27,24 @@ import {
   AnnotationInputVariables,
 } from '../mutations/types/AnnotationInput';
 import * as styles from '../styles/entity.module.css';
+
+const { Option } = Select;
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
 
 // TODO: render actual image
 const Image: React.FC<{ src: string }> = ({ src }) => (
@@ -25,14 +55,20 @@ type EntityProps = {
   id: string;
 };
 
-const isValidAnnotation = (
-  values: unknown,
-): values is AnnotationInputVariables => {
+interface FormValues {
+  readonly typ: string;
+  readonly value: string;
+  readonly concept: string | null;
+  readonly motivation: string;
+}
+
+const isValidAnnotation = (values: unknown): values is FormValues => {
   throw new Error('Not Implemented');
 };
 
 export default function EntityPage(props: EntityProps) {
   const { id } = props;
+  const formRef = React.createRef<FormInstance>();
 
   const [annotations, setAnnotations] = useState<
     Entity_findEntity_annotations[] | null
@@ -50,7 +86,7 @@ export default function EntityPage(props: EntityProps) {
     },
   );
 
-  const objectIdentityList: any[] = [
+  const objectIdentityList = [
     {
       label: 'Partner or Repository (URL)',
       value: data?.findEntity?.agencyCode,
@@ -75,7 +111,7 @@ export default function EntityPage(props: EntityProps) {
   ];
 
   // TODO subjects and Location fields
-  const aboutObjectList: any[] = [
+  const aboutObjectList = [
     { label: 'Date', value: data?.findEntity?.dateOfCreation },
     { label: 'Creator', value: data?.findEntity?.creator },
     { label: 'Location', value: '' },
@@ -114,9 +150,23 @@ export default function EntityPage(props: EntityProps) {
   });
 
   const handleSubmit = (values: unknown) => {
-    if (isValidAnnotation(values)) {
+    if (isValidAnnotation(values) && data?.findEntity) {
+      const { graphId: targetId, title: source } = data.findEntity;
+
       addAnnotation({
-        variables: values,
+        variables: {
+          motivation: values.motivation,
+          targetId,
+          target: { targetId, source },
+          body: {
+            typ: values.typ,
+            value: values.value,
+            motivation: values.motivation,
+            language: 'en',
+            format: 'unknown',
+            creator: 'dummyValue',
+          },
+        },
       });
     }
   };
@@ -142,7 +192,6 @@ export default function EntityPage(props: EntityProps) {
                   <Col className="gutter-row" span={16}>
                     <h2>{data.findEntity.title}</h2>
                     <Image src={data?.findEntity?.images[0].src} />
-
                     <List
                       header={
                         <div className={styles.listHeading}>
@@ -170,7 +219,6 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
-
                     <List
                       header={
                         <div className={styles.listHeading}>
@@ -199,6 +247,74 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
+                    <Card title="Add New Annotation">
+                      <Form
+                        {...layout}
+                        ref={formRef}
+                        name="control-ref"
+                        onFinish={handleSubmit}
+                        onError={onFinishFailed}
+                      >
+                        <Form.Item
+                          name="type"
+                          label="Type"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          name="concept"
+                          label="Concept"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          name="motivation"
+                          label="Motivation"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Select placeholder="Select a option" allowClear>
+                            <Option value="describe">Add Description</Option>
+                            <Option value="correct">Suggest Correction</Option>
+                            <Option value="other">Other</Option>
+                          </Select>
+                        </Form.Item>
+                        <Form.Item
+                          name="value"
+                          label="Value"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+
+                        <Form.Item {...tailLayout}>
+                          <Button
+                            type="primary"
+                            htmlType="submit"
+                            disabled={addAnnotationLoading}
+                          >
+                            {!addAnnotationLoading ? 'Submit' : <Spin />}
+                          </Button>
+                        </Form.Item>
+                      </Form>
+                    </Card>
                   </Col>
                   <Col className="gutter-row" span={8}>
                     <List
