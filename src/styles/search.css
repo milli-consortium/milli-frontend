@@ -127,9 +127,8 @@ body {
   height: 120px;
   background-color: #7d9b5d;
   padding-top: 10px;
-  right: 0;
   bottom: 0;
-  left: 0;
+  margin: auto;
   width: 100%;
 }
 .positionFixed {
