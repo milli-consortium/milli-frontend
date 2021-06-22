@@ -56,15 +56,32 @@ type EntityProps = {
 };
 
 interface FormValues {
-  readonly typ: string;
+  readonly type: string;
   readonly value: string;
   readonly concept: string | null;
   readonly motivation: string;
 }
 
-const isValidAnnotation = (values: unknown): values is FormValues => {
-  throw new Error('Not Implemented');
-};
+// eslint-disable-next-line @typescript-eslint/ban-types
+function hasOwnProperty<X extends {}, Y extends PropertyKey>(
+  obj: X,
+  prop: Y,
+): obj is X & Record<Y, unknown> {
+  // eslint-disable-next-line no-prototype-builtins
+  return obj.hasOwnProperty(prop);
+}
+
+const isValidAnnotation = (values: unknown): values is FormValues =>
+  typeof values === 'object' &&
+  values !== null &&
+  hasOwnProperty(values, 'type') &&
+  typeof values.type === 'string' &&
+  hasOwnProperty(values, 'value') &&
+  typeof values.value === 'string' &&
+  hasOwnProperty(values, 'concept') &&
+  typeof values.concept === 'string' &&
+  hasOwnProperty(values, 'motivation') &&
+  typeof values.motivation === 'string';
 
 export default function EntityPage(props: EntityProps) {
   const { id } = props;
@@ -149,9 +166,9 @@ export default function EntityPage(props: EntityProps) {
       }),
   });
 
-  const handleSubmit = (values: unknown) => {
+  const handleSubmit = (values: Record<string, unknown>) => {
     // eslint-disable-next-line no-console
-    console.log('form Values: ', values);
+    console.log('form Values: ', values, isValidAnnotation(values));
     if (isValidAnnotation(values) && data?.findEntity) {
       const { graphId: targetId, title: source } = data.findEntity;
 
@@ -161,7 +178,7 @@ export default function EntityPage(props: EntityProps) {
           targetId,
           target: { targetId, source },
           body: {
-            typ: values.typ,
+            typ: values.type,
             value: values.value,
             motivation: values.motivation,
             language: 'en',
