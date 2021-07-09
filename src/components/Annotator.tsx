@@ -55,7 +55,7 @@ const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
 ): obj is X & Record<Y, unknown> =>
   Object.prototype.hasOwnProperty.call(obj, prop);
 
-const isValidAnnotation = (values: unknown): values is FormValues =>
+/*const isValidAnnotation = (values: unknown): values is FormValues =>
   (typeof values === 'object' &&
     values !== null &&
     // hasOwnProperty(values, 'type') &&
@@ -67,7 +67,7 @@ const isValidAnnotation = (values: unknown): values is FormValues =>
 // typeof values.concept === 'string' &&
 // hasOwnProperty(values, 'motivation') &&
 // typeof values.motivation === 'string';
-
+*/
 const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
   const formRef = React.createRef<FormInstance>();
   const [selectedPurpose, setPurpose] = useState('');
@@ -97,7 +97,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
       }),
   });
 
-  const handleSubmit = (values: Record<string, unknown>) => {
+  const handleSubmit = (values: Record<string, any>) => {
     // eslint-disable-next-line no-console
     console.log('form Values: ', values /*, isValidAnnotation(values)*/);
     if (data?.findEntity) {
