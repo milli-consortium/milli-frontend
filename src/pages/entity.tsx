@@ -6,45 +6,11 @@ import {
   Entity_findEntity_annotations,
 } from '@/queries/types/Entity';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  FormInstance,
-  Input,
-  List,
-  notification,
-  Row,
-  Select,
-  Spin,
-} from 'antd';
+import Annotator from '@/components/Annotator';
+import { useQuery } from '@apollo/react-hooks';
+import { Col, List, Row } from 'antd';
 import React, { useState } from 'react';
-import { addAnnotationMutation } from '../mutations/add-annotation';
-import {
-  AnnotationInput,
-  AnnotationInputVariables,
-} from '../mutations/types/AnnotationInput';
 import * as styles from '../styles/entity.module.css';
-
-const { Option } = Select;
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
 
 // TODO: render actual image
 const Image: React.FC<{ src: string }> = ({ src }) => (
@@ -55,35 +21,8 @@ type EntityProps = {
   id: string;
 };
 
-interface FormValues {
-  readonly type: string;
-  readonly value: string;
-  readonly concept: string | null;
-  readonly motivation: string;
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
-  obj: X,
-  prop: Y,
-): obj is X & Record<Y, unknown> =>
-  Object.prototype.hasOwnProperty.call(obj, prop);
-
-const isValidAnnotation = (values: unknown): values is FormValues =>
-  typeof values === 'object' &&
-  values !== null &&
-  hasOwnProperty(values, 'type') &&
-  typeof values.type === 'string' &&
-  hasOwnProperty(values, 'value') &&
-  typeof values.value === 'string' &&
-  hasOwnProperty(values, 'concept') &&
-  typeof values.concept === 'string' &&
-  hasOwnProperty(values, 'motivation') &&
-  typeof values.motivation === 'string';
-
 export default function EntityPage(props: EntityProps) {
   const { id } = props;
-  const formRef = React.createRef<FormInstance>();
 
   const [annotations, setAnnotations] = useState<
     Entity_findEntity_annotations[] | null
@@ -101,6 +40,11 @@ export default function EntityPage(props: EntityProps) {
     },
   );
 
+  const updateAnno = (val: any) => {
+    setAnnotations(
+      annotations ? [...annotations, val.addAnnotation] : [val.addAnnotation],
+    );
+  };
   const objectIdentityList = [
     {
       label: 'Partner or Repository (URL)',
@@ -142,61 +86,6 @@ export default function EntityPage(props: EntityProps) {
     { label: 'Rights', value: 'To be added' },
     { label: 'Format', value: 'Computer print with images' },
   ];
-
-  const [addAnnotation, { loading: addAnnotationLoading }] = useMutation<
-    AnnotationInput,
-    AnnotationInputVariables
-  >(addAnnotationMutation, {
-    onCompleted: (val) => {
-      if (val.addAnnotation)
-        setAnnotations(
-          annotations
-            ? [...annotations, val.addAnnotation]
-            : [val.addAnnotation],
-        );
-      // eslint-disable-next-line no-console
-      else console.error('Failed to create annotation');
-    },
-    onError: (err) =>
-      notification.open({
-        message: err.name,
-        description: err.message,
-      }),
-  });
-
-  const handleSubmit = (values: Record<string, unknown>) => {
-    // eslint-disable-next-line no-console
-    console.log('form Values: ', values, isValidAnnotation(values));
-    if (isValidAnnotation(values) && data?.findEntity) {
-      const { graphId: targetId, title: source } = data.findEntity;
-
-      addAnnotation({
-        variables: {
-          motivation: values.motivation,
-          targetId,
-          target: { targetId, source },
-          body: {
-            typ: values.type,
-            value: values.value,
-            motivation: values.motivation,
-            language: 'en',
-            format: 'unknown',
-            creator: 'dummyValue',
-          },
-        },
-      });
-    } else {
-      throw new Error('Invalid values or Entity not available');
-    }
-  };
-
-  const onFinishFailed = () => {
-    notification.open({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    });
-  };
 
   return (
     <Container location={data?.findEntity?.title ?? 'Entity Details'}>
@@ -266,74 +155,7 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
-                    <Card title="Add New Annotation">
-                      <Form
-                        {...layout}
-                        ref={formRef}
-                        name="control-ref"
-                        onFinish={handleSubmit}
-                        onError={onFinishFailed}
-                      >
-                        <Form.Item
-                          name="type"
-                          label="Type"
-                          rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="concept"
-                          label="Concept"
-                          rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="motivation"
-                          label="Motivation"
-                          rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
-                        >
-                          <Select placeholder="Select a option" allowClear>
-                            <Option value="describe">Add Description</Option>
-                            <Option value="correct">Suggest Correction</Option>
-                            <Option value="other">Other</Option>
-                          </Select>
-                        </Form.Item>
-                        <Form.Item
-                          name="value"
-                          label="Value"
-                          rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-
-                        <Form.Item {...tailLayout}>
-                          <Button
-                            type="primary"
-                            htmlType="submit"
-                            disabled={addAnnotationLoading}
-                          >
-                            {!addAnnotationLoading ? 'Submit' : <Spin />}
-                          </Button>
-                        </Form.Item>
-                      </Form>
-                    </Card>
+                    <Annotator data={data} updateAnno={updateAnno} />
                   </Col>
                   <Col className="gutter-row" span={8}>
                     <List
