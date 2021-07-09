@@ -169,6 +169,14 @@ footer a:hover {
 .ant-list {
   margin-top: 15px !important;
 }
+
+.annoShow {
+  display: block;
+}
+
+.annoHide {
+  display: none;
+}
 /* Media queries */
 /* Navbar height for large devices */
 

@@ -23,6 +23,7 @@ type EntityProps = {
 
 export default function EntityPage(props: EntityProps) {
   const { id } = props;
+  const [isAnno, setIsAnno] = useState(false);
 
   const [annotations, setAnnotations] = useState<
     Entity_findEntity_annotations[] | null
@@ -45,6 +46,11 @@ export default function EntityPage(props: EntityProps) {
       annotations ? [...annotations, val.addAnnotation] : [val.addAnnotation],
     );
   };
+
+  const openAnnotator = () => {
+    setIsAnno(!isAnno);
+  };
+
   const objectIdentityList = [
     {
       label: 'Partner or Repository (URL)',
@@ -105,7 +111,10 @@ export default function EntityPage(props: EntityProps) {
                         <div className={styles.listHeading}>
                           About the Object
                           <span className={styles.alignRight}>
-                            <EditOutlined className={styles.iconStyles} />
+                            <EditOutlined
+                              className={styles.iconStyles}
+                              onClick={openAnnotator}
+                            />
                             <EyeOutlined className={styles.iconStyles} />
                           </span>
                         </div>
@@ -127,13 +136,20 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
+
+                    <Annotator
+                      visible={isAnno}
+                      data={data}
+                      updateAnno={updateAnno}
+                    />
+
                     <List
                       header={
                         <div className={styles.listHeading}>
                           Object Format Data
                           <span className={styles.alignRight}>
-                            <EditOutlined className={styles.iconStyles} />
-                            <EyeOutlined className={styles.iconStyles} />
+                            {/* <EditOutlined className={styles.iconStyles} />
+                            <EyeOutlined className={styles.iconStyles} /> */}
                           </span>
                         </div>
                       }
@@ -155,7 +171,6 @@ export default function EntityPage(props: EntityProps) {
                         </List.Item>
                       )}
                     />
-                    <Annotator data={data} updateAnno={updateAnno} />
                   </Col>
                   <Col className="gutter-row" span={8}>
                     <List

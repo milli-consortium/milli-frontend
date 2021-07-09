@@ -45,6 +45,7 @@ interface FormValues {
 interface AnnotatorProps {
   data: any;
   updateAnno: (arg: any) => void;
+  visible: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -67,7 +68,7 @@ const isValidAnnotation = (values: unknown): values is FormValues =>
 // hasOwnProperty(values, 'motivation') &&
 // typeof values.motivation === 'string';
 
-const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno }) => {
+const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
   const formRef = React.createRef<FormInstance>();
   const [selectedPurpose, setPurpose] = useState('');
   const dateInputConfig = {
@@ -79,7 +80,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno }) => {
       },
     ],
   };
-
+  console.log(visible, 'anno visible');
   const [addAnnotation, { loading: addAnnotationLoading }] = useMutation<
     AnnotationInput,
     AnnotationInputVariables
@@ -135,7 +136,10 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno }) => {
 
   return (
     <>
-      <Card title="Add New Annotation">
+      <Card
+        title="Add New Annotation"
+        className={visible ? 'annoShow' : 'annoHide'}
+      >
         <Form
           {...layout}
           ref={formRef}
