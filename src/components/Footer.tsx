@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 
 export const Footer = () => (
-  <footer className="positionFixed footerDiv">
+  <footer className="footerDiv">
     <div className="container">
       <div className="logo">M1ll1</div>
 

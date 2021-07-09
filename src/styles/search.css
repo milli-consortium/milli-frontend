@@ -124,11 +124,11 @@ body {
 }
 
 .footerDiv {
-  height: 120px;
+  height: 256px;
   background-color: #7d9b5d;
   padding-top: 10px;
   bottom: 0;
-  margin: auto;
+  margin-top: 20px;
   width: 100%;
 }
 .positionFixed {
