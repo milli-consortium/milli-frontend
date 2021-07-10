@@ -4,13 +4,8 @@ import { FormValues } from './Annotator';
 export const isValidAnnotation = (values: unknown): values is FormValues =>
   typeof values === 'object' &&
   values !== null &&
-  hasOwnProperty(values, 'type') &&
-  typeof values.type === 'string' &&
-  hasOwnProperty(values, 'value') &&
-  typeof values.value === 'string' &&
-  hasOwnProperty(values, 'concept') &&
-  typeof values.concept === 'string' &&
-  hasOwnProperty(values, 'motivation') &&
-  typeof values.motivation === 'string' &&
+  ['type', 'value', 'concept', 'motivation'].every(
+    (k) => hasOwnProperty(values, k) && typeof values[k] === 'string',
+  ) &&
   (!hasOwnProperty(values, 'date') ||
     (hasOwnProperty(values, 'date') && typeof values.date === 'object'));
