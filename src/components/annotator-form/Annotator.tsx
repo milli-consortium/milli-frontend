@@ -17,7 +17,7 @@ import {
   AnnotationInput,
   AnnotationInputVariables,
 } from '../../mutations/types/AnnotationInput';
-import { isValidAnnotation } from './isValidAnnotation';
+import { isValidAnnotation } from './is-valid-annotation';
 
 const layout = {
   labelCol: {

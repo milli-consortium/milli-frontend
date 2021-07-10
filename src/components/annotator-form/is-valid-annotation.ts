@@ -1,4 +1,4 @@
-import { hasOwnProperty } from '@/utils/hasOwnProperty';
+import { hasOwnProperty } from '../../utils/hasOwnProperty';
 import { FormValues } from './Annotator';
 
 export const isValidAnnotation = (values: unknown): values is FormValues =>
@@ -12,5 +12,5 @@ export const isValidAnnotation = (values: unknown): values is FormValues =>
   typeof values.concept === 'string' &&
   hasOwnProperty(values, 'motivation') &&
   typeof values.motivation === 'string' &&
-  hasOwnProperty(values, 'date') &&
-  typeof values.date === 'object';
+  (!hasOwnProperty(values, 'date') ||
+    (hasOwnProperty(values, 'date') && typeof values.date === 'object'));
