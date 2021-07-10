@@ -6,7 +6,7 @@ import {
   Entity_findEntity_annotations,
 } from '@/queries/types/Entity';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
-import Annotator from '@/components/Annotator';
+import Annotator from '@/components/annotator-form/Annotator';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, List, Row } from 'antd';
 import React, { useState } from 'react';

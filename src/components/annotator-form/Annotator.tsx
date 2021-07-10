@@ -1,22 +1,23 @@
 /* eslint-disable */
-import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import {
   Button,
   Card,
+  DatePicker,
   Form,
   FormInstance,
   Input,
-  Radio,
   notification,
+  Radio,
   Spin,
-  DatePicker,
 } from 'antd';
-import { addAnnotationMutation } from '../mutations/add-annotation';
+import React, { useState } from 'react';
+import { addAnnotationMutation } from '../../mutations/add-annotation';
 import {
   AnnotationInput,
   AnnotationInputVariables,
-} from '../mutations/types/AnnotationInput';
+} from '../../mutations/types/AnnotationInput';
+import { isValidAnnotation } from './isValidAnnotation';
 
 const layout = {
   labelCol: {
@@ -34,7 +35,7 @@ const tailLayout = {
   },
 };
 
-interface FormValues {
+export interface FormValues {
   readonly type: string;
   readonly value: string;
   readonly concept: string | null;
@@ -48,39 +49,19 @@ interface AnnotatorProps {
   visible: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
-  obj: X,
-  prop: Y,
-): obj is X & Record<Y, unknown> =>
-  Object.prototype.hasOwnProperty.call(obj, prop);
+const dateInputConfig = {
+  rules: [
+    {
+      type: 'object' as const,
+      required: false,
+      message: 'Please select time!',
+    },
+  ],
+};
 
-/*const isValidAnnotation = (values: unknown): values is FormValues =>
-  (typeof values === 'object' &&
-    values !== null &&
-    // hasOwnProperty(values, 'type') &&
-    // typeof values.type === 'string' &&
-    hasOwnProperty(values, 'value') &&
-    typeof values.value === 'string') ||
-  (hasOwnProperty(values, 'date') && typeof values.date === 'object');
-// hasOwnProperty(values, 'concept') &&
-// typeof values.concept === 'string' &&
-// hasOwnProperty(values, 'motivation') &&
-// typeof values.motivation === 'string';
-*/
 const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
   const formRef = React.createRef<FormInstance>();
   const [selectedPurpose, setPurpose] = useState('');
-  const dateInputConfig = {
-    rules: [
-      {
-        type: 'object' as const,
-        required: false,
-        message: 'Please select time!',
-      },
-    ],
-  };
-  console.log(visible, 'anno visible');
   const [addAnnotation, { loading: addAnnotationLoading }] = useMutation<
     AnnotationInput,
     AnnotationInputVariables
@@ -99,7 +80,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
 
   const handleSubmit = (values: Record<string, any>) => {
     // eslint-disable-next-line no-console
-    console.log('form Values: ', values /*, isValidAnnotation(values)*/);
+    console.log('form Values: ', values, isValidAnnotation(values));
     if (data?.findEntity) {
       const { graphId: targetId, title: source } = data.findEntity;
 
