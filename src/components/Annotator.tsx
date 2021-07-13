@@ -98,16 +98,24 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
   });
 
   const handleSubmit = (values: Record<string, any>) => {
-    // eslint-disable-next-line no-console
-    console.log('form Values: ', values /*, isValidAnnotation(values)*/);
     if (data?.findEntity) {
       const { graphId: targetId, title: source } = data.findEntity;
+      const concept: any = new Object();
+      concept['type'] = 'concept';
+      concept[selectedPurpose] = values.concept;
+      // eslint-disable-next-line no-console
+      console.log(
+        'form Values: ',
+        values,
+        JSON.stringify(concept) /*, isValidAnnotation(values)*/,
+      );
 
       addAnnotation({
         variables: {
           motivation: selectedPurpose === 'all' ? 'commenting' : 'describing',
           targetId,
           target: { targetId, source },
+          concept: JSON.stringify(concept),
           body: {
             typ: 'TextualBody',
             value:
@@ -149,7 +157,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
         >
           <Form.Item
             name="purpose"
-            label="What do you want to annotate?"
+            label="Choose a field"
             rules={[{ required: true, message: 'Please pick an item!' }]}
           >
             <Radio.Group>
@@ -184,6 +192,18 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
                 Everything here
               </Radio.Button>
             </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            name="concept"
+            label="Why"
+            rules={[
+              {
+                required: false,
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
 
           <Form.Item
