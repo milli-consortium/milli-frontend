@@ -1,4 +1,4 @@
-import { MenuOutlined } from '@ant-design/icons';
+// import { MenuOutlined } from '@ant-design/icons';
 /* eslint global-require:0, no-nested-ternary:0 */
 import { ActivityIndicator, Menu, NavBar } from 'antd-mobile';
 import { ValueType } from 'antd-mobile/lib/menu/PropsType';
@@ -117,7 +117,7 @@ class MilliMenu extends React.Component<Record<string, unknown>, MenuState> {
         <div className="container">
           <NavBar
             role="presentation"
-            leftContent={<MenuOutlined />}
+            leftContent=""
             rightContent=""
             mode="light"
             onLeftClick={this.handleClick}
