@@ -1,17 +1,18 @@
-import { Link } from 'gatsby';
 import React from 'react';
+/* import { Link } from 'gatsby';
 import {
   GithubOutlined,
   TwitterOutlined,
   MediumCircleFilled,
 } from '@ant-design/icons';
+*/
 
 export const Footer = () => (
   <footer className="footerDiv">
     <div className="container">
       <div className="logo">M1ll1</div>
 
-      <div className="contact">
+      {/* <div className="contact">
         <div>Contact</div> <br />
         hello@milli.link
       </div>
@@ -42,7 +43,7 @@ export const Footer = () => (
           <TwitterOutlined />
         </Link>
       </div>
-
+      */}
       <div className="copyright">
         © {new Date().getFullYear()}, All Rights Reserved. Built with{' '}
         <a href="https://notabug.org/prasoon/niosx">Niosx</a>

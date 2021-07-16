@@ -46,7 +46,7 @@ h3 {
   margin-top: 20px;
 }
 .minHeight {
-  min-height: 400px;
+  min-height: 75vh;
 }
 .header-line {
   width: 100%;
@@ -106,7 +106,7 @@ footer .container {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  align-content: center;
+  /*align-content: center;*/
   color: var(--color-mg-light);
 }
 
