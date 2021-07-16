@@ -112,7 +112,8 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
 
       addAnnotation({
         variables: {
-          motivation: selectedPurpose === 'all' ? 'commenting' : 'describing',
+          motivation:
+            selectedPurpose === 'comment' ? 'commenting' : 'describing',
           targetId,
           target: { targetId, source },
           concept: JSON.stringify(concept),
@@ -122,7 +123,8 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
               selectedPurpose === 'date'
                 ? values.date.toISOString()
                 : values.value,
-            motivation: selectedPurpose === 'all' ? 'commenting' : 'describing',
+            motivation:
+              selectedPurpose === 'comment' ? 'commenting' : 'describing',
             language: 'en',
             format: 'Plain Text',
             creator: 'Mr. Mock Agent',
@@ -171,16 +173,16 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
                 Creator
               </Radio.Button>
               <Radio.Button
-                value="description"
-                onClick={() => setPurpose('description')}
-              >
-                Description
-              </Radio.Button>
-              <Radio.Button
                 value="location"
                 onClick={() => setPurpose('location')}
               >
                 Location
+              </Radio.Button>
+              <Radio.Button
+                value="description"
+                onClick={() => setPurpose('description')}
+              >
+                Description
               </Radio.Button>
               <Radio.Button
                 value="subject"
@@ -188,22 +190,13 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
               >
                 Subject
               </Radio.Button>
-              <Radio.Button value="all" onClick={() => setPurpose('all')}>
-                Everything here
+              <Radio.Button
+                value="comment"
+                onClick={() => setPurpose('comment')}
+              >
+                Comment
               </Radio.Button>
             </Radio.Group>
-          </Form.Item>
-
-          <Form.Item
-            name="concept"
-            label="Why"
-            rules={[
-              {
-                required: false,
-              },
-            ]}
-          >
-            <Input />
           </Form.Item>
 
           <Form.Item
@@ -217,8 +210,20 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
 
           <Form.Item
             name="value"
-            label="Value"
+            label={'Add ' + selectedPurpose}
             hidden={selectedPurpose === 'date'}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="concept"
+            label="Notes"
             rules={[
               {
                 required: false,
