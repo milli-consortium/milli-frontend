@@ -99,7 +99,8 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
 
   const handleSubmit = (values: Record<string, any>) => {
     if (data?.findEntity) {
-      const { graphId: targetId, title: source } = data.findEntity;
+      const { graphId: targetId } = data.findEntity;
+      const source = 'https://app.milli.link/entities/' + targetId;
       const concept: any = new Object();
       concept['type'] = selectedPurpose;
       concept['value'] = values.notes;
@@ -107,6 +108,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
       console.log(
         'form Values: ',
         values,
+        source,
         JSON.stringify(concept) /*, isValidAnnotation(values)*/,
       );
 
