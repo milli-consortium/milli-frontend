@@ -22,6 +22,10 @@ export const addAnnotationMutation = gql`
       id
       type
       motivation
+      creator {
+        name
+        nickname
+      }
       body {
         ... on TextualBody {
           typ

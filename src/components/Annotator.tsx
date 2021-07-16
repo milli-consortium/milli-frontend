@@ -101,8 +101,8 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
     if (data?.findEntity) {
       const { graphId: targetId, title: source } = data.findEntity;
       const concept: any = new Object();
-      concept['type'] = 'concept';
-      concept[selectedPurpose] = values.concept;
+      concept['type'] = selectedPurpose;
+      concept['value'] = values.notes;
       // eslint-disable-next-line no-console
       console.log(
         'form Values: ',
@@ -222,7 +222,7 @@ const Annotator: React.FC<AnnotatorProps> = ({ data, updateAnno, visible }) => {
           </Form.Item>
 
           <Form.Item
-            name="concept"
+            name="notes"
             label="Notes"
             rules={[
               {
