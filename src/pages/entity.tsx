@@ -212,8 +212,11 @@ export default function EntityPage(props: EntityProps) {
                         dataSource={annotations}
                         renderItem={(item) => (
                           <List.Item key={item.graphId}>
-                            <div>{item.motivation}</div>
-                            <div>{item.body ? item.body[0].value : ''}</div>
+                            <div>
+                              Value: {item.body ? item.body[0].value : ''}
+                            </div>
+                            <div>Creator: {item.creator.nickname}</div>
+                            <div>Motivation: {item.motivation}</div>
                           </List.Item>
                         )}
                       />

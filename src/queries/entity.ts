@@ -43,6 +43,10 @@ export const entityQuery = gql`
         id
         type
         motivation
+        creator {
+          name
+          nickname
+        }
         body {
           ... on TextualBody {
             typ
