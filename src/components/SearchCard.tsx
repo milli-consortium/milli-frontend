@@ -39,15 +39,17 @@ const SearchCard = (props: SearchProps) => {
           ))}
         </h4>
         <h4>Date : {dateFormat(node.dateOfCreation)}</h4>
+        {node.annotations.length ? <h4>Annotations: </h4> : ''}
         {node.annotations.map((a) => {
           const { body } = a;
           const firstComment = body ? body[0] : null;
 
           return firstComment ? (
             <div key={a.graphId} className="annotationCard">
-              <div>Creator: {firstComment.creator}</div>
+              {/* <div>Creator: {firstComment.creator}</div>
               <div>Context: {a.context}</div>
-              <div>Motivation: {a.motivation}</div>
+              <div>Motivation: {a.motivation}</div> */}
+
               <div className="annotation-card__body">{firstComment.value}</div>
             </div>
           ) : (
