@@ -1,6 +1,6 @@
 import { NiosxData_searchCollections_edges_node } from '@/queries/types/NiosxData';
 import { ImageSize } from '@/types/graphql-global-types';
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/search.css';
 import { dateFormat } from '../utils/format';
 
@@ -14,6 +14,10 @@ type SearchProps = {
 const SearchCard = (props: SearchProps) => {
   const { node } = props;
   const thumbnail = node.images.find((i) => i.size === ImageSize.MEDIUM);
+  const [loaded, setLoaded] = useState(false);
+
+  const handleImageLoaded = () => setLoaded(true);
+
   return (
     <div className="cardHeight myCard">
       <div>
@@ -22,6 +26,8 @@ const SearchCard = (props: SearchProps) => {
             src={thumbnail.src}
             alt={thumbnail.alt ?? 'Alt-Text not found'}
             className="imageCard"
+            onLoad={handleImageLoaded}
+            style={loaded ? { display: 'inline-block' } : { display: 'none' }}
           />
         ) : (
           <img alt="placeholder" src={DEFAULT_IMAGE} className="imageCard" />
