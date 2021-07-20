@@ -129,7 +129,12 @@ export default function EntityPage(props: EntityProps) {
                                 {item.label}
                               </Col>
                               <Col className="gutter-row" span={20}>
-                                {item.value || 'Unknown'}
+                                {
+                                  // @ts-expect-error: ignore
+                                  item.value && item.value.trim()
+                                    ? item.value
+                                    : 'Unknown'
+                                }
                               </Col>
                             </Row>
                           </div>
