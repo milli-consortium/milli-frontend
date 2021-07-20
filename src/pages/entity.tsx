@@ -89,7 +89,7 @@ export default function EntityPage(props: EntityProps) {
   const objectFormatList = [
     { label: 'Language', value: 'English' },
     { label: 'Type', value: 'Photograph' },
-    { label: 'Rights', value: 'To be added' },
+    { label: 'Rights', value: '' },
     { label: 'Format', value: 'Computer print with images' },
   ];
 
@@ -129,7 +129,7 @@ export default function EntityPage(props: EntityProps) {
                                 {item.label}
                               </Col>
                               <Col className="gutter-row" span={20}>
-                                {item.value}
+                                {item.value || 'Unknown'}
                               </Col>
                             </Row>
                           </div>
@@ -164,7 +164,7 @@ export default function EntityPage(props: EntityProps) {
                                 {item.label}
                               </Col>
                               <Col className="gutter-row" span={20}>
-                                {item.value}
+                                {item.value || 'Unknown'}
                               </Col>
                             </Row>
                           </div>
@@ -191,7 +191,9 @@ export default function EntityPage(props: EntityProps) {
                     />
                     <List
                       header={
-                        <div className={styles.listHeading}>Access Points</div>
+                        <div className={styles.listHeading}>
+                          Access Points (Subject Headings)
+                        </div>
                       }
                       itemLayout="vertical"
                       bordered
@@ -212,11 +214,19 @@ export default function EntityPage(props: EntityProps) {
                         dataSource={annotations}
                         renderItem={(item) => (
                           <List.Item key={item.graphId}>
-                            <div>
-                              Value: {item.body ? item.body[0].value : ''}
+                            <div
+                              style={{
+                                borderBottom: '1px solid #eee',
+                                marginBottom: '8px',
+                              }}
+                            >
+                              Annotation Body:{' '}
+                              <i>{item.body ? item.body[0].value : 'Empty'}</i>
                             </div>
-                            <div>Creator: {item.creator.nickname}</div>
+                            <div>Author: {item.creator.name}</div>
+
                             <div>Motivation: {item.motivation}</div>
+                            <div>Agent: {item.creator.nickname}</div>
                           </List.Item>
                         )}
                       />
